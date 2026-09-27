@@ -1,15 +1,69 @@
-مكتبة القراء - القرآن الكريم
-<label for="reciters">اختر القارئ:</label>
-<select id="reciters"><option value="">جاري تحميل قائمة القراء...</option></select>
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مكتبة القراء - القرآن الكريم</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f7f6;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .container {
+            background-color: #ffffff;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            max-width: 450px;
+            width: 100%;
+            text-align: center;
+        }
+        h2 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+        }
+        select, audio {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+        audio {
+            margin-top: 20px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
 
-<label for="moshaf">اختر الرواية / المصحف:</label>
-<select id="moshaf" disabled><option value="">اختر القارئ أولاً</option></select>
+<div class="container">
+    <h2>مكتبة القراء - القرآن الكريم</h2>
+    
+    <select id="reciters">
+        <option value="">...جاري تحميل قائمة القراء</option>
+    </select>
 
-<label for="surahs">اختر السورة:</label>
-<select id="surahs" disabled><option value="">اختر الرواية أولاً</option></select>
+    <select id="moshaf" disabled>
+        <option value="">اختر الرواية / المصحف</option>
+    </select>
 
-<audio id="audioPlayer" controls style="display:none;"></audio>
+    <select id="surahs" disabled>
+        <option value="">اختر السورة</option>
+    </select>
 
+    <audio id="audioPlayer" controls></audio>
+</div>
+
+<script>
     const recitersSelect = document.getElementById('reciters');
     const moshafSelect = document.getElementById('moshaf');
     const surahsSelect = document.getElementById('surahs');
@@ -18,6 +72,7 @@
     let recitersData = [];
     let surahsNames = [];
 
+    // جلب قائمة السور
     fetch('https://mp3quran.net/api/v3/suwar?language=ar')
         .then(res => res.json())
         .then(data => {
@@ -27,7 +82,7 @@
         .then(res => res.json())
         .then(data => {
             recitersData = data.reciters;
-            recitersSelect.innerHTML = '<option value="">-- اختر القارئ --</option>';
+            recitersSelect.innerHTML = '<option value="">اختر القارئ</option>';
             recitersData.forEach((r, index) => {
                 recitersSelect.innerHTML += `<option value="${index}">${r.name}</option>`;
             });
@@ -36,51 +91,48 @@
             recitersSelect.innerHTML = '<option value="">حدث خطأ في تحميل البيانات</option>';
         });
 
+    // عند تغيير القارئ
     recitersSelect.addEventListener('change', (e) => {
         const reciterIndex = e.target.value;
         moshafSelect.disabled = true;
         surahsSelect.disabled = true;
         audioPlayer.style.display = 'none';
 
-        if (reciterIndex === "") return;
+        if (reciterIndex === '') return;
 
         const reciter = recitersData[reciterIndex];
-        moshafSelect.innerHTML = '<option value="">-- اختر الرواية --</option>';
-        
+        moshafSelect.innerHTML = '<option value="">اختر الرواية / المصحف</option>';
         reciter.moshaf.forEach((m, index) => {
             moshafSelect.innerHTML += `<option value="${index}">${m.name}</option>`;
         });
-
         moshafSelect.disabled = false;
     });
 
+    // عند تغيير الرواية/المصحف
     moshafSelect.addEventListener('change', (e) => {
         const reciterIndex = recitersSelect.value;
         const moshafIndex = e.target.value;
-
         surahsSelect.disabled = true;
         audioPlayer.style.display = 'none';
 
-        if (moshafIndex === "") return;
+        if (moshafIndex === '') return;
 
         const moshaf = recitersData[reciterIndex].moshaf[moshafIndex];
         const availableSurahs = moshaf.surah_list.split(',');
 
-        surahsSelect.innerHTML = '<option value="">-- اختر السورة --</option>';
-        
+        surahsSelect.innerHTML = '<option value="">اختر السورة</option>';
         availableSurahs.forEach(surahNum => {
             const surahId = parseInt(surahNum);
             const surahObj = surahsNames.find(s => s.id === surahId);
             const surahName = surahObj ? surahObj.name : `سورة ${surahNum}`;
             const formattedNum = surahNum.padStart(3, '0');
             const audioUrl = `${moshaf.server}${formattedNum}.mp3`;
-
             surahsSelect.innerHTML += `<option value="${audioUrl}">${surahId}. ${surahName}</option>`;
         });
-
         surahsSelect.disabled = false;
     });
 
+    // عند تغيير السورة
     surahsSelect.addEventListener('change', (e) => {
         if (e.target.value) {
             audioPlayer.src = e.target.value;
@@ -88,3 +140,7 @@
             audioPlayer.play();
         }
     });
+</script>
+
+</body>
+</html>
