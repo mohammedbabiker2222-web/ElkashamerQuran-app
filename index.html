@@ -1,0 +1,90 @@
+مكتبة القراء - القرآن الكريم
+<label for="reciters">اختر القارئ:</label>
+<select id="reciters"><option value="">جاري تحميل قائمة القراء...</option></select>
+
+<label for="moshaf">اختر الرواية / المصحف:</label>
+<select id="moshaf" disabled><option value="">اختر القارئ أولاً</option></select>
+
+<label for="surahs">اختر السورة:</label>
+<select id="surahs" disabled><option value="">اختر الرواية أولاً</option></select>
+
+<audio id="audioPlayer" controls style="display:none;"></audio>
+
+    const recitersSelect = document.getElementById('reciters');
+    const moshafSelect = document.getElementById('moshaf');
+    const surahsSelect = document.getElementById('surahs');
+    const audioPlayer = document.getElementById('audioPlayer');
+
+    let recitersData = [];
+    let surahsNames = [];
+
+    fetch('https://mp3quran.net/api/v3/suwar?language=ar')
+        .then(res => res.json())
+        .then(data => {
+            surahsNames = data.suwar;
+            return fetch('https://mp3quran.net/api/v3/reciters?language=ar');
+        })
+        .then(res => res.json())
+        .then(data => {
+            recitersData = data.reciters;
+            recitersSelect.innerHTML = '<option value="">-- اختر القارئ --</option>';
+            recitersData.forEach((r, index) => {
+                recitersSelect.innerHTML += `<option value="${index}">${r.name}</option>`;
+            });
+        })
+        .catch(err => {
+            recitersSelect.innerHTML = '<option value="">حدث خطأ في تحميل البيانات</option>';
+        });
+
+    recitersSelect.addEventListener('change', (e) => {
+        const reciterIndex = e.target.value;
+        moshafSelect.disabled = true;
+        surahsSelect.disabled = true;
+        audioPlayer.style.display = 'none';
+
+        if (reciterIndex === "") return;
+
+        const reciter = recitersData[reciterIndex];
+        moshafSelect.innerHTML = '<option value="">-- اختر الرواية --</option>';
+        
+        reciter.moshaf.forEach((m, index) => {
+            moshafSelect.innerHTML += `<option value="${index}">${m.name}</option>`;
+        });
+
+        moshafSelect.disabled = false;
+    });
+
+    moshafSelect.addEventListener('change', (e) => {
+        const reciterIndex = recitersSelect.value;
+        const moshafIndex = e.target.value;
+
+        surahsSelect.disabled = true;
+        audioPlayer.style.display = 'none';
+
+        if (moshafIndex === "") return;
+
+        const moshaf = recitersData[reciterIndex].moshaf[moshafIndex];
+        const availableSurahs = moshaf.surah_list.split(',');
+
+        surahsSelect.innerHTML = '<option value="">-- اختر السورة --</option>';
+        
+        availableSurahs.forEach(surahNum => {
+            const surahId = parseInt(surahNum);
+            const surahObj = surahsNames.find(s => s.id === surahId);
+            const surahName = surahObj ? surahObj.name : `سورة ${surahNum}`;
+            const formattedNum = surahNum.padStart(3, '0');
+            const audioUrl = `${moshaf.server}${formattedNum}.mp3`;
+
+            surahsSelect.innerHTML += `<option value="${audioUrl}">${surahId}. ${surahName}</option>`;
+        });
+
+        surahsSelect.disabled = false;
+    });
+
+    surahsSelect.addEventListener('change', (e) => {
+        if (e.target.value) {
+            audioPlayer.src = e.target.value;
+            audioPlayer.style.display = 'block';
+            audioPlayer.play();
+        }
+    });
