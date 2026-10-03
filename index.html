@@ -3,268 +3,291 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>استمع للقرآن الكريم | قارئ</title>
-    <!-- استدعاء خط عربي أنيق -->
-    <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+    <title>تلاوات القرآن الكريم - صدقة جارية</title>
     <style>
         :root {
-            --bg-color: #0d1b1e;
-            --card-bg: #132629;
-            --accent-gold: #e5c158;
-            --accent-gold-hover: #d4ae43;
-            --text-light: #e0e6ed;
-            --text-muted: #8a99a8;
-            --border-gold: rgba(229, 193, 88, 0.3);
+            --primary-color: #1b5e20;
+            --primary-hover: #2e7d32;
+            --bg-color: #f4f6f9;
+            --card-bg: #ffffff;
+            --text-color: #2c3e50;
+            --muted-color: #616161;
         }
 
         body {
-            font-family: 'Tajawal', sans-serif;
+            font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
             background-color: var(--bg-color);
-            background-image: radial-gradient(circle at center, #152d32 0%, #081113 100%);
-            color: var(--text-light);
-            margin: 0;
-            padding: 20px;
+            color: var(--text-color);
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            box-sizing: border-box;
-        }
-
-        .main-card {
-            background-color: transparent;
-            max-width: 420px;
-            width: 100%;
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 20px;
-        }
-
-        .subtitle {
-            color: var(--text-muted);
-            font-size: 1rem;
             margin: 0;
-            letter-spacing: 1px;
-        }
-
-        .logo-title {
-            font-family: 'Amiri', serif;
-            font-size: 3.5rem;
-            color: var(--accent-gold);
-            margin: -10px 0 0 0;
-            font-weight: bold;
-            text-shadow: 0 0 15px rgba(229, 193, 88, 0.2);
-        }
-
-        .description {
-            color: var(--text-muted);
-            font-size: 1.1rem;
-            margin: -10px 0 10px 0;
-        }
-
-        .fav-btn {
-            background: transparent;
-            border: 1px solid var(--border-gold);
-            color: var(--accent-gold);
-            padding: 8px 24px;
-            border-radius: 50px;
-            font-size: 0.95rem;
-            font-family: 'Tajawal', sans-serif;
-            cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            transition: all 0.3s ease;
-        }
-
-        .fav-btn:hover {
-            background: rgba(229, 193, 88, 0.1);
-        }
-
-        .verse-box {
-            margin: 25px 0;
-            padding: 15px;
-            width: 100%;
-        }
-
-        .verse-text {
-            font-family: 'Amiri', serif;
-            font-size: 1.6rem;
-            color: var(--accent-gold);
-            line-height: 1.8;
-            margin-bottom: 8px;
-        }
-
-        .verse-ref {
-            color: var(--text-muted);
-            font-size: 0.9rem;
-        }
-
-        .controls-wrapper {
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-
-        select {
-            width: 100%;
-            padding: 14px 18px;
-            background-color: var(--card-bg);
-            border: 1px solid var(--border-gold);
-            border-radius: 30px;
-            color: var(--text-light);
-            font-size: 1rem;
-            font-family: 'Tajawal', sans-serif;
-            outline: none;
+            padding: 1rem;
             box-sizing: border-box;
-            appearance: none;
-            -webkit-appearance: none;
-            text-align: center;
-            cursor: pointer;
         }
 
-        select:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
+        .card {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            width: 100%;
+            max-width: 500px;
+        }
+
+        h2 {
+            text-align: center;
+            color: var(--primary-color);
+            margin-top: 0;
+            margin-bottom: 1.5rem;
+            font-size: 1.6rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.2rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--text-color);
+            font-size: 0.95rem;
+        }
+
+        input, select, button {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border: 1px solid #dcdfe6;
+            border-radius: 8px;
+            box-sizing: border-box;
+            font-size: 0.95rem;
+            font-family: inherit;
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(27, 94, 32, 0.1);
+        }
+
+        .search-box {
+            background-color: #fafafa;
+        }
+
+        button {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+            margin-top: 0.5rem;
+        }
+
+        button:hover {
+            background-color: var(--primary-hover);
         }
 
         audio {
             width: 100%;
-            margin-top: 15px;
-            border-radius: 30px;
-            display: none;
+            margin-top: 1.5rem;
+            border-radius: 8px;
         }
 
-        footer {
-            margin-top: 30px;
-            font-size: 0.9rem;
-            color: var(--text-muted);
-            line-height: 1.8;
+        .count-badge {
+            font-size: 0.8rem;
+            color: var(--muted-color);
+            float: left;
+            font-weight: normal;
         }
 
-        .designer-tag {
-            color: var(--accent-gold);
-            font-weight: 500;
-            display: block;
-            margin-top: 5px;
+        /* تنسيق قسم الصدقة الجارية */
+        .dedication-box {
+            margin-top: 2rem;
+            padding-top: 1.2rem;
+            border-top: 1px border-dash #e0e0e0;
+            border-top-style: dashed;
+            text-align: center;
+            background-color: #f9fbe7;
+            padding: 1rem;
+            border-radius: 8px;
+        }
+
+        .dedication-title {
+            margin: 0;
+            font-weight: bold;
+            color: #1b5e20;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        .dedication-sub {
+            margin: 6px 0 0 0;
+            font-size: 0.85rem;
+            color: #558b2f;
+            line-height: 1.4;
         }
     </style>
 </head>
 <body>
 
-<div class="main-card">
-    <div class="subtitle">استمع للقرآن الكريم</div>
-    <h1 class="logo-title">قَـارِئ</h1>
-    <div class="description">اختر قارئك، واسمع كتاب الله في أي مكان</div>
-
-    <button class="fav-btn">
-        <span>★</span> مفضلتي
-    </button>
-
-    <div class="verse-box">
-        <div class="verse-text">﴿ إِنَّا نَحْنُ نَزَّلْنَا الذِّكْرَ وَإِنَّا لَهُ لَحَافِظُونَ ﴾</div>
-        <div class="verse-ref">سورة الحجر – ٩</div>
+<div class="card">
+    <h2>القرآن الكريم - المكتبة الصوتية</h2>
+    
+    <!-- البحث واختيار القارئ -->
+    <div class="form-group">
+        <label for="searchInput">
+            البحث عن قارئ:
+            <span id="reciterCount" class="count-badge"></span>
+        </label>
+        <input 
+            type="text" 
+            id="searchInput" 
+            class="search-box" 
+            placeholder="اكتب اسم القارئ (مثال: العفاسي، المعيقلي)..."
+            oninput="filterReciters()"
+        >
+        
+        <select id="reciterSelect" size="4" style="margin-top: 6px;">
+            <option>جاري تحميل قائمة القراء...</option>
+        </select>
     </div>
 
-    <div class="controls-wrapper">
-        <select id="reciters">
-            <option value="">...جاري تحميل قائمة القراء</option>
+    <!-- اختيار السورة -->
+    <div class="form-group">
+        <label for="chapterSelect">اختر السورة:</label>
+        <select id="chapterSelect">
+            <!-- يتم تعبئة السور تلقائياً عبر JavaScript -->
         </select>
-
-        <select id="moshaf" disabled>
-            <option value="">اختر الرواية / المصحف</option>
-        </select>
-
-        <select id="surahs" disabled>
-            <option value="">اختر السورة</option>
-        </select>
-
-        <audio id="audioPlayer" controls></audio>
     </div>
 
-    <footer>
-     صدقة جارية لروح المغفور له بإذن الله محمد العتيبي له الرحمة  والمغفرة  والعتق من النار<br>
-        <span class="designer-tag">تصميم: محمد بابكر الطيب © 2026</span>
-    </footer>
+    <button onclick="playRecitation()">تشغيل التلاوة</button>
+
+    <!-- مشغل الصوت -->
+    <audio id="audioPlayer" controls style="display: none;"></audio>
+
+    <!-- إهداء الصدقة الجارية -->
+    <div class="dedication-box">
+        <p class="dedication-title">
+            صدقة جارية عن روح الوالد / بابكر الطيب محمد علي
+            <br>
+            <span style="font-weight: normal; font-size: 0.85rem;">(طيب الله ثراه وجعل الجنة مثواه)</span>
+        </p>
+        <p class="dedication-sub">
+            اللهم اجعل القرآن الكريم ربيع قلبه ونوراً له في قبره ورأفةً ورحمه.
+        </p>
+    </div>
 </div>
 
 <script>
-    const recitersSelect = document.getElementById('reciters');
-    const moshafSelect = document.getElementById('moshaf');
-    const surahsSelect = document.getElementById('surahs');
-    const audioPlayer = document.getElementById('audioPlayer');
+    const BASE_URL = 'https://api.quran.com/api/v4';
+    let allReciters = [];
 
-    let recitersData = [];
-    let surahsNames = [];
+    // أسماء سور القرآن الكريم الـ 114
+    const surahs = [
+        "الفاتحة", "البقرة", "آل عمران", "النساء", "المائدة", "الأنعام", "الأعراف", "الأنفال", "التوبة", "يونس",
+        "هود", "يوسف", "الرعد", "إبراهيم", "الحجر", "النحل", "الإسراء", "الكهف", "مريم", "طه",
+        "الأنبياء", "الحج", "المؤمنون", "النُور", "الفرقان", "الشعراء", "النمل", "القصص", "العنكبوت", "الروم",
+        "لقمان", "السجدة", "الأحزاب", "سبأ", "فاطر", "يس", "الصافات", "ص", "الزمر", "غافر",
+        "فصلت", "الشورى", "الزخرف", "الدخان", "الجاثية", "الأحقاف", "محمد", "الفتح", "الحجرات", "ق",
+        "الذاريات", "الطور", "النجم", "القمر", "الرحمن", "الواقعة", "الحديد", "المجادلة", "الحشر", "الممتحنة",
+        "الصف", "الجمعة", "المنافقون", "التغابن", "الطلاق", "التحريم", "الملك", "القلم", "الحاقة", "المعارج",
+        "نوح", "الجن", "المزمل", "المدثر", "القيامة", "الإنسان", "المرسلات", "النبأ", "النازعات", "عبس",
+        "التكوير", "الانفطار", "المطففين", "الانشقاق", "البروج", "الطارق", "الأعلى", "الغاشية", "الفجر", "البلد",
+        "الشمس", "الليل", "الضحى", "الشرح", "التين", "العلق", "القدر", "البينة", "الزلزلة", "العاديات",
+        "القارعة", "التكاثر", "العصر", "الهمزة", "الفيل", "قريش", "المواعون", "الكوثر", "الكافرون", "النصر",
+        "المسد", "الإخلاص", "الفلق", "الناس"
+    ];
 
-    // جلب قائمة السور والقراء
-    fetch('https://mp3quran.net/api/v3/suwar?language=ar')
-        .then(res => res.json())
-        .then(data => {
-            surahsNames = data.suwar;
-            return fetch('https://mp3quran.net/api/v3/reciters?language=ar');
-        })
-        .then(res => res.json())
-        .then(data => {
-            recitersData = data.reciters;
-            recitersSelect.innerHTML = '<option value="">اختر القارئ</option>';
-            recitersData.forEach((r, index) => {
-                recitersSelect.innerHTML += `<option value="${index}">${r.name}</option>`;
-            });
-        })
-        .catch(err => {
-            recitersSelect.innerHTML = '<option value="">حدث خطأ في تحميل البيانات</option>';
+    // 1. تعبئة قائمة السور
+    function loadSurahs() {
+        const select = document.getElementById('chapterSelect');
+        select.innerHTML = '';
+        surahs.forEach((name, index) => {
+            const option = document.createElement('option');
+            option.value = index + 1; // رقم السورة من 1 إلى 114
+            option.textContent = `${index + 1}. سورة ${name}`;
+            select.appendChild(option);
         });
+    }
 
-    recitersSelect.addEventListener('change', (e) => {
-        const reciterIndex = e.target.value;
-        moshafSelect.disabled = true;
-        surahsSelect.disabled = true;
-        audioPlayer.style.display = 'none';
-
-        if (reciterIndex === '') return;
-
-        const reciter = recitersData[reciterIndex];
-        moshafSelect.innerHTML = '<option value="">اختر الرواية / المصحف</option>';
-        reciter.moshaf.forEach((m, index) => {
-            moshafSelect.innerHTML += `<option value="${index}">${m.name}</option>`;
-        });
-        moshafSelect.disabled = false;
-    });
-
-    moshafSelect.addEventListener('change', (e) => {
-        const reciterIndex = recitersSelect.value;
-        const moshafIndex = e.target.value;
-        surahsSelect.disabled = true;
-        audioPlayer.style.display = 'none';
-
-        if (moshafIndex === '') return;
-
-        const moshaf = recitersData[reciterIndex].moshaf[moshafIndex];
-        const availableSurahs = moshaf.surah_list.split(',');
-
-        surahsSelect.innerHTML = '<option value="">اختر السورة</option>';
-        availableSurahs.forEach(surahNum => {
-            const surahId = parseInt(surahNum);
-            const surahObj = surahsNames.find(s => s.id === surahId);
-            const surahName = surahObj ? surahObj.name : `سورة ${surahNum}`;
-            const formattedNum = surahNum.padStart(3, '0');
-            const audioUrl = `${moshaf.server}${formattedNum}.mp3`;
-            surahsSelect.innerHTML += `<option value="${audioUrl}">${surahId}. ${surahName}</option>`;
-        });
-        surahsSelect.disabled = false;
-    });
-
-    surahsSelect.addEventListener('change', (e) => {
-        if (e.target.value) {
-            audioPlayer.src = e.target.value;
-            audioPlayer.style.display = 'block';
-            audioPlayer.play();
+    // 2. جلب قائمة القراء
+    async function loadReciters() {
+        const select = document.getElementById('reciterSelect');
+        try {
+            const res = await fetch(`${BASE_URL}/resources/recitations`);
+            const data = await res.json();
+            
+            allReciters = data.recitations || [];
+            renderReciters(allReciters);
+        } catch (err) {
+            select.innerHTML = '<option disabled>فشل تحميل قائمة القراء</option>';
         }
-    });
+    }
+
+    // 3. عرض القراء
+    function renderReciters(list) {
+        const select = document.getElementById('reciterSelect');
+        const countBadge = document.getElementById('reciterCount');
+        select.innerHTML = '';
+
+        countBadge.textContent = `${list.length} قارئ`;
+
+        if (list.length === 0) {
+            select.innerHTML = '<option disabled>لا يوجد قارئ بهذا الاسم</option>';
+            return;
+        }
+
+        list.forEach((r, index) => {
+            const option = document.createElement('option');
+            option.value = r.id;
+            option.textContent = `${r.reciter_name} ${r.style ? '(' + r.style + ')' : ''}`;
+            if (index === 0) option.selected = true; 
+            select.appendChild(option);
+        });
+    }
+
+    // 4. تصفية القراء بالبحث
+    function filterReciters() {
+        const query = document.getElementById('searchInput').value.trim().toLowerCase();
+        const filtered = allReciters.filter(r => 
+            r.reciter_name.toLowerCase().includes(query)
+        );
+        renderReciters(filtered);
+    }
+
+    // 5. جلب الصوت وتشغيله
+    async function playRecitation() {
+        const reciterId = document.getElementById('reciterSelect').value;
+        const chapterId = document.getElementById('chapterSelect').value;
+        const player = document.getElementById('audioPlayer');
+
+        if (!reciterId) {
+            alert('يرجى اختيار قارئ من القائمة.');
+            return;
+        }
+
+        try {
+            const res = await fetch(`${BASE_URL}/chapter_recitations/${reciterId}/${chapterId}`);
+            const data = await res.json();
+            
+            if (data.audio_file && data.audio_file.audio_url) {
+                player.src = data.audio_file.audio_url;
+                player.style.display = 'block';
+                player.play();
+            } else {
+                alert('التلاوة غير متوفرة لهذا القارئ والسورة.');
+            }
+        } catch (err) {
+            alert('حدث خطأ أثناء الاتصال بالخادم.');
+        }
+    }
+
+    // تشغيل الإعدادات الأولية
+    loadSurahs();
+    loadReciters();
 </script>
 
 </body>
