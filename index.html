@@ -30,9 +30,11 @@
             margin-top: 0;
             margin-bottom: 1.5rem;
             font-size: 1.5rem;
+            line-height: 1.3;
         }
         .form-group {
             margin-bottom: 1.2rem;
+            position: relative;
         }
         label {
             display: block;
@@ -58,13 +60,23 @@
             margin-bottom: 0.5rem;
             background-color: #f8f9fa;
         }
+        /* ضبط قائمة الاختيار لتظهر بشكل منظم كما في الصورة */
         select[size] {
-            height: auto;
-            max-height: 180px;
+            height: 160px;
+            overflow-y: auto;
+            background-color: #ffffff;
+            border: 1px solid #ccc;
         }
         option {
             padding: 8px 10px;
             text-align: right;
+            border-bottom: 1px solid #f0f0f0;
+            white-space: normal;
+            word-wrap: break-word;
+        }
+        option:hover, option:checked {
+            background-color: #e8f5e9 !important;
+            color: #1b4332;
         }
         button {
             background-color: #1b4332;
@@ -172,199 +184,107 @@
         "الفاتحة", "البقرة", "آل عمران", "النساء", "المائدة", "الأنعام", "الأعراف", "الأنفال", "التوبة", "يونس",
         "هود", "يوسف", "الرعد", "إبراهيم", "الحجر", "النحل", "الإسراء", "الكهف", "مريم", "طه",
         "الأنبياء", "الحج", "المؤمنون", "النور", "الفرقان", "الشعراء", "النمل", "القصص", "العنكبوت", "الروم",
-        "لقمان", "السالسبب في ذلك أن الكود السابق يعتمد على جلب قائمة القراء باللغة الإنجليزية كإنشائية افتراضية من خادم API الخاص بموقع Quran.com، كما أن استخدام الوسم `<select size="5">` يجعل القائمة تظهر كصندوق مفتوح داخل الصفحة بدلاً من قائمة منسدلة أنيقة.
-
-إليك الكود المعدل بالكامل؛ حيث تم تغيير لغة واجهة Quran.com API لإرجاع **أسماء القراء باللغة العربية**، وتعديل اختيار القارئ ليكون **قائمة منسدلة حديثة وتفاعلية (Autocomplete Dropdown)** تفتح فقط عند النقر أو الكتابة:
-
-```html
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>تلاوات القرآن الكريم - صدقة جارية</title>
-    <style>
-        body {
-            font-family: system-ui, -apple-system, sans-serif;
-            background-color: #f4f6f9;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            margin: 0;
-            padding: 1rem;
-            box-sizing: border-box;
-        }
-        .card {
-            background: #ffffff;
-            padding: 2rem;
-            border-radius: 16px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-            width: 100%;
-            max-width: 480px;
-        }
-        h2 {
-            text-align: center;
-            color: #1b4332;
-            margin-top: 0;
-            margin-bottom: 1.5rem;
-            font-size: 1.4rem;
-        }
-        .form-group {
-            margin-bottom: 1.2rem;
-            position: relative;
-        }
-        label {
-            display: block;
-            margin-bottom: 0.5rem;
-            font-weight: bold;
-            color: #2d6a4f;
-        }
-        input, select, button {
-            width: 100%;
-            padding: 0.75rem;
-            border: 1px solid #d8f3dc;
-            border-radius: 8px;
-            box-sizing: border-box;
-            font-size: 0.95rem;
-        }
-        input:focus, select:focus {
-            outline: none;
-            border-color: #2d6a4f;
-            box-shadow: 0 0 0 2px rgba(45, 106, 79, 0.2);
-        }
-        /* قائمة نتائج البحث للـ Auto-complete */
-        .dropdown-list {
-            position: absolute;
-            top: 100%;
-            left: 0;
-            right: 0;
-            background: white;
-            border: 1px solid #2d6a4f;
-            border-radius: 8px;
-            max-height: 200px;
-            overflow-y: auto;
-            z-index: 1000;
-            display: none;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-            margin-top: 4px;
-        }
-        .dropdown-item {
-            padding: 10px 12px;
-            cursor: pointer;
-            border-bottom: 1px solid #f0f0f0;
-            font-size: 0.95rem;
-        }
-        .dropdown-item:hover {
-            background-color: #e8f5e9;
-            color: #1b4332;
-        }
-        button {
-            background-color: #1b4332;
-            color: white;
-            border: none;
-            font-weight: bold;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: background 0.2s;
-            margin-top: 0.5rem;
-            padding: 0.85rem;
-            border-radius: 8px;
-        }
-        button:hover {
-            background-color: #2d6a4f;
-        }
-        audio {
-            width: 100%;
-            margin-top: 1.5rem;
-            border-radius: 8px;
-        }
-        /* تصميم الصدقة الجارية */
-        .charity-footer {
-            margin-top: 2rem;
-            padding-top: 1.2rem;
-            border-top: 1px dashed #b7e4c7;
-            text-align: center;
-            background-color: #f7fad7;
-            border-radius: 8px;
-            padding: 1rem;
-        }
-        .charity-title {
-            margin: 0;
-            font-weight: bold;
-            color: #1b4332;
-            font-size: 0.95rem;
-            line-height: 1.6;
-        }
-        .charity-sub {
-            margin: 6px 0 0 0;
-            font-size: 0.85rem;
-            color: #40916c;
-            line-height: 1.5;
-        }
-    </style>
-</head>
-<body>
-
-<div class="card">
-    <h2>القرآن الكريم - المكتبة الصوتية</h2>
-    
-    <!-- قسم البحث واختيار القارئ (قائمة منسدلة تفاعلية باللغة العربية) -->
-    <div class="form-group">
-        <label for="searchInput">البحث عن قارئ:</label>
-        <input 
-            type="text" 
-            id="searchInput" 
-            placeholder="اكتب اسم القارئ (مثال: العفاسي، الحصري)..."
-            oninput="filterReciters()"
-            onfocus="showDropdown()"
-            autocomplete="off"
-        >
-        <div id="dropdownList" class="dropdown-list"></div>
-    </div>
-
-    <!-- قسم اختيار السورة -->
-    <div class="form-group">
-        <label for="chapterSelect">اختر السورة:</label>
-        <select id="chapterSelect"></select>
-    </div>
-
-    <!-- زر التشغيل والمشغل الصوتي -->
-    <button onclick="playRecitation()">تشغيل التلاوة</button>
-    <audio id="audioPlayer" controls style="display: none;"></audio>
-
-    <!-- إهداء الصدقة الجارية -->
-    <div class="charity-footer">
-        <p class="charity-title">
-            صدقة جارية عن روح الوالد / بابكر الطيب محمد علي
-            <br>
-            <span style="font-weight: normal; font-size: 0.85rem;">(طيب الله ثراه وجعل الجنة مثواه)</span>
-        </p>
-        <p class="charity-sub">
-            اللهم اجعل القرآن الكريم ربيع قلبه ونوراً له في قبره ورأفة ورحمة.
-        </p>
-    </div>
-</div>
-
-<script>
-    const BASE_URL = '[https://api.quran.com/api/v4](https://api.quran.com/api/v4)';
-    let allReciters = [];
-    let selectedReciterId = null;
-
-    // قائمة السور باللغة العربية
-    const surahs = [
-        "الفاتحة","البقرة","آل عمران","النساء","المائدة","الأنعام","الأعراف","الأنفال","التوبة","يونس",
-        "هود","يوسف","الرعد","إبراهيم","الحجر","النحل","الإسراء","الكهف","مريم","طه",
-        "الأنبياء","الحج","المؤمنون","النور","الفرقان","الشعراء","النمل","القصص","العنكبوت","الروم",
-        "لقمان","السجدة","الأحزاب","سبأ","فاطر","يس","الصافات","ص","الزمر","غافر",
-        "فصلت","الشورى","الزخرف","الدخان","الجاثية","الأحقاف","محمد","الفتح","الحجرات","ق",
-        "الذاريات","الطور","النجم","القمر","الرحمن","الواقعة","الحديد","المجادلة","الحشر","الممتحنة",
-        "الصف","الجمعة","المنافقون","التغابن","الطلاق","التحريم","الملك","القلم","الحاقة","المعارج",
-        "نوح","الجن","المزمل","المدثر","القيامة","الإنسان","المرسلات","النبأ","النازعات","عبس",
-        "التكوير","الإنفطار","المطففين","الإنشقاق","البروج","الطارق","الأعلى","الغاشية","الفجر","البلد",
-        "الشمس","الليل","الضحى","الشرح","التين","العلق","القدر","البينة","الزلزلة","العاديات",
-        "القارعة","التكاثر","العصر","الهمزة","الفيل","قريش","المعون","الكوثر","الكافرون","النصر",
-        "المسد","الإخلاص","الفلق","الناس"
+        "لقمان", "السجدة", "الأحزاب", "سبأ", "فاطر", "يس", "الصافات", "ص", "الزمر", "غافر",
+        "فصلت", "الشورى", "الزخرف", "الدخان", "الجاثية", "الأحقاف", "محمد", "الفتح", "الحجرات", "ق",
+        "الذاريات", "الطور", "النجم", "القمر", "الرحمن", "الواقعة", "الحديد", "المجادلة", "الحشر", "الممتحنة",
+        "الصف", "الجمعة", "المنافقون", "التغابن", "الطلاق", "التحريم", "الملك", "القلم", "الحاقة", "المعارج",
+        "نوح", "الجن", "المزمل", "المدثر", "القيامة", "الإنسان", "المرسلات", "النبأ", "النازعات", "عبس",
+        "التكوير", "الإنفطار", "المطففين", "الإنشقاق", "البروج", "الطارق", "الأعلى", "الغاشية", "الفجر", "البلد",
+        "الشمس", "الليل", "الضحى", "الشرح", "التين", "العلق", "القدر", "البينة", "الزلزلة", "العاديات",
+        "القارعة", "التكاثر", "العصر", "الهمزة", "الفيل", "قريش", "المعون", "الكوثر", "الكافرون", "النصر",
+        "المسد", "الإخلاص", "الفلق", "الناس"
     ];
 
-    // 1. تحميل قائمة السور في الق
+    // 1. تحميل قائمة السور
+    function loadSurahs() {
+        const select = document.getElementById('chapterSelect');
+        select.innerHTML = '';
+        surahs.forEach((name, index) => {
+            const option = document.createElement('option');
+            option.value = index + 1;
+            option.textContent = `${index + 1}. سورة ${name}`;
+            select.appendChild(option);
+        });
+    }
+
+    // 2. تحميل القراء باللغة العربية
+    async function loadReciters() {
+        try {
+            const res = await fetch(`${BASE_URL}/resources/recitations?language=ar`);
+            const data = await res.json();
+            
+            allReciters = data.recitations || [];
+            renderReciters(allReciters);
+        } catch (err) {
+            document.getElementById('reciterSelect').innerHTML = '<option disabled>فشل تحميل قائمة القراء</option>';
+        }
+    }
+
+    // 3. عرض القراء داخل القائمة
+    function renderReciters(list) {
+        const select = document.getElementById('reciterSelect');
+        const countBadge = document.getElementById('reciterCount');
+        select.innerHTML = '';
+
+        countBadge.textContent = `${list.length} قارئ`;
+
+        if (list.length === 0) {
+            select.innerHTML = '<option disabled>لا يوجد قارئ بهذا الاسم</option>';
+            return;
+        }
+
+        list.forEach((r, index) => {
+            const option = document.createElement('option');
+            option.value = r.id;
+            const reciterName = r.translated_name ? r.translated_name.name : r.reciter_name;
+            const style = r.style ? ` (${r.style})` : '';
+            option.textContent = reciterName + style;
+            if (index === 0) option.selected = true;
+            select.appendChild(option);
+        });
+    }
+
+    // 4. فلترة القراء عند البحث
+    function filterReciters() {
+        const query = document.getElementById('searchInput').value.trim().toLowerCase();
+        const filtered = allReciters.filter(r => {
+            const name = r.translated_name ? r.translated_name.name : r.reciter_name;
+            return name.toLowerCase().includes(query) || r.reciter_name.toLowerCase().includes(query);
+        });
+        renderReciters(filtered);
+    }
+
+    // 5. جلب وتشغيل الصوت
+    async function playRecitation() {
+        const reciterId = document.getElementById('reciterSelect').value;
+        const chapterId = document.getElementById('chapterSelect').value;
+        const player = document.getElementById('audioPlayer');
+
+        if (!reciterId) {
+            alert('يرجى اختيار قارئ من القائمة.');
+            return;
+        }
+
+        try {
+            const res = await fetch(`${BASE_URL}/chapter_recitations/${reciterId}/${chapterId}`);
+            const data = await res.json();
+            
+            if (data.audio_file && data.audio_file.audio_url) {
+                player.src = data.audio_file.audio_url;
+                player.style.display = 'block';
+                player.play();
+            } else {
+                alert('التلاوة غير متوفرة لهذا القارئ/السورة.');
+            }
+        } catch (err) {
+            alert('حدث خطأ أثناء الاتصال بالخادم.');
+        }
+    }
+
+    // التهيئة عند فتح الصفحة
+    loadSurahs();
+    loadReciters();
+</script>
+
+</body>
+</html>
