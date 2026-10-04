@@ -9,13 +9,13 @@
       box-sizing: border-box; 
     }
 
-    /* ========================= خلفية الموقع المدمجة ========================= */
+    /* ========================= خلفية الموقع ========================= */
     body {
       font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-      /* دمج خلفية المصحف مع طبقة شفافة ناعمة لضمان وضوح النصوص */
+      /* استخدام الصورة المرفوعة على GitHub تحت اسم bg.jpg مع طبقة تظليل داكنة للياقة والوضوح */
       background: 
-        linear-gradient(rgba(3, 35, 25, 0.75), rgba(2, 28, 20, 0.85)),
-        url('watermarked_img_3246701254423638061.jpg') center/cover no-repeat fixed;
+        linear-gradient(rgba(3, 35, 25, 0.78), rgba(2, 28, 20, 0.88)),
+        url('bg.jpg') center/cover no-repeat fixed;
       min-height: 100vh;
       margin: 0;
       padding: 15px 10px;
@@ -38,7 +38,7 @@
       margin: auto;
     }
 
-    /* ========================= لوحة التاريخ والوقت (مصغرة) ========================= */
+    /* ========================= لوحة التاريخ والوقت (مصغرة ومدمجة) ========================= */
     .datetime-box {
       background: linear-gradient(135deg, #064e3b, #047857);
       color: white;
@@ -254,7 +254,7 @@
 <body>
 
   <div class="card">
-    <!-- ========================= التاريخ والوقت (مصغرة) ========================= -->
+    <!-- ========================= التاريخ والوقت ========================= -->
     <div class="datetime-box">
       <div>
         <span class="clock" id="clock">00:00:00</span>
