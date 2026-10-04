@@ -3,465 +3,1444 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>القرآن الكريم - المكتبة الصوتية الشاملة</title>
+
   <style>
-    * { 
-      box-sizing: border-box; 
+
+    * {
+      box-sizing: border-box;
     }
 
-    /* ========================= خلفية الموقع ========================= */
+    /* =========================
+       خلفية الموقع
+    ========================= */
+
     body {
       font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-      /* رابط مباشر لخلفية إسلامية تعمل تلقائياً دون الحاجة لرفع صورة جانبية */
-      background: 
-        linear-gradient(rgba(3, 35, 25, 0.78), rgba(2, 28, 20, 0.88)),
-        url('https://images.unsplash.com/photo-1584551246679-0daf3d275d0f?q=80&w=1200&auto=format&fit=crop') center/cover no-repeat fixed;
+
+      background:
+        linear-gradient(
+          rgba(3, 35, 25, 0.78),
+          rgba(2, 28, 20, 0.88)
+        ),
+        url('bg.jpg') center/cover no-repeat fixed;
+
       min-height: 100vh;
       margin: 0;
       padding: 15px 10px;
+
       color: #173b2d;
+
       display: flex;
       justify-content: center;
       align-items: center;
     }
 
-    /* ========================= البطاقة الرئيسية ========================= */
+
+    /* =========================
+       البطاقة الرئيسية
+    ========================= */
+
     .card {
-      background: rgba(255, 255, 255, 0.94);
+
+      background: rgba(255,255,255,0.95);
+
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
+
       padding: 18px 20px;
+
       border-radius: 20px;
-      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.3) inset;
+
+      box-shadow:
+        0 15px 40px rgba(0,0,0,0.4),
+        0 0 0 1px rgba(255,255,255,0.3) inset;
+
       width: 100%;
       max-width: 480px;
+
       margin: auto;
     }
 
-    /* ========================= لوحة التاريخ والوقت ========================= */
+
+    /* =========================
+       الساعة والتاريخ
+    ========================= */
+
     .datetime-box {
-      background: linear-gradient(135deg, #064e3b, #047857);
+
+      background:
+        linear-gradient(
+          135deg,
+          #064e3b,
+          #047857
+        );
+
       color: white;
+
       border-radius: 12px;
+
       padding: 8px 10px;
+
       text-align: center;
+
       margin-bottom: 15px;
-      box-shadow: 0 4px 12px rgba(4, 120, 87, 0.25);
-      border: 1px solid rgba(255, 255, 255, 0.15);
+
+      box-shadow:
+        0 4px 12px rgba(4,120,87,0.25);
+
+      border:
+        1px solid rgba(255,255,255,0.15);
     }
+
 
     .clock {
+
       font-size: 1.35rem;
+
       font-weight: bold;
+
       letter-spacing: 1px;
+
       direction: ltr;
+
       display: inline-block;
     }
 
+
     .period {
+
       font-size: 0.85rem;
+
       display: inline-block;
+
       margin-right: 4px;
+
       opacity: 0.9;
     }
 
+
     .dates-container {
+
       display: flex;
+
       justify-content: space-between;
+
       align-items: center;
+
       margin-top: 4px;
+
       padding-top: 4px;
-      border-top: 1px solid rgba(255, 255, 255, 0.15);
+
+      border-top:
+        1px solid rgba(255,255,255,0.15);
+
       font-size: 0.78rem;
     }
 
+
     .date-gregorian {
+
       font-weight: 600;
     }
 
+
     .date-hijri {
+
       color: #d1fae5;
     }
 
-    /* ========================= العنوان ========================= */
+
+    /* =========================
+       العنوان
+    ========================= */
+
     h2 {
+
       text-align: center;
+
       color: #064e3b;
+
       margin-top: 2px;
+
       margin-bottom: 16px;
+
       font-size: 1.25rem;
+
       line-height: 1.35;
+
       font-weight: 800;
     }
 
+
     .quran-icon {
+
       font-size: 1.8rem;
+
       display: block;
+
       margin-bottom: 2px;
     }
 
-    /* ========================= الحقول ========================= */
+
+    /* =========================
+       الحقول
+    ========================= */
+
     .form-group {
+
       margin-bottom: 1rem;
+
       position: relative;
     }
 
+
     label {
+
       display: block;
+
       margin-bottom: 6px;
+
       font-weight: 700;
+
       color: #064e3b;
+
       font-size: 0.9rem;
     }
 
-    input, select, button {
+
+    input,
+    select,
+    button {
+
       width: 100%;
+
       padding: 10px 12px;
+
       border-radius: 10px;
+
       box-sizing: border-box;
+
       font-size: 0.9rem;
+
       font-family: inherit;
     }
 
-    input, select {
-      border: 1.5px solid #a7f3d0;
+
+    input,
+    select {
+
+      border:
+        1.5px solid #a7f3d0;
+
       background: #ffffff;
+
       color: #064e3b;
+
       transition: all 0.2s ease;
     }
 
-    input:focus, select:focus {
+
+    input:focus,
+    select:focus {
+
       outline: none;
+
       border-color: #059669;
-      box-shadow: 0 0 0 3px rgba(5, 150, 105, 0.15);
+
+      box-shadow:
+        0 0 0 3px rgba(5,150,105,0.15);
     }
 
+
     .search-box {
+
       margin-bottom: 6px;
+
       background-color: #f0fdf4;
     }
 
+
     select[size] {
+
       height: 150px;
+
       overflow-y: auto;
+
       background-color: #ffffff;
     }
 
+
     option {
+
       padding: 8px 10px;
+
       text-align: right;
-      border-bottom: 1px solid #f0fdf4;
+
+      border-bottom:
+        1px solid #f0fdf4;
+
       white-space: normal;
+
       word-wrap: break-word;
+
       border-radius: 4px;
     }
 
-    option:hover, option:checked {
+
+    option:checked {
+
       background-color: #d1fae5 !important;
+
       color: #065f46;
+
       font-weight: 600;
     }
 
-    /* ========================= زر التشغيل ========================= */
-    button {
-      background: linear-gradient(135deg, #059669, #047857);
-      color: white;
-      border: none;
-      font-weight: bold;
-      font-size: 0.95rem;
-      cursor: pointer;
-      transition: all 0.25s ease;
-      margin-top: 4px;
-      padding: 12px;
-      border-radius: 10px;
-      box-shadow: 0 4px 12px rgba(5, 150, 105, 0.3);
+
+    /* =========================
+       بطاقة الصورة + التشغيل
+    ========================= */
+
+    .player-card {
+
+      display: flex;
+
+      align-items: center;
+
+      gap: 12px;
+
+      margin-top: 12px;
+
+      padding: 10px;
+
+      background:
+        linear-gradient(
+          135deg,
+          #f0fdf4,
+          #ecfdf5
+        );
+
+      border:
+        1px solid #a7f3d0;
+
+      border-radius: 14px;
+
+      box-shadow:
+        0 4px 12px rgba(0,0,0,0.08);
     }
 
-    button:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 6px 16px rgba(5, 150, 105, 0.4);
-      background: linear-gradient(135deg, #10b981, #059669);
+
+    /* صورة القارئ */
+
+    .reciter-image {
+
+      width: 82px;
+
+      height: 82px;
+
+      flex-shrink: 0;
+
+      border-radius: 12px;
+
+      object-fit: cover;
+
+      border:
+        2px solid #059669;
+
+      box-shadow:
+        0 3px 8px rgba(0,0,0,0.15);
+
+      background: #064e3b;
     }
 
-    button:active {
-      transform: translateY(0);
+
+    /* منطقة الأزرار */
+
+    .player-buttons {
+
+      flex: 1;
+
+      display: flex;
+
+      flex-direction: column;
+
+      gap: 8px;
     }
 
-    /* ========================= المشغل ========================= */
-    audio {
+
+    .play-button,
+    .stop-button {
+
       width: 100%;
-      margin-top: 14px;
-      border-radius: 8px;
-    }
 
-    .count-badge {
-      font-size: 0.75rem;
-      color: #059669;
-      background: #ecfdf5;
-      padding: 2px 6px;
+      margin: 0;
+
+      border: none;
+
+      color: white;
+
+      font-weight: bold;
+
+      cursor: pointer;
+
+      transition: 0.2s;
+
+      padding: 11px;
+
       border-radius: 10px;
-      float: left;
-      font-weight: normal;
     }
 
-    /* ========================= الصدقة الجارية ========================= */
-    .charity-footer {
-      margin-top: 18px;
-      padding: 12px;
-      border: 1px dashed #a7f3d0;
+
+    .play-button {
+
+      background:
+        linear-gradient(
+          135deg,
+          #059669,
+          #047857
+        );
+    }
+
+
+    .play-button:hover {
+
+      background:
+        linear-gradient(
+          135deg,
+          #10b981,
+          #059669
+        );
+
+      transform: translateY(-1px);
+    }
+
+
+    .stop-button {
+
+      background:
+        linear-gradient(
+          135deg,
+          #64748b,
+          #475569
+        );
+    }
+
+
+    .stop-button:hover {
+
+      background:
+        linear-gradient(
+          135deg,
+          #475569,
+          #334155
+        );
+    }
+
+
+    /* اسم القارئ */
+
+    .selected-reciter {
+
+      font-size: 0.78rem;
+
+      color: #047857;
+
       text-align: center;
-      background: linear-gradient(135deg, #f0fdf4, #e6f4ea);
+
+      margin-top: 2px;
+
+      min-height: 18px;
+    }
+
+
+    /* =========================
+       الصدقة الجارية
+    ========================= */
+
+    .charity-footer {
+
+      margin-top: 18px;
+
+      padding: 12px;
+
+      border:
+        1px dashed #a7f3d0;
+
+      text-align: center;
+
+      background:
+        linear-gradient(
+          135deg,
+          #f0fdf4,
+          #e6f4ea
+        );
+
       border-radius: 12px;
     }
 
+
     .charity-title {
+
       margin: 0;
+
       font-weight: bold;
+
       color: #064e3b;
+
       font-size: 0.88rem;
+
       line-height: 1.5;
     }
+
 
     .charity-sub {
+
       margin: 5px 0 0;
+
       font-size: 0.78rem;
+
       color: #047857;
+
       line-height: 1.5;
     }
 
-    /* ========================= الجوال ========================= */
+
+    /* =========================
+       الجوال
+    ========================= */
+
     @media (max-width: 480px) {
+
       body {
+
         padding: 10px 6px;
       }
+
+
       .card {
+
         padding: 14px 12px;
+
         border-radius: 16px;
       }
+
+
       .clock {
+
         font-size: 1.2rem;
       }
+
+
       h2 {
+
         font-size: 1.15rem;
       }
+
+
       .dates-container {
+
         flex-direction: column;
+
         gap: 2px;
       }
+
+
+      .reciter-image {
+
+        width: 75px;
+
+        height: 75px;
+      }
+
+
+      .player-card {
+
+        gap: 9px;
+
+        padding: 8px;
+      }
+
     }
+
   </style>
+
 </head>
+
+
 <body>
 
+
   <div class="card">
-    <!-- ========================= التاريخ والوقت ========================= -->
+
+
+    <!-- =========================
+         التاريخ والوقت
+    ========================= -->
+
     <div class="datetime-box">
+
       <div>
-        <span class="clock" id="clock">00:00:00</span>
-        <span class="period" id="period">صباحًا</span>
+
+        <span
+          class="clock"
+          id="clock"
+        >
+          00:00:00
+        </span>
+
+        <span
+          class="period"
+          id="period"
+        >
+          صباحًا
+        </span>
+
       </div>
+
+
       <div class="dates-container">
-        <span class="date-gregorian" id="gregorianDate">جاري التحميل...</span>
-        <span class="date-hijri" id="hijriDate">جاري التحميل...</span>
+
+        <span
+          class="date-gregorian"
+          id="gregorianDate"
+        >
+          جاري التحميل...
+        </span>
+
+
+        <span
+          class="date-hijri"
+          id="hijriDate"
+        >
+          جاري التحميل...
+        </span>
+
       </div>
+
     </div>
 
-    <!-- ========================= عنوان المكتبة ========================= -->
+
+
+    <!-- =========================
+         العنوان
+    ========================= -->
+
     <h2>
-      <span class="quran-icon">📖</span>
-      القرآن الكريم <br>
+
+      <span class="quran-icon">
+        📖
+      </span>
+
+      القرآن الكريم
+
+      <br>
+
       المكتبة الصوتية الشاملة
+
     </h2>
 
-    <!-- ========================= البحث واختيار القارئ ========================= -->
+
+
+    <!-- =========================
+         البحث عن قارئ
+    ========================= -->
+
     <div class="form-group">
+
       <label for="searchInput">
+
         البحث عن قارئ:
-        <span id="reciterCount" class="count-badge">جاري التحميل...</span>
+
+        <span
+          id="reciterCount"
+          style="
+            float:left;
+            font-size:0.75rem;
+            color:#059669;
+          "
+        >
+          جاري التحميل...
+        </span>
+
       </label>
-      <input 
-        type="text" 
-        id="searchInput" 
-        class="search-box" 
-        placeholder="اكتب اسم القارئ (مثال: العفاسي، المعيقلي)..." 
+
+
+      <input
+        type="text"
+        id="searchInput"
+        class="search-box"
+        placeholder="اكتب اسم القارئ مثل: العفاسي، المعيقلي..."
         oninput="filterReciters()"
       >
-      <select id="reciterSelect" size="5">
-        <option>جاري جلب كافة القراء من خادم MP3Quran...</option>
+
+
+      <select
+        id="reciterSelect"
+        size="5"
+        onchange="updateSelectedReciter()"
+      >
+
+        <option>
+          جاري جلب كافة القراء...
+        </option>
+
       </select>
+
     </div>
 
-    <!-- ========================= اختيار السورة ========================= -->
+
+
+    <!-- =========================
+         اختيار السورة
+    ========================= -->
+
     <div class="form-group">
-      <label for="chapterSelect">اختر السورة:</label>
+
+      <label for="chapterSelect">
+
+        اختر السورة:
+
+      </label>
+
+
       <select id="chapterSelect">
-        <option value="">جاري تحميل السور...</option>
+
+        <option value="">
+
+          جاري تحميل السور...
+
+        </option>
+
       </select>
+
     </div>
 
-    <!-- ========================= زر التشغيل ========================= -->
-    <button onclick="playRecitation()">▶ تشغيل التلاوة</button>
 
-    <!-- ========================= مشغل الصوت ========================= -->
-    <audio id="audioPlayer" controls style="display: none;"></audio>
 
-    <!-- ========================= الصدقة الجارية ========================= -->
+    <!-- =========================
+         الصورة + أزرار التشغيل
+    ========================= -->
+
+    <div class="player-card">
+
+
+      <!-- الصورة -->
+
+      <img
+        id="reciterImage"
+        class="reciter-image"
+        src="bg.jpg"
+        alt="صورة القرآن الكريم"
+      >
+
+
+      <!-- الأزرار -->
+
+      <div class="player-buttons">
+
+
+        <div
+          id="selectedReciter"
+          class="selected-reciter"
+        >
+          اختر القارئ والسورة
+        </div>
+
+
+        <button
+          class="play-button"
+          onclick="playRecitation()"
+        >
+          ▶ تشغيل التلاوة
+        </button>
+
+
+        <button
+          class="stop-button"
+          onclick="stopRecitation()"
+        >
+          ⏹ إيقاف
+        </button>
+
+
+      </div>
+
+    </div>
+
+
+
+    <!-- عنصر الصوت مخفي -->
+
+    <audio
+      id="audioPlayer"
+      preload="none"
+    ></audio>
+
+
+
+    <!-- =========================
+         الصدقة الجارية
+    ========================= -->
+
     <div class="charity-footer">
+
       <p class="charity-title">
-        صدقة جارية عن روح الوالد <br>
-        بابكر الطيب محمد علي <br>
-        <span style="font-weight: normal; font-size: 0.8rem;">(طيب الله ثراه وجعل الجنة مثواه)</span>
+
+        صدقة جارية عن روح الوالد
+
+        <br>
+
+        بابكر الطيب محمد علي
+
+        <br>
+
+        <span
+          style="
+            font-weight:normal;
+            font-size:0.8rem;
+          "
+        >
+          (طيب الله ثراه وجعل الجنة مثواه)
+        </span>
+
       </p>
+
+
       <p class="charity-sub">
-        اللهم اجعل القرآن الكريم ربيع قلبه ونوراً له في قبره وارأف به وارحمه.
+
+        اللهم اجعل القرآن الكريم ربيع قلبه
+        ونوراً له في قبره وارأف به وارحمه.
+
       </p>
+
     </div>
+
+
   </div>
 
+
+
   <script>
+
+
     /* =====================================================
        الساعة والتاريخ
     ===================================================== */
-    function updateDateTime() {
-      const now = new Date();
-      
-      /* الساعة */
-      let hours = now.getHours();
-      const minutes = String(now.getMinutes()).padStart(2, '0');
-      const seconds = String(now.getSeconds()).padStart(2, '0');
-      const period = hours >= 12 ? "مساءً" : "صباحًا";
-      hours = hours % 12;
-      if (hours === 0) { hours = 12; }
-      hours = String(hours).padStart(2, '0');
 
-      document.getElementById("clock").textContent = `${hours}:${minutes}:${seconds}`;
-      document.getElementById("period").textContent = period;
+    function updateDateTime() {
+
+      const now = new Date();
+
+
+      /* الساعة */
+
+      let hours = now.getHours();
+
+      const minutes =
+        String(now.getMinutes()).padStart(2, "0");
+
+      const seconds =
+        String(now.getSeconds()).padStart(2, "0");
+
+
+      const period =
+        hours >= 12 ? "مساءً" : "صباحًا";
+
+
+      hours = hours % 12;
+
+
+      if (hours === 0) {
+
+        hours = 12;
+
+      }
+
+
+      hours =
+        String(hours).padStart(2, "0");
+
+
+      document.getElementById("clock").textContent =
+        `${hours}:${minutes}:${seconds}`;
+
+
+      document.getElementById("period").textContent =
+        period;
+
+
 
       /* التاريخ الميلادي */
-      const gregorian = now.toLocaleDateString("ar-SA", {
-        weekday: "short",
-        year: "numeric",
-        month: "short",
-        day: "numeric"
-      });
-      document.getElementById("gregorianDate").textContent = gregorian;
+
+      const gregorian =
+        now.toLocaleDateString(
+          "ar-SA",
+          {
+            weekday: "short",
+            year: "numeric",
+            month: "short",
+            day: "numeric"
+          }
+        );
+
+
+      document.getElementById(
+        "gregorianDate"
+      ).textContent = gregorian;
+
+
 
       /* التاريخ الهجري */
-      const hijri = new Intl.DateTimeFormat("ar-SA-u-ca-islamic-umalqura", {
-        weekday: "short",
-        year: "numeric",
-        month: "short",
-        day: "numeric"
-      }).format(now);
-      document.getElementById("hijriDate").textContent = hijri;
+
+      const hijri =
+        new Intl.DateTimeFormat(
+          "ar-SA-u-ca-islamic-umalqura",
+          {
+            weekday: "short",
+            year: "numeric",
+            month: "short",
+            day: "numeric"
+          }
+        ).format(now);
+
+
+      document.getElementById(
+        "hijriDate"
+      ).textContent = hijri;
+
     }
 
+
     updateDateTime();
+
     setInterval(updateDateTime, 1000);
+
+
 
     /* =====================================================
        MP3QURAN API
     ===================================================== */
-    const MP3QURAN_API = "https://mp3quran.net/api/v3/reciters?language=ar";
+
+    const MP3QURAN_API =
+      "https://mp3quran.net/api/v3/reciters?language=ar";
+
+
     let allReciters = [];
 
+
+
+    /* =====================================================
+       السور
+    ===================================================== */
+
     const surahs = [
-      "الفاتحة", "البقرة", "آل عمران", "النساء", "المائدة", "الأنعام", "الأعراف", "الأنفال", "التوبة", "يونس",
-      "هود", "يوسف", "الرعد", "إبراهيم", "الحجر", "النحل", "الإسراء", "الكهف", "مريم", "طه",
-      "الأنبياء", "الحج", "المؤمنون", "النور", "الفرقان", "الشعراء", "النمل", "القصص", "العنكبوت", "الروم",
-      "لقمان", "السجدة", "الأحزاب", "سبأ", "فاطر", "يس", "الصافات", "ص", "الزمر", "غافر",
-      "فصلت", "الشورى", "الزخرف", "الدخان", "الجاثية", "الأحقاف", "محمد", "الفتح", "الحجرات", "ق",
-      "الذاريات", "الطور", "النجم", "القمر", "الرحمن", "الواقعة", "الحديد", "المجادلة", "الحشر", "الممتحنة",
-      "الصف", "الجمعة", "المنافقون", "التغابن", "الطلاق", "التحريم", "الملك", "القلم", "الحاقة", "المعارج",
-      "نوح", "الجن", "المزمل", "المدثر", "القيامة", "الإنسان", "المرسلات", "النبأ", "النازعات", "عبس",
-      "التكوير", "الإنفطار", "المطففين", "الإنشقاق", "البروج", "الطارق", "الأعلى", "الغاشية", "الفجر", "البلد",
-      "الشمس", "الليل", "الضحى", "الشرح", "التين", "العلق", "القدر", "البينة", "الزلزلة", "العاديات",
-      "القارعة", "التكاثر", "العصر", "الهمزة", "الفيل", "قريش", "الماعون", "الكوثر", "الكافرون", "النصر",
-      "المسد", "الإخلاص", "الفلق", "الناس"
+
+      "الفاتحة",
+      "البقرة",
+      "آل عمران",
+      "النساء",
+      "المائدة",
+      "الأنعام",
+      "الأعراف",
+      "الأنفال",
+      "التوبة",
+      "يونس",
+
+      "هود",
+      "يوسف",
+      "الرعد",
+      "إبراهيم",
+      "الحجر",
+      "النحل",
+      "الإسراء",
+      "الكهف",
+      "مريم",
+      "طه",
+
+      "الأنبياء",
+      "الحج",
+      "المؤمنون",
+      "النور",
+      "الفرقان",
+      "الشعراء",
+      "النمل",
+      "القصص",
+      "العنكبوت",
+      "الروم",
+
+      "لقمان",
+      "السجدة",
+      "الأحزاب",
+      "سبأ",
+      "فاطر",
+      "يس",
+      "الصافات",
+      "ص",
+      "الزمر",
+      "غافر",
+
+      "فصلت",
+      "الشورى",
+      "الزخرف",
+      "الدخان",
+      "الجاثية",
+      "الأحقاف",
+      "محمد",
+      "الفتح",
+      "الحجرات",
+      "ق",
+
+      "الذاريات",
+      "الطور",
+      "النجم",
+      "القمر",
+      "الرحمن",
+      "الواقعة",
+      "الحديد",
+      "المجادلة",
+      "الحشر",
+      "الممتحنة",
+
+      "الصف",
+      "الجمعة",
+      "المنافقون",
+      "التغابن",
+      "الطلاق",
+      "التحريم",
+      "الملك",
+      "القلم",
+      "الحاقة",
+      "المعارج",
+
+      "نوح",
+      "الجن",
+      "المزمل",
+      "المدثر",
+      "القيامة",
+      "الإنسان",
+      "المرسلات",
+      "النبأ",
+      "النازعات",
+      "عبس",
+
+      "التكوير",
+      "الإنفطار",
+      "المطففين",
+      "الإنشقاق",
+      "البروج",
+      "الطارق",
+      "الأعلى",
+      "الغاشية",
+      "الفجر",
+      "البلد",
+
+      "الشمس",
+      "الليل",
+      "الضحى",
+      "الشرح",
+      "التين",
+      "العلق",
+      "القدر",
+      "البينة",
+      "الزلزلة",
+      "العاديات",
+
+      "القارعة",
+      "التكاثر",
+      "العصر",
+      "الهمزة",
+      "الفيل",
+      "قريش",
+      "الماعون",
+      "الكوثر",
+      "الكافرون",
+      "النصر",
+
+      "المسد",
+      "الإخلاص",
+      "الفلق",
+      "الناس"
+
     ];
 
+
+
+    /* =====================================================
+       تحميل السور
+    ===================================================== */
+
     function loadSurahs() {
-      const select = document.getElementById("chapterSelect");
+
+      const select =
+        document.getElementById(
+          "chapterSelect"
+        );
+
+
       select.innerHTML = "";
-      surahs.forEach((name, index) => {
-        const option = document.createElement("option");
-        option.value = index + 1;
-        option.textContent = `${index + 1}. سورة ${name}`;
-        select.appendChild(option);
-      });
+
+
+      surahs.forEach(
+        (name, index) => {
+
+          const option =
+            document.createElement("option");
+
+
+          option.value =
+            index + 1;
+
+
+          option.textContent =
+            `${index + 1}. سورة ${name}`;
+
+
+          select.appendChild(option);
+
+        }
+      );
+
     }
+
+
+
+    /* =====================================================
+       تحميل القراء
+    ===================================================== */
 
     async function loadReciters() {
+
       try {
-        const res = await fetch(MP3QURAN_API);
-        const data = await res.json();
-        allReciters = data.reciters || [];
-        renderReciters(allReciters);
+
+        const res =
+          await fetch(MP3QURAN_API);
+
+
+        if (!res.ok) {
+
+          throw new Error(
+            "API Error"
+          );
+
+        }
+
+
+        const data =
+          await res.json();
+
+
+        allReciters =
+          data.reciters || [];
+
+
+        renderReciters(
+          allReciters
+        );
+
+
       } catch (err) {
-        document.getElementById("reciterSelect").innerHTML = "<option disabled>فشل تحميل القراء، يرجى التحقق من الاتصال</option>";
+
+        document.getElementById(
+          "reciterSelect"
+        ).innerHTML =
+          `
+          <option disabled>
+            فشل تحميل القراء، تحقق من الاتصال
+          </option>
+          `;
+
       }
+
     }
+
+
+
+    /* =====================================================
+       عرض القراء
+    ===================================================== */
 
     function renderReciters(list) {
-      const select = document.getElementById("reciterSelect");
-      const countBadge = document.getElementById("reciterCount");
+
+      const select =
+        document.getElementById(
+          "reciterSelect"
+        );
+
+
+      const countBadge =
+        document.getElementById(
+          "reciterCount"
+        );
+
+
       select.innerHTML = "";
-      countBadge.textContent = `${list.length} قارئ`;
+
+
+      countBadge.textContent =
+        `${list.length} قارئ`;
+
 
       if (list.length === 0) {
-        select.innerHTML = "<option disabled>لا يوجد قارئ بهذا الاسم</option>";
+
+        select.innerHTML =
+          `
+          <option disabled>
+            لا يوجد قارئ بهذا الاسم
+          </option>
+          `;
+
         return;
+
       }
 
-      list.forEach((r, index) => {
-        const option = document.createElement("option");
-        option.value = r.id;
-        const rewaya = r.moshaf && r.moshaf[0] ? ` (${r.moshaf[0].name})` : "";
-        option.textContent = r.name + rewaya;
-        if (index === 0) {
-          option.selected = true;
+
+      list.forEach(
+        (r, index) => {
+
+          const option =
+            document.createElement(
+              "option"
+            );
+
+
+          option.value =
+            r.id;
+
+
+          const rewaya =
+            r.moshaf &&
+            r.moshaf[0]
+              ? ` (${r.moshaf[0].name})`
+              : "";
+
+
+          option.textContent =
+            r.name + rewaya;
+
+
+          if (index === 0) {
+
+            option.selected =
+              true;
+
+          }
+
+
+          select.appendChild(
+            option
+          );
+
         }
-        select.appendChild(option);
-      });
+      );
+
+
+      updateSelectedReciter();
+
     }
+
+
+
+    /* =====================================================
+       البحث عن القارئ
+    ===================================================== */
 
     function filterReciters() {
-      const query = document.getElementById("searchInput").value.trim().toLowerCase();
-      const filtered = allReciters.filter(r => r.name.toLowerCase().includes(query));
-      renderReciters(filtered);
+
+      const query =
+        document.getElementById(
+          "searchInput"
+        ).value
+          .trim()
+          .toLowerCase();
+
+
+      const filtered =
+        allReciters.filter(
+          r =>
+            r.name
+              .toLowerCase()
+              .includes(query)
+        );
+
+
+      renderReciters(
+        filtered
+      );
+
     }
+
+
+
+    /* =====================================================
+       تحديث اسم القارئ
+    ===================================================== */
+
+    function updateSelectedReciter() {
+
+      const select =
+        document.getElementById(
+          "reciterSelect"
+        );
+
+
+      const selected =
+        select.options[
+          select.selectedIndex
+        ];
+
+
+      const name =
+        selected
+          ? selected.textContent
+          : "اختر القارئ";
+
+
+      document.getElementById(
+        "selectedReciter"
+      ).textContent =
+        name;
+
+    }
+
+
+
+    /* =====================================================
+       تشغيل التلاوة
+    ===================================================== */
 
     function playRecitation() {
-      const reciterId = document.getElementById("reciterSelect").value;
-      const chapterId = parseInt(document.getElementById("chapterSelect").value);
-      const player = document.getElementById("audioPlayer");
 
-      const reciter = allReciters.find(r => r.id == reciterId);
+      const reciterId =
+        document.getElementById(
+          "reciterSelect"
+        ).value;
 
-      if (!reciter || !reciter.moshaf || reciter.moshaf.length === 0) {
-        alert("التلاوة غير متوفرة لهذا القارئ.");
+
+      const chapterId =
+        parseInt(
+          document.getElementById(
+            "chapterSelect"
+          ).value
+        );
+
+
+      const player =
+        document.getElementById(
+          "audioPlayer"
+        );
+
+
+      const reciter =
+        allReciters.find(
+          r =>
+            r.id == reciterId
+        );
+
+
+      if (
+        !reciter ||
+        !reciter.moshaf ||
+        reciter.moshaf.length === 0
+      ) {
+
+        alert(
+          "التلاوة غير متوفرة لهذا القارئ."
+        );
+
         return;
+
       }
 
-      const moshaf = reciter.moshaf[0];
-      const server = moshaf.server;
-      const suraList = moshaf.surah_list.split(",").map(Number);
 
-      if (!suraList.includes(chapterId)) {
-        alert("عذراً، هذه السورة غير متوفرة بصوت القارئ المحدد.");
+      const moshaf =
+        reciter.moshaf[0];
+
+
+      const server =
+        moshaf.server;
+
+
+      const suraList =
+        moshaf.surah_list
+          .split(",")
+          .map(Number);
+
+
+      if (
+        !suraList.includes(
+          chapterId
+        )
+      ) {
+
+        alert(
+          "عذراً، هذه السورة غير متوفرة بصوت القارئ المحدد."
+        );
+
         return;
+
       }
 
-      const paddedChapter = String(chapterId).padStart(3, "0");
-      const audioUrl = `${server}${paddedChapter}.mp3`;
 
-      player.src = audioUrl;
-      player.style.display = "block";
-      player.play();
+      const paddedChapter =
+        String(chapterId)
+          .padStart(3, "0");
+
+
+      const audioUrl =
+        `${server}${paddedChapter}.mp3`;
+
+
+      player.src =
+        audioUrl;
+
+
+      player.play()
+        .catch(
+          () => {
+            alert(
+              "اضغط زر التشغيل مرة أخرى للسماح بتشغيل الصوت."
+            );
+          }
+        );
+
     }
 
+
+
+    /* =====================================================
+       إيقاف التلاوة
+    ===================================================== */
+
+    function stopRecitation() {
+
+      const player =
+        document.getElementById(
+          "audioPlayer"
+        );
+
+
+      player.pause();
+
+
+      player.currentTime =
+        0;
+
+    }
+
+
+
+    /* =====================================================
+       التشغيل الأول
+    ===================================================== */
+
     loadSurahs();
+
     loadReciters();
+
+
   </script>
+
 </body>
 </html>
