@@ -74,7 +74,7 @@
     .next-prayer-badge {
       margin-top: 6px;
       background: rgba(255, 255, 255, 0.15);
-      padding: 4px 8px;
+      padding: 6px 10px;
       border-radius: 8px;
       font-size: 0.82rem;
       display: flex;
@@ -89,8 +89,9 @@
     }
 
     .prayer-countdown {
-      font-size: 0.78rem;
+      font-size: 0.8rem;
       color: #d1fae5;
+      font-weight: bold;
     }
 
     .dates-container {
@@ -198,7 +199,6 @@
       flex: 1;
     }
 
-    /* زر التشغيل البني بجانب السورة */
     .play-btn-brown {
       background: linear-gradient(135deg, #78350f, #92400e);
       color: white;
@@ -270,7 +270,6 @@
       line-height: 1.5;
     }
 
-    /* ========================= الجوال ========================= */
     @media (max-width: 480px) {
       body {
         padding: 10px 6px;
@@ -302,9 +301,9 @@
         <span class="period" id="period">صباحًا</span>
       </div>
 
-      <!-- عرض الصلاة التالية لتوقيت الرياض -->
+      <!-- عرض الصلاة التالية بتوقيت الرياض -->
       <div class="next-prayer-badge">
-        <span id="nextPrayerName" class="prayer-title">🕌 جاري الحساب...</span>
+        <span id="nextPrayerName" class="prayer-title">🕌 جاري تحميل الصلاة...</span>
         <span id="prayerCountdown" class="prayer-countdown">--:--:--</span>
       </div>
 
@@ -367,87 +366,10 @@
 
   <script>
     /* =====================================================
-       حساب مواقيت الصلاة لتوقيت مدينة الرياض (طريقة أم القرى)
+       تحديث الساعة والتاريخ
     ===================================================== */
-    const RIYADH_LAT = 24.7136;
-    const RIYADH_LNG = 46.6753;
-    const TIMEZONE_OFFSET = 3; // GMT+3
-
-    function toRadians(deg) { return deg * Math.PI / 180; }
-    function toDegrees(rad) { return rad * 180 / Math.PI; }
-
-    function getPrayerTimesRiyadh(date) {
-      const year = date.getFullYear();
-      const month = date.getMonth() + 1;
-      const day = date.getDate();
-
-      const d = 367 * year - Math.floor((7 * (year + Math.floor((month + 9) / 12))) / 4) + Math.floor((275 * month) / 9) + day - 730531.5;
-      const L = (280.461 + 0.9856474 * d) % 360;
-      const M = (357.528 + 0.9856003 * d) % 360;
-      const Lambda = (L + 1.915 * Math.sin(toRadians(M)) + 0.020 * Math.sin(toRadians(2 * M))) % 360;
-      const Obliquity = 23.439 - 0.0000004 * d;
-      
-      const Alpha = toDegrees(Math.atan2(Math.cos(toRadians(Obliquity)) * Math.sin(toRadians(Lambda)), Math.cos(toRadians(Lambda)))) / 15;
-      const Declination = toDegrees(Math.asin(Math.sin(toRadians(Obliquity)) * Math.sin(toRadians(Lambda))));
-      const EquationOfTime = (L / 15) - (Alpha < 0 ? Alpha + 24 : Alpha);
-
-      const Dhuhr = 12 + TIMEZONE_OFFSET - (RIYADH_LNG / 15) - EquationOfTime;
-
-      function calcHourAngle(angle) {
-        const cosH = (Math.sin(toRadians(angle)) - Math.sin(toRadians(RIYADH_LAT)) * Math.sin(toRadians(Declination))) / 
-                     (Math.cos(toRadians(RIYADH_LAT)) * Math.cos(toRadians(Declination)));
-        if (cosH > 1 || cosH < -1) return null;
-        return toDegrees(Math.acos(cosH)) / 15;
-      }
-
-      // حساب زاوية العصر لشافعي/حنبلي (أم القرى)
-      const AsrAngle = -toDegrees(Math.atan(1 / (1 + Math.tan(toRadians(Math.abs(RIYADH_LAT - Declination))))));
-
-      const FajrHA = calcHourAngle(-18.5); // أم القرى: الفجر على زاوية 18.5
-      const SunriseHA = calcHourAngle(-0.833);
-      const AsrHA = calcHourAngle(AsrAngle);
-      const MaghribHA = calcHourAngle(-0.833);
-
-      const Fajr = Dhuhr - FajrHA;
-      const Sunrise = Dhuhr - SunriseHA;
-      const Asr = Dhuhr + AsrHA;
-      const Maghrib = Dhuhr + MaghribHA;
-      const Isha = Maghrib + 1.5; // العشاء بعد المغرب بـ 90 دقيقة (أم القرى)
-
-      function hoursToDate(h, baseDate) {
-        const res = new Date(baseDate);
-        const hrs = Math.floor(h);
-        const mins = Math.floor((h - hrs) * 60);
-        const secs = Math.floor(((h - hrs) * 60 - mins) * 60);
-        res.setHours(hrs, mins, secs, 0);
-        return res;
-      }
-
-      return [
-        { name: "الفجر", time: hoursToDate(Fajr, date) },
-        { name: "الشروق", time: hoursToDate(Sunrise, date) },
-        { name: "الظهر", time: hoursToDate(Dhuhr, date) },
-        { name: "العصر", time: hoursToDate(Asr, date) },
-        { name: "المغرب", time: hoursToDate(Maghrib, date) },
-        { name: "العشاء", time: hoursToDate(Isha, date) }
-      ];
-    }
-
-    function formatTime12(date) {
-      let hours = date.getHours();
-      const minutes = String(date.getMinutes()).padStart(2, '0');
-      const period = hours >= 12 ? "م" : "ص";
-      hours = hours % 12 || 12;
-      return `${hours}:${minutes} ${period}`;
-    }
-
-    /* =====================================================
-       الساعة والتاريخ وحساب الصلاة القادمة
-    ===================================================== */
-    function updateDateTime() {
+    function updateClock() {
       const now = new Date();
-      
-      /* الساعة الحالية */
       let hours = now.getHours();
       const minutes = String(now.getMinutes()).padStart(2, '0');
       const seconds = String(now.getSeconds()).padStart(2, '0');
@@ -458,7 +380,6 @@
       document.getElementById("clock").textContent = `${hours}:${minutes}:${seconds}`;
       document.getElementById("period").textContent = period;
 
-      /* التاريخ الميلادي */
       const gregorian = now.toLocaleDateString("ar-SA", {
         weekday: "short",
         year: "numeric",
@@ -467,7 +388,6 @@
       });
       document.getElementById("gregorianDate").textContent = gregorian;
 
-      /* التاريخ الهجري */
       const hijri = new Intl.DateTimeFormat("ar-SA-u-ca-islamic-umalqura", {
         weekday: "short",
         year: "numeric",
@@ -475,32 +395,86 @@
         day: "numeric"
       }).format(now);
       document.getElementById("hijriDate").textContent = hijri;
+    }
 
-      /* حساب الصلاة التالية في الرياض */
-      const todayPrayers = getPrayerTimesRiyadh(now);
-      let nextPrayer = todayPrayers.find(p => p.time > now);
+    setInterval(updateClock, 1000);
+    updateClock();
 
-      if (!nextPrayer) {
-        // إذا انتهت صلوات اليوم، نجلب صلاة الفجر للغد
-        const tomorrow = new Date(now);
-        tomorrow.setDate(tomorrow.getDate() + 1);
-        const tomorrowPrayers = getPrayerTimesRiyadh(tomorrow);
-        nextPrayer = tomorrowPrayers[0];
+    /* =====================================================
+       جلب مواقيت الصلاة لمدينة الرياض (تقويم أم القرى - Aladhan API)
+    ===================================================== */
+    let todayPrayersList = [];
+    const prayerNamesAr = {
+      Fajr: "الفجر",
+      Dhuhr: "الظهر",
+      Asr: "العصر",
+      Maghrib: "المغرب",
+      Isha: "العشاء"
+    };
+
+    async function fetchPrayerTimes() {
+      try {
+        // طريقة أم القرى (method=4) لمدينة الرياض
+        const res = await fetch("https://api.aladhan.com/v1/timingsByCity?city=Riyadh&country=Saudi%20Arabia&method=4");
+        const data = await res.json();
+        const timings = data.data.timings;
+
+        const mainPrayers = ["Fajr", "Dhuhr", "Asr", "Maghrib", "Isha"];
+        const now = new Date();
+
+        todayPrayersList = mainPrayers.map(key => {
+          const [h, m] = timings[key].split(":");
+          const pTime = new Date(now);
+          pTime.setHours(parseInt(h), parseInt(m), 0, 0);
+          return {
+            nameKey: key,
+            nameAr: prayerNamesAr[key],
+            time: pTime,
+            timeStr: timings[key]
+          };
+        });
+
+        updateNextPrayer();
+      } catch (err) {
+        document.getElementById("nextPrayerName").textContent = "🕌 فشل جلب المواقيت";
+      }
+    }
+
+    function formatTime12(date) {
+      let hours = date.getHours();
+      const minutes = String(date.getMinutes()).padStart(2, '0');
+      const period = hours >= 12 ? "م" : "ص";
+      hours = hours % 12 || 12;
+      return `${hours}:${minutes} ${period}`;
+    }
+
+    function updateNextPrayer() {
+      if (todayPrayersList.length === 0) return;
+
+      const now = new Date();
+      let next = todayPrayersList.find(p => p.time > now);
+
+      if (!next) {
+        // إذا انتهت صلوات اليوم، فالصلاة القادمة هي الفجر
+        const fajrTime = new Date(todayPrayersList[0].time);
+        fajrTime.setDate(fajrTime.getDate() + 1);
+        next = {
+          nameAr: prayerNamesAr["Fajr"],
+          time: fajrTime
+        };
       }
 
-      const diffMs = nextPrayer.time - now;
+      const diffMs = next.time - now;
       const diffHrs = Math.floor(diffMs / (1000 * 60 * 60));
       const diffMins = Math.floor((diffMs % (1000 * 60 * 60)) / (1000 * 60));
       const diffSecs = Math.floor((diffMs % (1000 * 60)) / 1000);
 
-      const countdownStr = `متبقي ${String(diffHrs).padStart(2, '0')}:${String(diffMins).padStart(2, '0')}:${String(diffSecs).padStart(2, '0')}`;
-
-      document.getElementById("nextPrayerName").textContent = `🕌 ${nextPrayer.name} بالرياض: ${formatTime12(nextPrayer.time)}`;
-      document.getElementById("prayerCountdown").textContent = countdownStr;
+      document.getElementById("nextPrayerName").textContent = `🕌 ${next.nameAr} بالرياض: ${formatTime12(next.time)}`;
+      document.getElementById("prayerCountdown").textContent = `متبقي ${String(diffHrs).padStart(2, '0')}:${String(diffMins).padStart(2, '0')}:${String(diffSecs).padStart(2, '0')}`;
     }
 
-    updateDateTime();
-    setInterval(updateDateTime, 1000);
+    fetchPrayerTimes();
+    setInterval(updateNextPrayer, 1000);
 
     /* =====================================================
        MP3QURAN API
@@ -511,7 +485,7 @@
     const surahs = [
       "الفاتحة", "البقرة", "آل عمران", "النساء", "المائدة", "الأنعام", "الأعراف", "الأنفال", "التوبة", "يونس",
       "هود", "يوسف", "الرعد", "إبراهيم", "الحجر", "النحل", "الإسراء", "الكهف", "مريم", "طه",
-      "الأنبيائ", "الحج", "المؤمنون", "النور", "الفرقان", "الشعراء", "النمل", "القصص", "العنكبوت", "الروم",
+      "الأنبياء", "الحج", "المؤمنون", "النور", "الفرقان", "الشعراء", "النمل", "القصص", "العنكبوت", "الروم",
       "لقمان", "السجدة", "الأحزاب", "سبأ", "فاطر", "يس", "الصافات", "ص", "الزمر", "غافر",
       "فصلت", "الشورى", "الزخرف", "الدخان", "الجاثية", "الأحقاف", "محمد", "الفتح", "الحجرات", "ق",
       "الذاريات", "الطور", "النجم", "القمر", "الرحمن", "الواقعة", "الحديد", "المجادلة", "الحشر", "الممتحنة",
