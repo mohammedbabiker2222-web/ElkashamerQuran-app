@@ -3,32 +3,26 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#06452f">
 <title>القرآن الكريم - المكتبة الصوتية الشاملة</title>
 
 <style>
-* {
-    box-sizing: border-box;
-}
+* { box-sizing: border-box; }
 
 :root {
-    --green: #138344;
-    --dark-green: #03251a;
-    --gold: #e0bd68;
+    --green: #168642;
     --red: #c62828;
+    --gold: #e0bd68;
 }
 
 body {
     margin: 0;
     min-height: 100vh;
     font-family: Tahoma, Arial, sans-serif;
-    color: #fff;
-    background:
-        radial-gradient(ellipse at top, #16794e, #06452f 48%, #021810);
+    color: white;
+    background: radial-gradient(ellipse at top, #16794e, #06452f 48%, #021810);
     background-attachment: fixed;
 }
 
-/* خلفية هندسية إسلامية */
 .background-pattern {
     position: fixed;
     inset: 0;
@@ -36,95 +30,79 @@ body {
     pointer-events: none;
     opacity: .12;
     background-image:
-        repeating-linear-gradient(45deg, transparent 0 28px,
-        #e0bd68 29px 30px, transparent 31px 58px),
-        repeating-linear-gradient(-45deg, transparent 0 28px,
-        #e0bd68 29px 30px, transparent 31px 58px);
-}
-
-header {
-    text-align: center;
-    padding: 28px 12px;
-    background: linear-gradient(135deg, #022b1e, #087443);
-    border-bottom: 2px solid var(--gold);
-    box-shadow: 0 8px 25px #0006;
-}
-
-header h1 {
-    margin: 0 0 12px;
-    color: var(--gold);
-    font-size: clamp(25px, 5vw, 38px);
-    text-shadow: 2px 3px 5px #000;
-}
-
-header p {
-    line-height: 1.8;
-    margin: 5px;
+        repeating-linear-gradient(45deg, transparent 0 28px, #e0bd68 29px 30px, transparent 31px 58px),
+        repeating-linear-gradient(-45deg, transparent 0 28px, #e0bd68 29px 30px, transparent 31px 58px);
 }
 
 .container {
-    width: min(100% - 24px, 950px);
-    margin: 24px auto;
-}
-
-.info-panel {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    gap: 16px;
-    padding: 16px;
-    margin-bottom: 22px;
-    background: #ffffff12;
-    border: 1px solid #d9bc6b77;
-    border-radius: 16px;
-    box-shadow: 0 8px 20px #0003;
-}
-
-.info-item {
-    text-align: center;
-    line-height: 2;
-}
-
-.info-item strong {
-    display: block;
-    color: var(--gold);
+    width: min(100% - 20px, 950px);
+    margin: 12px auto 24px;
 }
 
 .card {
-    padding: 22px;
-    margin-bottom: 22px;
+    padding: 20px;
+    margin-bottom: 14px;
     border: 1px solid #e0bd6866;
-    border-radius: 20px;
+    border-radius: 18px;
     background: linear-gradient(145deg, #ffffff18, #001b1266);
-    box-shadow: 0 12px 28px #0005, inset 0 1px 1px #ffffff20;
+    box-shadow: 0 10px 25px #0004;
 }
 
 .card h2 {
     color: var(--gold);
     text-align: center;
-    margin-top: 0;
-    margin-bottom: 20px;
+    margin: 0 0 20px;
+    font-size: 21px;
+}
+
+.info-panel {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 5px 18px;
+    padding: 8px;
+    margin: 10px auto 18px;
+    background: #ffffff0a;
+    border: 1px solid #e0bd6844;
+    border-radius: 10px;
+}
+
+.info-item {
+    text-align: center;
+    font-size: 11px;
+    line-height: 1.8;
+}
+
+.info-item strong {
+    color: var(--gold);
+    font-size: 11px;
+    margin-left: 3px;
+}
+
+.info-item span {
+    font-size: 11px;
 }
 
 .reciter {
     display: flex;
     align-items: center;
-    gap: 20px;
+    gap: 18px;
     flex-wrap: wrap;
 }
 
 .reciter-image {
-    width: 145px;
-    height: 145px;
+    width: 120px;
+    height: 120px;
     flex-shrink: 0;
-    border-radius: 18px;
+    border-radius: 16px;
     border: 3px solid var(--gold);
     background: linear-gradient(145deg, #176b47, #03251a);
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 60px;
-    box-shadow: 0 8px 18px #0006;
+    font-size: 55px;
+    box-shadow: 0 8px 18px #0005;
 }
 
 .reciter-details {
@@ -134,7 +112,7 @@ header p {
 
 .reciter-details h3 {
     margin-top: 0;
-    font-size: 23px;
+    font-size: 22px;
 }
 
 .reciter-details p {
@@ -150,11 +128,11 @@ label {
 
 select {
     width: 100%;
-    padding: 13px;
+    padding: 12px;
     margin: 8px 0 14px;
     border-radius: 10px;
     border: 1px solid #c7ad69;
-    background: #fff;
+    background: white;
     color: #173b2b;
     font-size: 16px;
     font-family: inherit;
@@ -164,35 +142,27 @@ select {
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
-    margin-top: 16px;
+    margin-top: 14px;
 }
 
 button {
     cursor: pointer;
     border: none;
     border-radius: 10px;
-    padding: 13px 20px;
+    padding: 12px 18px;
     font-family: inherit;
-    font-size: 16px;
+    font-size: 15px;
     font-weight: bold;
-    transition: transform .2s, filter .2s;
-}
-
-button:hover {
-    transform: translateY(-2px);
-    filter: brightness(1.1);
 }
 
 .play-button {
-    background: #168642;
+    background: var(--green);
     color: white;
-    box-shadow: 0 4px 12px #0003;
 }
 
 .stop-button {
     background: var(--red);
     color: white;
-    box-shadow: 0 4px 12px #0003;
 }
 
 .secondary-button {
@@ -201,8 +171,8 @@ button:hover {
 }
 
 .audio-box {
-    margin-top: 20px;
-    padding: 15px;
+    margin-top: 18px;
+    padding: 14px;
     border-radius: 12px;
     background: #0003;
 }
@@ -214,403 +184,69 @@ audio {
 }
 
 .status {
-    margin-top: 14px;
+    margin-top: 12px;
     color: #f4e5b5;
     line-height: 1.9;
     overflow-wrap: anywhere;
+    font-size: 14px;
 }
 
-.status.error {
-    color: #ffb4b4;
-}
-
-.status.success {
-    color: #a8f0b9;
-}
+.status.error { color: #ffb4b4; }
+.status.success { color: #a8f0b9; }
 
 footer {
-    padding: 25px 12px;
+    padding: 20px 12px;
     text-align: center;
     color: #f0dfad;
     background: #001b14aa;
     border-top: 1px solid #d9bc6b55;
     line-height: 2;
+    font-size: 13px;
 }
 
 @media (max-width: 550px) {
-    .container {
-        width: calc(100% - 20px);
-    }
-
-    .card {
-        padding: 16px;
-    }
-
-    .reciter {
-        justify-content: center;
-        text-align: center;
-    }
-
-    .reciter-details {
-        flex-basis: 100%;
-    }
-
-    .buttons button {
-        flex: 1 1 120px;
-    }
+    .container { width: calc(100% - 16px); }
+    .card { padding: 15px; }
+    .reciter { justify-content: center; text-align: center; }
+    .reciter-details { flex-basis: 100%; min-width: 0; }
+    .reciter-image { width: 105px; height: 105px; }
+    .buttons button { flex: 1 1 120px; }
+    .info-panel { gap: 5px 10px; padding: 7px 5px; }
 }
 </style>
 </head>
 
 <body>
-
 <div class="background-pattern"></div>
-
-<header>
-    <h1>☪ القرآن الكريم ☪</h1>
-    <p>المكتبة الصوتية الشاملة لتلاوات القرآن الكريم</p>
-    <p>﴿ وَاذْكُر رَّبَّكَ كَثِيرًا ﴾</p>
-</header>
 
 <main class="container">
 
-    <!-- الساعة والتاريخ -->
-    <section class="info-panel">
-        <div class="info-item">
-            <strong>📅 التاريخ الميلادي</strong>
-            <span id="gregorianDate">جارٍ التحميل...</span>
-        </div>
-
-        <div class="info-item">
-            <strong>🌙 التاريخ الهجري</strong>
-            <span id="hijriDate">جارٍ التحميل...</span>
-        </div>
-
-        <div class="info-item">
-            <strong>🕒 الساعة بتوقيت السعودية</strong>
-            <span id="clock">--:--:--</span>
-        </div>
-    </section>
-
-    <!-- صورة رمزية وأزرار التشغيل -->
-    <section class="card">
-        <h2>🎙️ مكتبة التلاوات القرآنية</h2>
-
-        <div class="reciter">
-            <div class="reciter-image" role="img"
-                 aria-label="رمز المصحف الشريف">
-                📖
-            </div>
-
-            <div class="reciter-details">
-                <h3>استمع إلى القرآن الكريم</h3>
-                <p>
-                    اختر القارئ والسورة، ثم اضغط تشغيل للاستماع
-                    إلى التلاوة. يمكنك إيقاف الصوت في أي وقت.
-                </p>
-
-                <div class="buttons">
-                    <button type="button"
-                            class="play-button"
-                            id="playButton">
-                        ▶ تشغيل
-                    </button>
-
-                    <button type="button"
-                            class="stop-button"
-                            id="stopButton">
-                        ■ إيقاف
-                    </button>
-                </div>
+<section class="card">
+    <h2>📖 مكتبة التلاوات القرآنية</h2>
+    <div class="reciter">
+        <div class="reciter-image">📖</div>
+        <div class="reciter-details">
+            <h3>القرآن الكريم</h3>
+            <p>استمع إلى آيات القرآن الكريم، واختر السورة والقارئ من القائمة.</p>
+            <div class="buttons">
+                <button class="play-button" id="playButton">▶ تشغيل التلاوة</button>
+                <button class="stop-button" id="stopButton">■ إيقاف التلاوة</button>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
-    <!-- اختيار السورة والقارئ -->
-    <section class="card">
-        <h2>📚 اختر السورة والقارئ</h2>
-
-        <label for="surahSelect">السورة القرآنية:</label>
-        <select id="surahSelect">
-            <option value="1">سورة الفاتحة</option>
-            <option value="2">سورة البقرة</option>
-            <option value="3">سورة آل عمران</option>
-            <option value="18">سورة الكهف</option>
-            <option value="36">سورة يس</option>
-            <option value="55">سورة الرحمن</option>
-            <option value="56">سورة الواقعة</option>
-            <option value="67">سورة الملك</option>
-            <option value="78">سورة النبأ</option>
-            <option value="112">سورة الإخلاص</option>
-            <option value="113">سورة الفلق</option>
-            <option value="114">سورة الناس</option>
-        </select>
-
-        <label for="reciterSelect">القارئ:</label>
-        <select id="reciterSelect">
-            <option value="ar.alafasy">مشاري العفاسي</option>
-            <option value="ar.abdulbasitmurattal">عبد الباسط عبد الصمد - مرتل</option>
-            <option value="ar.abdurrahmaansudais">عبد الرحمن السديس</option>
-            <option value="ar.mahermuaiqly">ماهر المعيقلي</option>
-            <option value="ar.husary">محمود خليل الحصري</option>
-            <option value="ar.minshawi">محمد صديق المنشاوي</option>
-        </select>
-
-        <div class="audio-box">
-            <strong>🎧 مشغل الصوت</strong>
-
-            <audio id="audioPlayer" controls preload="none">
-                متصفحك لا يدعم تشغيل الصوت.
-            </audio>
-
-            <div id="status" class="status" aria-live="polite">
-                اختر السورة والقارئ ثم اضغط تشغيل.
-            </div>
-        </div>
-    </section>
-
-    <!-- عداد التسبيح -->
-    <section class="card">
-        <h2>✨ عداد التسبيح</h2>
-
-        <p style="text-align:center;line-height:2.2;">
-            سُبْحَانَ اللَّهِ وَبِحَمْدِهِ
-            <br>
-            سُبْحَانَ اللَّهِ الْعَظِيمِ
-        </p>
-
-        <div style="text-align:center;">
-            <button class="secondary-button"
-                    id="dhikrButton"
-                    type="button">
-                سبحان الله
-            </button>
-
-            <p>
-                عدد التسبيحات:
-                <strong id="dhikrCount">0</strong>
-            </p>
-
-            <button class="stop-button"
-                    id="resetDhikr"
-                    type="button">
-                تصفير العداد
-            </button>
-        </div>
-    </section>
-
-</main>
-
-<footer>
-    <p>القرآن الكريم نور القلوب وطمأنينة النفوس</p>
-    <p>اللهم اجعل القرآن العظيم ربيع قلوبنا ونور صدورنا</p>
-</footer>
-
-<script>
-"use strict";
-
-/* ================= الساعة والتاريخ ================= */
-
-function updateClock() {
-    const now = new Date();
-
-    document.getElementById("clock").textContent =
-        new Intl.DateTimeFormat("ar-SA", {
-            hour: "2-digit",
-            minute: "2-digit",
-            second: "2-digit",
-            hour12: true,
-            timeZone: "Asia/Riyadh"
-        }).format(now);
-
-    document.getElementById("gregorianDate").textContent =
-        new Intl.DateTimeFormat("ar-SA", {
-            year: "numeric",
-            month: "long",
-            day: "numeric",
-            timeZone: "Asia/Riyadh"
-        }).format(now);
-
-    try {
-        document.getElementById("hijriDate").textContent =
-            new Intl.DateTimeFormat(
-                "ar-SA-u-ca-islamic-umalqura",
-                {
-                    year: "numeric",
-                    month: "long",
-                    day: "numeric",
-                    timeZone: "Asia/Riyadh"
-                }
-            ).format(now);
-    } catch (error) {
-        document.getElementById("hijriDate").textContent =
-            "غير متاح في هذا المتصفح";
-    }
-}
-
-updateClock();
-setInterval(updateClock, 1000);
-
-
-/* ================= مشغل القرآن الكريم ================= */
-
-const audioPlayer = document.getElementById("audioPlayer");
-const surahSelect = document.getElementById("surahSelect");
-const reciterSelect = document.getElementById("reciterSelect");
-const statusBox = document.getElementById("status");
-const playButton = document.getElementById("playButton");
-const stopButton = document.getElementById("stopButton");
-
-let currentAudioUrl = "";
-
-function setStatus(message, type = "") {
-    statusBox.textContent = message;
-    statusBox.className = "status " + type;
-}
-
-function getAudioUrl() {
-    const surahNumber = Number(surahSelect.value);
-    const reciter = reciterSelect.value;
-
-    /*
-      مصدر الصوت: واجهة AlQuran Cloud.
-      يُحمّل الصوت من الإنترنت، لذلك يلزم اتصال بالإنترنت.
-    */
-    return "https://api.alquran.cloud/v1/surah/" +
-        surahNumber + "/" + reciter;
-}
-
-async function playRecitation() {
-    playButton.disabled = true;
-
-    try {
-        setStatus("جارٍ تجهيز التلاوة، يرجى الانتظار...");
-
-        const response = await fetch(getAudioUrl());
-
-        if (!response.ok) {
-            throw new Error("تعذر الاتصال بمصدر التلاوة.");
-        }
-
-        const result = await response.json();
-
-        if (result.code !== 200 ||
-            !result.data ||
-            !result.data.ayahs ||
-            result.data.ayahs.length === 0) {
-            throw new Error("لم يتم العثور على التلاوة المطلوبة.");
-        }
-
-        /*
-          بعض واجهات السور تعيد روابط آيات منفصلة.
-          نعرض الآيات في قائمة تشغيل متتابعة.
-        */
-        const ayahs = result.data.ayahs;
-        let ayahIndex = 0;
-
-        audioPlayer.pause();
-        audioPlayer.removeAttribute("src");
-        audioPlayer.load();
-
-        audioPlayer.onended = async function () {
-            ayahIndex++;
-
-            if (ayahIndex < ayahs.length) {
-                audioPlayer.src = ayahs[ayahIndex].audio;
-                try {
-                    await audioPlayer.play();
-                    setStatus(
-                        "التلاوة مستمرة: الآية " +
-                        (ayahIndex + 1) + " من " + ayahs.length,
-                        "success"
-                    );
-                } catch (error) {
-                    setStatus(
-                        "اضغط تشغيل من مشغل الصوت لمتابعة التلاوة."
-                    );
-                }
-            } else {
-                setStatus("انتهت السورة الكريمة.", "success");
-            }
-        };
-
-        currentAudioUrl = ayahs[0].audio;
-        audioPlayer.src = currentAudioUrl;
-        audioPlayer.load();
-
-        await audioPlayer.play();
-
-        setStatus(
-            "بدأت التلاوة. عدد الآيات: " + ayahs.length,
-            "success"
-        );
-
-    } catch (error) {
-        setStatus(
-            "تعذر تشغيل التلاوة. تحقق من اتصال الإنترنت، " +
-            "أو جرّب قارئًا آخر. " + error.message,
-            "error"
-        );
-    } finally {
-        playButton.disabled = false;
-    }
-}
-
-playButton.addEventListener("click", playRecitation);
-
-stopButton.addEventListener("click", function () {
-    audioPlayer.pause();
-    audioPlayer.currentTime = 0;
-    audioPlayer.removeAttribute("src");
-    audioPlayer.load();
-    audioPlayer.onended = null;
-    setStatus("تم إيقاف التلاوة.");
-});
-
-audioPlayer.addEventListener("error", function () {
-    setStatus(
-        "تعذر تحميل الملف الصوتي. تحقق من الإنترنت أو اختر قارئًا آخر.",
-        "error"
-    );
-});
-
-/* عند تغيير السورة أو القارئ، أوقف التلاوة الحالية */
-surahSelect.addEventListener("change", function () {
-    audioPlayer.pause();
-    audioPlayer.removeAttribute("src");
-    audioPlayer.load();
-    audioPlayer.onended = null;
-    setStatus("تم اختيار سورة جديدة. اضغط تشغيل.");
-});
-
-reciterSelect.addEventListener("change", function () {
-    audioPlayer.pause();
-    audioPlayer.removeAttribute("src");
-    audioPlayer.load();
-    audioPlayer.onended = null;
-    setStatus("تم اختيار قارئ جديد. اضغط تشغيل.");
-});
-
-
-/* ================= عداد التسبيح ================= */
-
-let dhikrCount = 0;
-
-const dhikrButton = document.getElementById("dhikrButton");
-const resetDhikr = document.getElementById("resetDhikr");
-const dhikrCountDisplay = document.getElementById("dhikrCount");
-
-dhikrButton.addEventListener("click", function () {
-    dhikrCount++;
-    dhikrCountDisplay.textContent = dhikrCount;
-});
-
-resetDhikr.addEventListener("click", function () {
-    dhikrCount = 0;
-    dhikrCountDisplay.textContent = dhikrCount;
-});
-
-</script>
-
-</body>
-</html>
+<section class="info-panel">
+    <div class="info-item">
+        <strong>📅 الميلادي:</strong>
+        <span id="gregorianDate">...</span>
+    </div>
+    <div class="info-item">
+        <strong>🌙 الهجري:</strong>
+        <span id="hijriDate">...</span>
+    </div>
+    <div class="info-item">
+        <strong>🕒 الساعة:</strong>
+        <span id="clock">--:--</span>
+    </div>
+</section>
