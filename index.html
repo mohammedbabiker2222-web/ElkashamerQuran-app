@@ -1,252 +1,439 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>القرآن الكريم - المكتبة الصوتية الشاملة</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>القرآن الكريم - المكتبة الصوتية الشاملة</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
 
-<style>
-* { box-sizing: border-box; }
+        :root {
+            --green: #168642;
+            --red: #c62828;
+            --gold: #e0bd68;
+        }
 
-:root {
-    --green: #168642;
-    --red: #c62828;
-    --gold: #e0bd68;
-}
+        body {
+            margin: 0;
+            min-height: 100vh;
+            font-family: Tahoma, Arial, sans-serif;
+            color: white;
+            background: radial-gradient(ellipse at top, #16794e, #06452f 48%, #021810);
+            background-attachment: fixed;
+        }
 
-body {
-    margin: 0;
-    min-height: 100vh;
-    font-family: Tahoma, Arial, sans-serif;
-    color: white;
-    background: radial-gradient(ellipse at top, #16794e, #06452f 48%, #021810);
-    background-attachment: fixed;
-}
+        .background-pattern {
+            position: fixed;
+            inset: 0;
+            z-index: -1;
+            pointer-events: none;
+            opacity: .12;
+            background-image: repeating-linear-gradient(45deg, transparent 0 28px, #e0bd68 29px 30px, transparent 31px 58px),
+                              repeating-linear-gradient(-45deg, transparent 0 28px, #e0bd68 29px 30px, transparent 31px 58px);
+        }
 
-.background-pattern {
-    position: fixed;
-    inset: 0;
-    z-index: -1;
-    pointer-events: none;
-    opacity: .12;
-    background-image:
-        repeating-linear-gradient(45deg, transparent 0 28px, #e0bd68 29px 30px, transparent 31px 58px),
-        repeating-linear-gradient(-45deg, transparent 0 28px, #e0bd68 29px 30px, transparent 31px 58px);
-}
+        .container {
+            width: min(100% - 20px, 950px);
+            margin: 12px auto 24px;
+        }
 
-.container {
-    width: min(100% - 20px, 950px);
-    margin: 12px auto 24px;
-}
+        .card {
+            padding: 20px;
+            margin-bottom: 14px;
+            border: 1px solid #e0bd6866;
+            border-radius: 18px;
+            background: linear-gradient(145deg, #ffffff18, #001b1266);
+            box-shadow: 0 10px 25px #0004;
+        }
 
-.card {
-    padding: 20px;
-    margin-bottom: 14px;
-    border: 1px solid #e0bd6866;
-    border-radius: 18px;
-    background: linear-gradient(145deg, #ffffff18, #001b1266);
-    box-shadow: 0 10px 25px #0004;
-}
+        .card h2 {
+            color: var(--gold);
+            text-align: center;
+            margin: 0 0 20px;
+            font-size: 21px;
+        }
 
-.card h2 {
-    color: var(--gold);
-    text-align: center;
-    margin: 0 0 20px;
-    font-size: 21px;
-}
+        .info-panel {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 5px 18px;
+            padding: 8px;
+            margin: 10px auto 18px;
+            background: #ffffff0a;
+            border: 1px solid #e0bd6844;
+            border-radius: 10px;
+        }
 
-.info-panel {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    gap: 5px 18px;
-    padding: 8px;
-    margin: 10px auto 18px;
-    background: #ffffff0a;
-    border: 1px solid #e0bd6844;
-    border-radius: 10px;
-}
+        .info-item {
+            text-align: center;
+            font-size: 11px;
+            line-height: 1.8;
+        }
 
-.info-item {
-    text-align: center;
-    font-size: 11px;
-    line-height: 1.8;
-}
+        .info-item strong {
+            color: var(--gold);
+            font-size: 11px;
+            margin-left: 3px;
+        }
 
-.info-item strong {
-    color: var(--gold);
-    font-size: 11px;
-    margin-left: 3px;
-}
+        .info-item span {
+            font-size: 11px;
+        }
 
-.info-item span {
-    font-size: 11px;
-}
+        .reciter {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            flex-wrap: wrap;
+        }
 
-.reciter {
-    display: flex;
-    align-items: center;
-    gap: 18px;
-    flex-wrap: wrap;
-}
+        .reciter-image {
+            width: 120px;
+            height: 120px;
+            flex-shrink: 0;
+            border-radius: 16px;
+            border: 3px solid var(--gold);
+            background: linear-gradient(145deg, #176b47, #03251a);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 55px;
+            box-shadow: 0 8px 18px #0005;
+        }
 
-.reciter-image {
-    width: 120px;
-    height: 120px;
-    flex-shrink: 0;
-    border-radius: 16px;
-    border: 3px solid var(--gold);
-    background: linear-gradient(145deg, #176b47, #03251a);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 55px;
-    box-shadow: 0 8px 18px #0005;
-}
+        .reciter-details {
+            flex: 1;
+            min-width: 200px;
+        }
 
-.reciter-details {
-    flex: 1;
-    min-width: 200px;
-}
+        .reciter-details h3 {
+            margin-top: 0;
+            font-size: 22px;
+            color: var(--gold);
+        }
 
-.reciter-details h3 {
-    margin-top: 0;
-    font-size: 22px;
-}
+        .reciter-details p {
+            color: #e6e6d8;
+            line-height: 1.9;
+            margin: 5px 0 12px;
+            font-size: 14px;
+        }
 
-.reciter-details p {
-    color: #e6e6d8;
-    line-height: 1.9;
-}
+        label {
+            display: block;
+            margin-top: 12px;
+            color: #f7e7b5;
+            font-size: 14px;
+        }
 
-label {
-    display: block;
-    margin-top: 12px;
-    color: #f7e7b5;
-}
+        select {
+            width: 100%;
+            padding: 12px;
+            margin: 8px 0 14px;
+            border-radius: 10px;
+            border: 1px solid #c7ad69;
+            background: #fcfbfa;
+            color: #173b2b;
+            font-size: 15px;
+            font-family: inherit;
+            outline: none;
+        }
 
-select {
-    width: 100%;
-    padding: 12px;
-    margin: 8px 0 14px;
-    border-radius: 10px;
-    border: 1px solid #c7ad69;
-    background: white;
-    color: #173b2b;
-    font-size: 16px;
-    font-family: inherit;
-}
+        select:disabled {
+            background-color: #e0e0e0;
+            cursor: not-allowed;
+        }
 
-.buttons {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    margin-top: 14px;
-}
+        .buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 14px;
+        }
 
-button {
-    cursor: pointer;
-    border: none;
-    border-radius: 10px;
-    padding: 12px 18px;
-    font-family: inherit;
-    font-size: 15px;
-    font-weight: bold;
-}
+        button {
+            cursor: pointer;
+            border: none;
+            border-radius: 10px;
+            padding: 12px 18px;
+            font-family: inherit;
+            font-size: 15px;
+            font-weight: bold;
+            transition: opacity 0.2s;
+        }
 
-.play-button {
-    background: var(--green);
-    color: white;
-}
+        button:hover {
+            opacity: 0.9;
+        }
 
-.stop-button {
-    background: var(--red);
-    color: white;
-}
+        .play-button {
+            background: var(--green);
+            color: white;
+        }
 
-.secondary-button {
-    background: var(--gold);
-    color: #172b1f;
-}
+        .stop-button {
+            background: var(--red);
+            color: white;
+        }
 
-.audio-box {
-    margin-top: 18px;
-    padding: 14px;
-    border-radius: 12px;
-    background: #0003;
-}
+        .audio-box {
+            margin-top: 18px;
+            padding: 14px;
+            border-radius: 12px;
+            background: #0003;
+        }
 
-audio {
-    display: block;
-    width: 100%;
-    margin-top: 12px;
-}
+        audio {
+            display: block;
+            width: 100%;
+            margin-top: 8px;
+        }
 
-.status {
-    margin-top: 12px;
-    color: #f4e5b5;
-    line-height: 1.9;
-    overflow-wrap: anywhere;
-    font-size: 14px;
-}
+        .status {
+            margin-top: 12px;
+            color: #f4e5b5;
+            line-height: 1.9;
+            overflow-wrap: anywhere;
+            font-size: 14px;
+        }
 
-.status.error { color: #ffb4b4; }
-.status.success { color: #a8f0b9; }
+        .status.error {
+            color: #ffb4b4;
+        }
 
-footer {
-    padding: 20px 12px;
-    text-align: center;
-    color: #f0dfad;
-    background: #001b14aa;
-    border-top: 1px solid #d9bc6b55;
-    line-height: 2;
-    font-size: 13px;
-}
+        .status.success {
+            color: #a8f0b9;
+        }
 
-@media (max-width: 550px) {
-    .container { width: calc(100% - 16px); }
-    .card { padding: 15px; }
-    .reciter { justify-content: center; text-align: center; }
-    .reciter-details { flex-basis: 100%; min-width: 0; }
-    .reciter-image { width: 105px; height: 105px; }
-    .buttons button { flex: 1 1 120px; }
-    .info-panel { gap: 5px 10px; padding: 7px 5px; }
-}
-</style>
+        footer {
+            padding: 20px 12px;
+            text-align: center;
+            color: #f0dfad;
+            background: #001b14aa;
+            border-top: 1px solid #d9bc6b55;
+            line-height: 2;
+            font-size: 13px;
+        }
+
+        @media (max-width: 550px) {
+            .container {
+                width: calc(100% - 16px);
+            }
+            .card {
+                padding: 15px;
+            }
+            .reciter {
+                justify-content: center;
+                text-align: center;
+            }
+            .reciter-details {
+                flex-basis: 100%;
+                min-width: 0;
+            }
+            .reciter-image {
+                width: 105px;
+                height: 105px;
+            }
+            .buttons button {
+                flex: 1 1 120px;
+            }
+            .info-panel {
+                gap: 5px 10px;
+                padding: 7px 5px;
+            }
+        }
+    </style>
 </head>
-
 <body>
-<div class="background-pattern"></div>
 
-<main class="container">
+    <div class="background-pattern"></div>
 
-<section class="card">
-    <h2>📖 مكتبة التلاوات القرآنية</h2>
-    <div class="reciter">
-        <div class="reciter-image">📖</div>
-        <div class="reciter-details">
-            <h3>القرآن الكريم</h3>
-            <p>استمع إلى آيات القرآن الكريم، واختر السورة والقارئ من القائمة.</p>
-            <div class="buttons">
-                <button class="play-button" id="playButton">▶ تشغيل التلاوة</button>
-                <button class="stop-button" id="stopButton">■ إيقاف التلاوة</button>
+    <main class="container">
+        <section class="card">
+            <h2>📖 مكتبة التلاوات القرآنية</h2>
+            
+            <div class="reciter">
+                <div class="reciter-image">📖</div>
+                <div class="reciter-details">
+                    <h3 id="reciterNameDisplay">القارئ: جاري التحميل...</h3>
+                    <p id="rewayatDisplay">الرواية: جاري التحميل...</p>
+                    
+                    <label for="reciterSelect">اختر القارئ:</label>
+                    <select id="reciterSelect">
+                        <option value="">-- جاري تحميل قائمة القراء --</option>
+                    </select>
+
+                    <label for="surahSelect">اختر السورة:</label>
+                    <select id="surahSelect" disabled>
+                        <option value="">-- اختر القارئ أولاً --</option>
+                    </select>
+
+                    <div class="buttons">
+                        <button class="play-button" id="playButton">▶ تشغيل التلاوة</button>
+                        <button class="stop-button" id="stopButton">■ إيقاف التلاوة</button>
+                    </div>
+                </div>
             </div>
-        </div>
-    </div>
-</section>
 
-<section class="info-panel">
-    <div class="info-item">
-        <strong>📅 الميلادي:</strong>
-        <span id="gregorianDate">...</span>
-    </div>
-    <div class="info-item">
-        <strong>🌙 الهجري:</strong>
-        <span id="hijriDate">...</span>
-    </div>
-    <div class="info-item">
-        <strong>🕒 الساعة:</strong>
-        <span id="clock">--:--</span>
-    </div>
-</section>
+            <div class="audio-box">
+                <audio id="audioPlayer" controls></audio>
+                <div id="status" class="status">اختر القارئ والسورة وابدأ الاستماع.</div>
+            </div>
+        </section>
+
+        <section class="info-panel">
+            <div class="info-item">
+                <strong>📅 الميلادي:</strong> <span id="gregorianDate">...</span>
+            </div>
+            <div class="info-item">
+                <strong>🌙 الهجري:</strong> <span id="hijriDate">...</span>
+            </div>
+            <div class="info-item">
+                <strong>🕒 الساعة:</strong> <span id="clock">--:--</span>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        القرآن الكريم - المكتبة الصوتية الشاملة &copy; جميع الحقوق محفوظة
+    </footer>
+
+    <script>
+        const API_URL = "https://mp3quran.net/api/v3";
+        const reciterSelect = document.getElementById("reciterSelect");
+        const surahSelect = document.getElementById("surahSelect");
+        const audioPlayer = document.getElementById("audioPlayer");
+        const playButton = document.getElementById("playButton");
+        const stopButton = document.getElementById("stopButton");
+        const statusDiv = document.getElementById("status");
+        const reciterNameDisplay = document.getElementById("reciterNameDisplay");
+        const rewayatDisplay = document.getElementById("rewayatDisplay");
+
+        let recitersData = [];
+        let surahsList = [];
+
+        // 1. جلب قائمة القرّاء والسور عند فتح الصفحة
+        async function init() {
+            updateClockAndDates();
+            setInterval(updateClockAndDates, 1000);
+
+            try {
+                // جلب قائمة السور (114 سورة)
+                const surahRes = await fetch(`${API_URL}/suwar?language=ar`);
+                const surahData = await surahRes.json();
+                surahsList = surahData.suwar;
+
+                // جلب قائمة القراء
+                const reciterRes = await fetch(`${API_URL}/reciters?language=ar`);
+                const reciterData = await reciterRes.json();
+                recitersData = reciterData.reciters;
+
+                populateReciters();
+            } catch (error) {
+                showStatus("حدث خطأ أثناء تحميل البيانات. يرجى التأكد من الاتصال بالإنترنت.", "error");
+            }
+        }
+
+        // 2. تعبئة قائمة القرّاء
+        function populateReciters() {
+            reciterSelect.innerHTML = '<option value="">-- اختر القارئ --</option>';
+            recitersData.forEach((reciter, index) => {
+                if (reciter.moshaf && reciter.moshaf.length > 0) {
+                    const option = document.createElement("option");
+                    option.value = index;
+                    option.textContent = reciter.name;
+                    reciterSelect.appendChild(option);
+                }
+            });
+            showStatus("تم تحميل قائمة القرّاء بنجاح.", "success");
+        }
+
+        // 3. عند تغيير القارئ
+        reciterSelect.addEventListener("change", (e) => {
+            const index = e.target.value;
+            surahSelect.innerHTML = "";
+
+            if (index === "") {
+                surahSelect.disabled = true;
+                surahSelect.innerHTML = '<option value="">-- اختر القارئ أولاً --</option>';
+                reciterNameDisplay.textContent = "القرآن الكريم";
+                rewayatDisplay.textContent = "استمع إلى آيات القرآن الكريم";
+                return;
+            }
+
+            const reciter = recitersData[index];
+            const moshaf = reciter.moshaf[0]; // اختيار المصحف/الرواية الأولى المتاحة
+
+            reciterNameDisplay.textContent = reciter.name;
+            rewayatDisplay.textContent = "الرواية: " + moshaf.name;
+
+            // تحديد السور المتاحة لهذا القارئ
+            const availableSurahs = moshaf.surah_list.split(",");
+
+            surahSelect.disabled = false;
+            surahSelect.innerHTML = '<option value="">-- اختر السورة --</option>';
+
+            surahsList.forEach((surah) => {
+                if (availableSurahs.includes(surah.id.toString())) {
+                    const option = document.createElement("option");
+                    // صياغة رقم السورة المكون من 3 أرقام لربط رابط الصوت (مثال: 001, 018, 114)
+                    const formattedId = String(surah.id).padStart(3, "0");
+                    option.value = `${moshaf.server}${formattedId}.mp3`;
+                    option.textContent = `${surah.id}. ${surah.name}`;
+                    surahSelect.appendChild(option);
+                }
+            });
+        });
+
+        // 4. أزرار التشغيل والإيقاف
+        playButton.addEventListener("click", () => {
+            const audioUrl = surahSelect.value;
+            if (!audioUrl) {
+                showStatus("يرجى اختيار القارئ والسورة أولاً.", "error");
+                return;
+            }
+
+            audioPlayer.src = audioUrl;
+            audioPlayer.play();
+            const surahName = surahSelect.options[surahSelect.selectedIndex].text;
+            showStatus(`جاري تشغيل: ${surahName} بصوت ${reciterNameDisplay.textContent}`, "success");
+        });
+
+        stopButton.addEventListener("click", () => {
+            audioPlayer.pause();
+            audioPlayer.currentTime = 0;
+            showStatus("تم إيقاف التلاوة.", "");
+        });
+
+        function showStatus(message, type) {
+            statusDiv.textContent = message;
+            statusDiv.className = `status ${type}`;
+        }
+
+        // 5. ضبط الوقت والتواريخ الحيّة
+        function updateClockAndDates() {
+            const now = new Date();
+            
+            // الوقت
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            document.getElementById("clock").textContent = `${hours}:${minutes}`;
+
+            // التاريخ الميلادي
+            const optionsGregorian = { year: 'numeric', month: 'long', day: 'numeric' };
+            document.getElementById("gregorianDate").textContent = now.toLocaleDateString('ar-EG', optionsGregorian);
+
+            // التاريخ الهجري
+            const optionsHijri = { year: 'numeric', month: 'long', day: 'numeric' };
+            document.getElementById("hijriDate").textContent = now.toLocaleDateString('ar-SA-u-ca-islamic', optionsHijri);
+        }
+
+        // بدء التشغيل عند الفتح
+        init();
+    </script>
+</body>
+</html>
