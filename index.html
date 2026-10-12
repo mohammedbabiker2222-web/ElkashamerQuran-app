@@ -1,560 +1,68 @@
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#06452f">
-<title>القرآن الكريم - المكتبة الصوتية الشاملة</title>
-
-<style>
-* {
-    box-sizing: border-box;
-}
-
-:root {
-    --green: #168642;
-    --red: #c62828;
-    --gold: #e0bd68;
-}
-
-body {
-    margin: 0;
-    min-height: 100vh;
-    font-family: Tahoma, Arial, sans-serif;
-    color: white;
-    background: radial-gradient(
-        ellipse at top,
-        #16794e,
-        #06452f 48%,
-        #021810
-    );
-    background-attachment: fixed;
-}
-
-/* خلفية إسلامية هندسية */
-.background-pattern {
-    position: fixed;
-    inset: 0;
-    z-index: -1;
-    pointer-events: none;
-    opacity: .12;
-    background-image:
-        repeating-linear-gradient(
-            45deg,
-            transparent 0 28px,
-            #e0bd68 29px 30px,
-            transparent 31px 58px
-        ),
-        repeating-linear-gradient(
-            -45deg,
-            transparent 0 28px,
-            #e0bd68 29px 30px,
-            transparent 31px 58px
-        );
-}
-
-.container {
-    width: min(100% - 20px, 950px);
-    margin: 12px auto 24px;
-}
-
-.card {
-    padding: 20px;
-    margin-bottom: 14px;
-    border: 1px solid #e0bd6866;
-    border-radius: 18px;
-    background: linear-gradient(
-        145deg,
-        #ffffff18,
-        #001b1266
-    );
-    box-shadow: 0 10px 25px #0004;
-}
-
-.card h2 {
-    color: var(--gold);
-    text-align: center;
-    margin: 0 0 12px;
-    font-size: 23px;
-}
-
-/* إهداء الصدقة الجارية */
-.dedication {
-    text-align: center;
-    color: #f8e6b1;
-    font-size: 16px;
-    line-height: 2;
-    margin: 0 0 22px;
-    padding: 10px;
-    border-bottom: 1px solid #e0bd6855;
-}
-
-/* قائمة القارئ في أعلى المكتبة */
-label {
-    display: block;
-    margin-top: 12px;
-    color: #f7e7b5;
-    font-size: 14px;
-}
-
-select {
-    width: 100%;
-    padding: 12px;
-    margin: 8px 0 14px;
-    border-radius: 10px;
-    border: 1px solid #c7ad69;
-    background: #fcfbfa;
-    color: #173b2b;
-    font-size: 15px;
-    font-family: inherit;
-    outline: none;
-}
-
-select:disabled {
-    background: #e0e0e0;
-    cursor: not-allowed;
-}
-
-.buttons {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    margin-top: 14px;
-}
-
-button {
-    cursor: pointer;
-    border: none;
-    border-radius: 10px;
-    padding: 12px 18px;
-    font-family: inherit;
-    font-size: 15px;
-    font-weight: bold;
-    transition: opacity .2s;
-}
-
-button:hover {
-    opacity: .9;
-}
-
-button:disabled {
-    opacity: .6;
-    cursor: wait;
-}
-
-.play-button {
-    background: var(--green);
-    color: white;
-}
-
-.stop-button {
-    background: var(--red);
-    color: white;
-}
-
-.audio-box {
-    margin-top: 18px;
-    padding: 14px;
-    border-radius: 12px;
-    background: #0003;
-}
-
-audio {
-    display: block;
-    width: 100%;
-    margin-top: 8px;
-}
-
-.status {
-    margin-top: 12px;
-    color: #f4e5b5;
-    line-height: 1.9;
-    overflow-wrap: anywhere;
-    font-size: 14px;
-}
-
-.status.error {
-    color: #ffb4b4;
-}
-
-.status.success {
-    color: #a8f0b9;
-}
-
-/* التاريخ والساعة بحجم صغير */
-.info-panel {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    gap: 5px 18px;
-    padding: 8px;
-    margin: 10px auto 18px;
-    background: #ffffff0a;
-    border: 1px solid #e0bd6844;
-    border-radius: 10px;
-}
-
-.info-item {
-    text-align: center;
-    font-size: 11px;
-    line-height: 1.8;
-}
-
-.info-item strong {
-    color: var(--gold);
-    font-size: 11px;
-    margin-left: 3px;
-}
-
-.info-item span {
-    font-size: 11px;
-}
-
-footer {
-    padding: 20px 12px;
-    text-align: center;
-    color: #f0dfad;
-    background: #001b14aa;
-    border-top: 1px solid #d9bc6b55;
-    line-height: 2;
-    font-size: 13px;
-}
-
-@media (max-width: 550px) {
-    .container {
-        width: calc(100% - 16px);
-    }
-
-    .card {
-        padding: 15px;
-    }
-
-    .dedication {
-        font-size: 14px;
-    }
-
-    .buttons button {
-        flex: 1 1 120px;
-    }
-
-    .info-panel {
-        gap: 5px 10px;
-        padding: 7px 5px;
-    }
-}
-</style>
-</head>
-
-<body>
-
-<div class="background-pattern"></div>
-
-<main class="container">
-
-    <section class="card">
-
-        <h2>مكتبة التلاوات القرآنية</h2>
-
-        <p class="dedication">
-            صدقة جارية لروح والدي<br>
-            <strong>بابكر الطيب محمد علي</strong>
-        </p>
-
-        <!-- قائمة القراء في أعلى الصفحة -->
-        <label for="reciterSelect">اختر القارئ:</label>
-        <select id="reciterSelect">
-            <option value="">اختر القارئ</option>
-        </select>
-
-        <label for="surahSelect">اختر السورة:</label>
-        <select id="surahSelect" disabled>
-            <option value="">اختر القارئ أولاً</option>
-        </select>
-
-        <div class="buttons">
-            <button class="play-button" id="playButton">
-                ▶ تشغيل التلاوة
-            </button>
-
-            <button class="stop-button" id="stopButton">
-                ■ إيقاف التلاوة
-            </button>
-        </div>
-
-        <div class="audio-box">
-            <audio id="audioPlayer" controls preload="none"></audio>
-            <div id="status" class="status">
-                اختر القارئ والسورة للاستماع.
-            </div>
-        </div>
-
-    </section>
-
-    <!-- التاريخ والوقت أسفل المكتبة -->
-    <section class="info-panel">
-
-        <div class="info-item">
-            <strong>📅 الميلادي:</strong>
-            <span id="gregorianDate">--</span>
-        </div>
-
-        <div class="info-item">
-            <strong>🌙 الهجري:</strong>
-            <span id="hijriDate">--</span>
-        </div>
-
-        <div class="info-item">
-            <strong>🕒 الساعة:</strong>
-            <span id="clock">--:--</span>
-        </div>
-
-    </section>
-
-</main>
-
-<footer>
-    اللهم اغفر له وارحمه، واجعل القرآن نوراً له في قبره،
-    واجعل هذا العمل صدقة جارية عنه.
-</footer>
-
-<script>
-"use strict";
-
-const API_URL = "https://mp3quran.net/api/v3";
-
-const reciterSelect = document.getElementById("reciterSelect");
-const surahSelect = document.getElementById("surahSelect");
-const audioPlayer = document.getElementById("audioPlayer");
-const playButton = document.getElementById("playButton");
-const stopButton = document.getElementById("stopButton");
-const statusDiv = document.getElementById("status");
-
-let recitersData = [];
-let surahsList = [];
-let currentAudioUrl = "";
-
-/* عرض الرسائل */
-function showStatus(message, type = "") {
-    statusDiv.textContent = message;
-    statusDiv.className = "status " + type;
-}
-
-/* تحميل القراء والسور */
-async function init() {
-    try {
-        const results = await Promise.all([
-            fetch(`${API_URL}/suwar?language=ar`),
-            fetch(`${API_URL}/reciters?language=ar`)
-        ]);
-
-        if (!results[0].ok || !results[1].ok) {
-            throw new Error("تعذر الاتصال بالخادم.");
-        }
-
-        const surahData = await results[0].json();
-        const reciterData = await results[1].json();
-
-        surahsList = surahData.suwar || [];
-        recitersData = reciterData.reciters || [];
-
-        populateReciters();
-
-        if (reciterSelect.options.length > 1) {
-            showStatus("اختر القارئ والسورة للاستماع.");
-        } else {
-            showStatus("لم تتوفر قائمة القراء حالياً.", "error");
-        }
-
-    } catch (error) {
-        showStatus(
-            "تعذر تحميل قائمة القراء. تحقق من الإنترنت ثم أعد فتح الصفحة.",
-            "error"
-        );
-    }
-}
-
-/* تعبئة قائمة القراء */
-function populateReciters() {
-    reciterSelect.innerHTML =
-        '<option value="">اختر القارئ</option>';
-
-    recitersData.forEach((reciter, index) => {
-        if (reciter.moshaf && reciter.moshaf.length > 0) {
-            const option = document.createElement("option");
-            option.value = index;
-            option.textContent = reciter.name;
-            reciterSelect.appendChild(option);
-        }
-    });
-}
-
-/* إيقاف الصوت الحالي */
-function stopAudio(reset = true) {
-    audioPlayer.pause();
-
-    if (reset) {
-        audioPlayer.currentTime = 0;
-    }
-}
-
-/* عند اختيار قارئ */
-reciterSelect.addEventListener("change", function () {
-    stopAudio();
-    audioPlayer.removeAttribute("src");
-    audioPlayer.load();
-
-    surahSelect.innerHTML = "";
-    surahSelect.disabled = true;
-    currentAudioUrl = "";
-
-    if (this.value === "") {
-        surahSelect.innerHTML =
-            '<option value="">اختر القارئ أولاً</option>';
-
-        showStatus("اختر القارئ والسورة للاستماع.");
-        return;
-    }
-
-    const reciter = recitersData[Number(this.value)];
-    const moshaf = reciter.moshaf[0];
-
-    const availableSurahs = String(moshaf.surah_list || "")
-        .split(",")
-        .map(value => value.trim());
-
-    surahSelect.innerHTML =
-        '<option value="">اختر السورة</option>';
-
-    surahsList.forEach(surah => {
-        if (availableSurahs.includes(String(surah.id))) {
-            const option = document.createElement("option");
-            const formattedId = String(surah.id).padStart(3, "0");
-
-            option.value = moshaf.server + formattedId + ".mp3";
-            option.textContent = surah.id + ". " + surah.name;
-
-            surahSelect.appendChild(option);
-        }
-    });
-
-    surahSelect.disabled = false;
-
-    showStatus("تم اختيار القارئ. اختر السورة.");
-});
-
-/* عند تغيير السورة */
-surahSelect.addEventListener("change", function () {
-    stopAudio();
-    audioPlayer.removeAttribute("src");
-    audioPlayer.load();
-
-    currentAudioUrl = this.value;
-
-    if (currentAudioUrl) {
-        showStatus("تم اختيار السورة. اضغط تشغيل.");
-    } else {
-        showStatus("اختر السورة للاستماع.");
-    }
-});
-
-/* تشغيل التلاوة */
-playButton.addEventListener("click", async function () {
-    const audioUrl = surahSelect.value;
-
-    if (!reciterSelect.value || !audioUrl) {
-        showStatus("يرجى اختيار القارئ والسورة أولاً.", "error");
-        return;
-    }
-
-    if (currentAudioUrl !== audioUrl ||
-        audioPlayer.src !== audioUrl) {
-        audioPlayer.src = audioUrl;
-        currentAudioUrl = audioUrl;
-    }
+/* الصلاة القادمة - الرياض */
+async function updateNextPrayer() {
+    const element = document.getElementById("nextPrayer");
 
     try {
-        await audioPlayer.play();
-
-        const reciter =
-            recitersData[Number(reciterSelect.value)];
-
-        const surahName =
-            surahSelect.options[surahSelect.selectedIndex].text;
-
-        showStatus(
-            "جاري تشغيل " + surahName + " بصوت " + reciter.name,
-            "success"
+        const response = await fetch(
+            "https://api.aladhan.com/v1/timingsByCity?city=Riyadh&country=Saudi%20Arabia&method=4"
         );
 
-    } catch (error) {
-        showStatus(
-            "تعذر التشغيل. تحقق من الإنترنت أو جرّب قارئاً آخر.",
-            "error"
-        );
-    }
-});
+        if (!response.ok) {
+            throw new Error("تعذر تحميل المواقيت");
+        }
 
-/* إيقاف التلاوة */
-stopButton.addEventListener("click", function () {
-    stopAudio();
-    showStatus("تم إيقاف التلاوة.");
-});
+        const result = await response.json();
+        const timings = result.data.timings;
 
-/* أخطاء الصوت */
-audioPlayer.addEventListener("error", function () {
-    if (audioPlayer.src) {
-        showStatus(
-            "تعذر تحميل الملف الصوتي. تحقق من الإنترنت.",
-            "error"
-        );
-    }
-});
+        const prayers = [
+            { key: "Fajr", name: "الفجر" },
+            { key: "Dhuhr", name: "الظهر" },
+            { key: "Asr", name: "العصر" },
+            { key: "Maghrib", name: "المغرب" },
+            { key: "Isha", name: "العشاء" }
+        ];
 
-audioPlayer.addEventListener("ended", function () {
-    showStatus("انتهت التلاوة.", "success");
-});
+        const now = new Date();
 
-/* الساعة والتاريخ بتوقيت السعودية */
-function updateClockAndDates() {
-    const now = new Date();
+        for (const prayer of prayers) {
+            const [hour, minute] = timings[prayer.key]
+                .split(":")
+                .map(Number);
 
-    const timeOptions = {
-        hour: "2-digit",
-        minute: "2-digit",
-        hour12: true,
-        timeZone: "Asia/Riyadh"
-    };
+            const prayerTime = new Date();
+            prayerTime.setHours(hour, minute, 0, 0);
 
-    document.getElementById("clock").textContent =
-        new Intl.DateTimeFormat("ar-SA", timeOptions).format(now);
+            if (prayerTime > now) {
+                element.textContent =
+                    prayer.name + " " +
+                    prayerTime.toLocaleTimeString("ar-SA", {
+                        hour: "numeric",
+                        minute: "2-digit",
+                        hour12: true,
+                        timeZone: "Asia/Riyadh"
+                    });
+                return;
+            }
+        }
 
-    document.getElementById("gregorianDate").textContent =
-        new Intl.DateTimeFormat("ar-SA", {
-            year: "numeric",
-            month: "short",
-            day: "numeric",
-            timeZone: "Asia/Riyadh"
-        }).format(now);
+        const [hour, minute] = timings.Fajr.split(":").map(Number);
+        const tomorrow = new Date();
+        tomorrow.setDate(tomorrow.getDate() + 1);
+        tomorrow.setHours(hour, minute, 0, 0);
 
-    try {
-        document.getElementById("hijriDate").textContent =
-            new Intl.DateTimeFormat("ar-SA-u-ca-islamic-umalqura", {
-                year: "numeric",
-                month: "short",
-                day: "numeric",
+        element.textContent =
+            "الفجر " +
+            tomorrow.toLocaleTimeString("ar-SA", {
+                hour: "numeric",
+                minute: "2-digit",
+                hour12: true,
                 timeZone: "Asia/Riyadh"
-            }).format(now);
+            });
+
     } catch (error) {
-        document.getElementById("hijriDate").textContent = "--";
+        element.textContent = "غير متاح";
     }
 }
 
-updateClockAndDates();
-setInterval(updateClockAndDates, 1000);
-
-init();
-</script>
-
-</body>
-</html>
+updateNextPrayer();
+setInterval(updateNextPrayer, 60000);
