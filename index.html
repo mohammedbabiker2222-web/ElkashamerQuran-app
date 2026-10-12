@@ -1,584 +1,616 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>القرآن الكريم - المكتبة الصوتية الشاملة</title>
-  <style>
-    * { 
-      box-sizing: border-box; 
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#06452f">
+<title>القرآن الكريم - المكتبة الصوتية الشاملة</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+:root {
+    --green: #138344;
+    --dark-green: #03251a;
+    --gold: #e0bd68;
+    --red: #c62828;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: Tahoma, Arial, sans-serif;
+    color: #fff;
+    background:
+        radial-gradient(ellipse at top, #16794e, #06452f 48%, #021810);
+    background-attachment: fixed;
+}
+
+/* خلفية هندسية إسلامية */
+.background-pattern {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    opacity: .12;
+    background-image:
+        repeating-linear-gradient(45deg, transparent 0 28px,
+        #e0bd68 29px 30px, transparent 31px 58px),
+        repeating-linear-gradient(-45deg, transparent 0 28px,
+        #e0bd68 29px 30px, transparent 31px 58px);
+}
+
+header {
+    text-align: center;
+    padding: 28px 12px;
+    background: linear-gradient(135deg, #022b1e, #087443);
+    border-bottom: 2px solid var(--gold);
+    box-shadow: 0 8px 25px #0006;
+}
+
+header h1 {
+    margin: 0 0 12px;
+    color: var(--gold);
+    font-size: clamp(25px, 5vw, 38px);
+    text-shadow: 2px 3px 5px #000;
+}
+
+header p {
+    line-height: 1.8;
+    margin: 5px;
+}
+
+.container {
+    width: min(100% - 24px, 950px);
+    margin: 24px auto;
+}
+
+.info-panel {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    gap: 16px;
+    padding: 16px;
+    margin-bottom: 22px;
+    background: #ffffff12;
+    border: 1px solid #d9bc6b77;
+    border-radius: 16px;
+    box-shadow: 0 8px 20px #0003;
+}
+
+.info-item {
+    text-align: center;
+    line-height: 2;
+}
+
+.info-item strong {
+    display: block;
+    color: var(--gold);
+}
+
+.card {
+    padding: 22px;
+    margin-bottom: 22px;
+    border: 1px solid #e0bd6866;
+    border-radius: 20px;
+    background: linear-gradient(145deg, #ffffff18, #001b1266);
+    box-shadow: 0 12px 28px #0005, inset 0 1px 1px #ffffff20;
+}
+
+.card h2 {
+    color: var(--gold);
+    text-align: center;
+    margin-top: 0;
+    margin-bottom: 20px;
+}
+
+.reciter {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.reciter-image {
+    width: 145px;
+    height: 145px;
+    flex-shrink: 0;
+    border-radius: 18px;
+    border: 3px solid var(--gold);
+    background: linear-gradient(145deg, #176b47, #03251a);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 60px;
+    box-shadow: 0 8px 18px #0006;
+}
+
+.reciter-details {
+    flex: 1;
+    min-width: 200px;
+}
+
+.reciter-details h3 {
+    margin-top: 0;
+    font-size: 23px;
+}
+
+.reciter-details p {
+    color: #e6e6d8;
+    line-height: 1.9;
+}
+
+label {
+    display: block;
+    margin-top: 12px;
+    color: #f7e7b5;
+}
+
+select {
+    width: 100%;
+    padding: 13px;
+    margin: 8px 0 14px;
+    border-radius: 10px;
+    border: 1px solid #c7ad69;
+    background: #fff;
+    color: #173b2b;
+    font-size: 16px;
+    font-family: inherit;
+}
+
+.buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 16px;
+}
+
+button {
+    cursor: pointer;
+    border: none;
+    border-radius: 10px;
+    padding: 13px 20px;
+    font-family: inherit;
+    font-size: 16px;
+    font-weight: bold;
+    transition: transform .2s, filter .2s;
+}
+
+button:hover {
+    transform: translateY(-2px);
+    filter: brightness(1.1);
+}
+
+.play-button {
+    background: #168642;
+    color: white;
+    box-shadow: 0 4px 12px #0003;
+}
+
+.stop-button {
+    background: var(--red);
+    color: white;
+    box-shadow: 0 4px 12px #0003;
+}
+
+.secondary-button {
+    background: var(--gold);
+    color: #172b1f;
+}
+
+.audio-box {
+    margin-top: 20px;
+    padding: 15px;
+    border-radius: 12px;
+    background: #0003;
+}
+
+audio {
+    display: block;
+    width: 100%;
+    margin-top: 12px;
+}
+
+.status {
+    margin-top: 14px;
+    color: #f4e5b5;
+    line-height: 1.9;
+    overflow-wrap: anywhere;
+}
+
+.status.error {
+    color: #ffb4b4;
+}
+
+.status.success {
+    color: #a8f0b9;
+}
+
+footer {
+    padding: 25px 12px;
+    text-align: center;
+    color: #f0dfad;
+    background: #001b14aa;
+    border-top: 1px solid #d9bc6b55;
+    line-height: 2;
+}
+
+@media (max-width: 550px) {
+    .container {
+        width: calc(100% - 20px);
     }
 
-    /* ========================= خلفية الموقع ========================= */
-    body {
-      font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-      background: 
-        linear-gradient(rgba(3, 35, 25, 0.78), rgba(2, 28, 20, 0.88)),
-        url('https://images.unsplash.com/photo-1584551246679-0daf3d275d0f?q=80&w=1200&auto=format&fit=crop') center/cover no-repeat fixed;
-      min-height: 100vh;
-      margin: 0;
-      padding: 15px 10px;
-      color: #173b2d;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-
-    /* ========================= البطاقة الرئيسية ========================= */
     .card {
-      background: rgba(255, 255, 255, 0.94);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      padding: 18px 20px;
-      border-radius: 20px;
-      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.3) inset;
-      width: 100%;
-      max-width: 480px;
-      margin: auto;
+        padding: 16px;
     }
 
-    /* ========================= لوحة التاريخ والوقت والصلاة ========================= */
-    .datetime-box {
-      background: linear-gradient(135deg, #064e3b, #047857);
-      color: white;
-      border-radius: 12px;
-      padding: 10px;
-      text-align: center;
-      margin-bottom: 15px;
-      box-shadow: 0 4px 12px rgba(4, 120, 87, 0.25);
-      border: 1px solid rgba(255, 255, 255, 0.15);
+    .reciter {
+        justify-content: center;
+        text-align: center;
     }
 
-    .clock-row {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 6px;
+    .reciter-details {
+        flex-basis: 100%;
     }
 
-    .clock {
-      font-size: 1.35rem;
-      font-weight: bold;
-      letter-spacing: 1px;
-      direction: ltr;
-      display: inline-block;
+    .buttons button {
+        flex: 1 1 120px;
     }
-
-    .period {
-      font-size: 0.85rem;
-      display: inline-block;
-      opacity: 0.9;
-    }
-
-    /* قسم الصلاة التالية */
-    .next-prayer-badge {
-      margin-top: 6px;
-      background: rgba(255, 255, 255, 0.15);
-      padding: 6px 10px;
-      border-radius: 8px;
-      font-size: 0.82rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border: 1px solid rgba(255, 255, 255, 0.2);
-    }
-
-    .prayer-title {
-      font-weight: 600;
-      color: #fef08a;
-    }
-
-    .prayer-countdown {
-      font-size: 0.8rem;
-      color: #d1fae5;
-      font-weight: bold;
-    }
-
-    .dates-container {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-top: 6px;
-      padding-top: 6px;
-      border-top: 1px solid rgba(255, 255, 255, 0.15);
-      font-size: 0.78rem;
-    }
-
-    .date-gregorian {
-      font-weight: 600;
-    }
-
-    .date-hijri {
-      color: #d1fae5;
-    }
-
-    /* ========================= العنوان ========================= */
-    h2 {
-      text-align: center;
-      color: #064e3b;
-      margin-top: 2px;
-      margin-bottom: 16px;
-      font-size: 1.25rem;
-      line-height: 1.35;
-      font-weight: 800;
-    }
-
-    .quran-icon {
-      font-size: 1.8rem;
-      display: block;
-      margin-bottom: 2px;
-    }
-
-    /* ========================= الحقول ========================= */
-    .form-group {
-      margin-bottom: 1rem;
-      position: relative;
-    }
-
-    label {
-      display: block;
-      margin-bottom: 6px;
-      font-weight: 700;
-      color: #064e3b;
-      font-size: 0.9rem;
-    }
-
-    input, select {
-      width: 100%;
-      padding: 10px 12px;
-      border-radius: 10px;
-      box-sizing: border-box;
-      font-size: 0.9rem;
-      font-family: inherit;
-      border: 1.5px solid #a7f3d0;
-      background: #ffffff;
-      color: #064e3b;
-      transition: all 0.2s ease;
-    }
-
-    input:focus, select:focus {
-      outline: none;
-      border-color: #059669;
-      box-shadow: 0 0 0 3px rgba(5, 150, 105, 0.15);
-    }
-
-    .search-box {
-      margin-bottom: 6px;
-      background-color: #f0fdf4;
-    }
-
-    select[size] {
-      height: 140px;
-      overflow-y: auto;
-      background-color: #ffffff;
-    }
-
-    option {
-      padding: 8px 10px;
-      text-align: right;
-      border-bottom: 1px solid #f0fdf4;
-      white-space: normal;
-      word-wrap: break-word;
-      border-radius: 4px;
-    }
-
-    option:hover, option:checked {
-      background-color: #d1fae5 !important;
-      color: #065f46;
-      font-weight: 600;
-    }
-
-    /* ========================= قسم السورة والزر البني ========================= */
-    .surah-row {
-      display: flex;
-      gap: 10px;
-      align-items: center;
-    }
-
-    .surah-row select {
-      flex: 1;
-    }
-
-    .play-btn-brown {
-      background: linear-gradient(135deg, #78350f, #92400e);
-      color: white;
-      border: none;
-      font-weight: bold;
-      font-size: 0.9rem;
-      cursor: pointer;
-      padding: 10px 16px;
-      border-radius: 10px;
-      white-space: nowrap;
-      transition: all 0.25s ease;
-      box-shadow: 0 4px 10px rgba(120, 53, 15, 0.3);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
-      height: 42px;
-    }
-
-    .play-btn-brown:hover {
-      background: linear-gradient(135deg, #92400e, #b45309);
-      transform: translateY(-1px);
-      box-shadow: 0 6px 14px rgba(120, 53, 15, 0.4);
-    }
-
-    .play-btn-brown:active {
-      transform: translateY(0);
-    }
-
-    /* ========================= المشغل ========================= */
-    audio {
-      width: 100%;
-      margin-top: 14px;
-      border-radius: 8px;
-    }
-
-    .count-badge {
-      font-size: 0.75rem;
-      color: #059669;
-      background: #ecfdf5;
-      padding: 2px 6px;
-      border-radius: 10px;
-      float: left;
-      font-weight: normal;
-    }
-
-    /* ========================= الصدقة الجارية ========================= */
-    .charity-footer {
-      margin-top: 18px;
-      padding: 12px;
-      border: 1px dashed #a7f3d0;
-      text-align: center;
-      background: linear-gradient(135deg, #f0fdf4, #e6f4ea);
-      border-radius: 12px;
-    }
-
-    .charity-title {
-      margin: 0;
-      font-weight: bold;
-      color: #064e3b;
-      font-size: 0.88rem;
-      line-height: 1.5;
-    }
-
-    .charity-sub {
-      margin: 5px 0 0;
-      font-size: 0.78rem;
-      color: #047857;
-      line-height: 1.5;
-    }
-
-    @media (max-width: 480px) {
-      body {
-        padding: 10px 6px;
-      }
-      .card {
-        padding: 14px 12px;
-        border-radius: 16px;
-      }
-      .clock {
-        font-size: 1.2rem;
-      }
-      h2 {
-        font-size: 1.15rem;
-      }
-      .dates-container {
-        flex-direction: column;
-        gap: 2px;
-      }
-    }
-  </style>
+}
+</style>
 </head>
+
 <body>
 
-  <div class="card">
-    <!-- ========================= التاريخ والوقت والصلاة ========================= -->
-    <div class="datetime-box">
-      <div class="clock-row">
-        <span class="clock" id="clock">00:00:00</span>
-        <span class="period" id="period">صباحًا</span>
-      </div>
+<div class="background-pattern"></div>
 
-      <!-- عرض الصلاة التالية بتوقيت الرياض -->
-      <div class="next-prayer-badge">
-        <span id="nextPrayerName" class="prayer-title">🕌 جاري تحميل الصلاة...</span>
-        <span id="prayerCountdown" class="prayer-countdown">--:--:--</span>
-      </div>
+<header>
+    <h1>☪ القرآن الكريم ☪</h1>
+    <p>المكتبة الصوتية الشاملة لتلاوات القرآن الكريم</p>
+    <p>﴿ وَاذْكُر رَّبَّكَ كَثِيرًا ﴾</p>
+</header>
 
-      <div class="dates-container">
-        <span class="date-gregorian" id="gregorianDate">جاري التحميل...</span>
-        <span class="date-hijri" id="hijriDate">جاري التحميل...</span>
-      </div>
-    </div>
+<main class="container">
 
-    <!-- ========================= عنوان المكتبة ========================= -->
-    <h2>
-      <span class="quran-icon">📖</span>
-      المكتبة الصوتية الشاملة
-    </h2>
+    <!-- الساعة والتاريخ -->
+    <section class="info-panel">
+        <div class="info-item">
+            <strong>📅 التاريخ الميلادي</strong>
+            <span id="gregorianDate">جارٍ التحميل...</span>
+        </div>
 
-    <!-- ========================= البحث واختيار القارئ ========================= -->
-    <div class="form-group">
-      <label for="searchInput">
-        البحث عن قارئ:
-        <span id="reciterCount" class="count-badge">جاري التحميل...</span>
-      </label>
-      <input 
-        type="text" 
-        id="searchInput" 
-        class="search-box" 
-        placeholder="اكتب اسم القارئ (مثال: العفاسي، المعيقلي)..." 
-        oninput="filterReciters()"
-      >
-      <select id="reciterSelect" size="5">
-        <option>جاري جلب كافة القراء من خادم MP3Quran...</option>
-      </select>
-    </div>
+        <div class="info-item">
+            <strong>🌙 التاريخ الهجري</strong>
+            <span id="hijriDate">جارٍ التحميل...</span>
+        </div>
 
-    <!-- ========================= اختيار السورة والزر البني ========================= -->
-    <div class="form-group">
-      <label for="chapterSelect">اختر السورة:</label>
-      <div class="surah-row">
-        <button class="play-btn-brown" onclick="playRecitation()">▶ تشغيل</button>
-        <select id="chapterSelect">
-          <option value="">جاري تحميل السور...</option>
+        <div class="info-item">
+            <strong>🕒 الساعة بتوقيت السعودية</strong>
+            <span id="clock">--:--:--</span>
+        </div>
+    </section>
+
+    <!-- صورة رمزية وأزرار التشغيل -->
+    <section class="card">
+        <h2>🎙️ مكتبة التلاوات القرآنية</h2>
+
+        <div class="reciter">
+            <div class="reciter-image" role="img"
+                 aria-label="رمز المصحف الشريف">
+                📖
+            </div>
+
+            <div class="reciter-details">
+                <h3>استمع إلى القرآن الكريم</h3>
+                <p>
+                    اختر القارئ والسورة، ثم اضغط تشغيل للاستماع
+                    إلى التلاوة. يمكنك إيقاف الصوت في أي وقت.
+                </p>
+
+                <div class="buttons">
+                    <button type="button"
+                            class="play-button"
+                            id="playButton">
+                        ▶ تشغيل
+                    </button>
+
+                    <button type="button"
+                            class="stop-button"
+                            id="stopButton">
+                        ■ إيقاف
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- اختيار السورة والقارئ -->
+    <section class="card">
+        <h2>📚 اختر السورة والقارئ</h2>
+
+        <label for="surahSelect">السورة القرآنية:</label>
+        <select id="surahSelect">
+            <option value="1">سورة الفاتحة</option>
+            <option value="2">سورة البقرة</option>
+            <option value="3">سورة آل عمران</option>
+            <option value="18">سورة الكهف</option>
+            <option value="36">سورة يس</option>
+            <option value="55">سورة الرحمن</option>
+            <option value="56">سورة الواقعة</option>
+            <option value="67">سورة الملك</option>
+            <option value="78">سورة النبأ</option>
+            <option value="112">سورة الإخلاص</option>
+            <option value="113">سورة الفلق</option>
+            <option value="114">سورة الناس</option>
         </select>
-      </div>
-    </div>
 
-    <!-- ========================= مشغل الصوت ========================= -->
-    <audio id="audioPlayer" controls style="display: none;"></audio>
+        <label for="reciterSelect">القارئ:</label>
+        <select id="reciterSelect">
+            <option value="ar.alafasy">مشاري العفاسي</option>
+            <option value="ar.abdulbasitmurattal">عبد الباسط عبد الصمد - مرتل</option>
+            <option value="ar.abdurrahmaansudais">عبد الرحمن السديس</option>
+            <option value="ar.mahermuaiqly">ماهر المعيقلي</option>
+            <option value="ar.husary">محمود خليل الحصري</option>
+            <option value="ar.minshawi">محمد صديق المنشاوي</option>
+        </select>
 
-    <!-- ========================= الصدقة الجارية ========================= -->
-    <div class="charity-footer">
-      <p class="charity-title">
-        صدقة جارية عن روح الوالد <br>
-        بابكر الطيب محمد علي <br>
-        <span style="font-weight: normal; font-size: 0.8rem;">(طيب الله ثراه وجعل الجنة مثواه)</span>
-      </p>
-      <p class="charity-sub">
-        اللهم اجعل القرآن الكريم ربيع قلبه ونوراً له في قبره وارأف به وارحمه.
-      </p>
-    </div>
-  </div>
+        <div class="audio-box">
+            <strong>🎧 مشغل الصوت</strong>
 
-  <script>
-    /* =====================================================
-       تحديث الساعة والتاريخ
-    ===================================================== */
-    function updateClock() {
-      const now = new Date();
-      let hours = now.getHours();
-      const minutes = String(now.getMinutes()).padStart(2, '0');
-      const seconds = String(now.getSeconds()).padStart(2, '0');
-      const period = hours >= 12 ? "مساءً" : "صباحًا";
-      hours = hours % 12 || 12;
-      hours = String(hours).padStart(2, '0');
+            <audio id="audioPlayer" controls preload="none">
+                متصفحك لا يدعم تشغيل الصوت.
+            </audio>
 
-      document.getElementById("clock").textContent = `${hours}:${minutes}:${seconds}`;
-      document.getElementById("period").textContent = period;
+            <div id="status" class="status" aria-live="polite">
+                اختر السورة والقارئ ثم اضغط تشغيل.
+            </div>
+        </div>
+    </section>
 
-      const gregorian = now.toLocaleDateString("ar-SA", {
-        weekday: "short",
-        year: "numeric",
-        month: "short",
-        day: "numeric"
-      });
-      document.getElementById("gregorianDate").textContent = gregorian;
+    <!-- عداد التسبيح -->
+    <section class="card">
+        <h2>✨ عداد التسبيح</h2>
 
-      const hijri = new Intl.DateTimeFormat("ar-SA-u-ca-islamic-umalqura", {
-        weekday: "short",
-        year: "numeric",
-        month: "short",
-        day: "numeric"
-      }).format(now);
-      document.getElementById("hijriDate").textContent = hijri;
+        <p style="text-align:center;line-height:2.2;">
+            سُبْحَانَ اللَّهِ وَبِحَمْدِهِ
+            <br>
+            سُبْحَانَ اللَّهِ الْعَظِيمِ
+        </p>
+
+        <div style="text-align:center;">
+            <button class="secondary-button"
+                    id="dhikrButton"
+                    type="button">
+                سبحان الله
+            </button>
+
+            <p>
+                عدد التسبيحات:
+                <strong id="dhikrCount">0</strong>
+            </p>
+
+            <button class="stop-button"
+                    id="resetDhikr"
+                    type="button">
+                تصفير العداد
+            </button>
+        </div>
+    </section>
+
+</main>
+
+<footer>
+    <p>القرآن الكريم نور القلوب وطمأنينة النفوس</p>
+    <p>اللهم اجعل القرآن العظيم ربيع قلوبنا ونور صدورنا</p>
+</footer>
+
+<script>
+"use strict";
+
+/* ================= الساعة والتاريخ ================= */
+
+function updateClock() {
+    const now = new Date();
+
+    document.getElementById("clock").textContent =
+        new Intl.DateTimeFormat("ar-SA", {
+            hour: "2-digit",
+            minute: "2-digit",
+            second: "2-digit",
+            hour12: true,
+            timeZone: "Asia/Riyadh"
+        }).format(now);
+
+    document.getElementById("gregorianDate").textContent =
+        new Intl.DateTimeFormat("ar-SA", {
+            year: "numeric",
+            month: "long",
+            day: "numeric",
+            timeZone: "Asia/Riyadh"
+        }).format(now);
+
+    try {
+        document.getElementById("hijriDate").textContent =
+            new Intl.DateTimeFormat(
+                "ar-SA-u-ca-islamic-umalqura",
+                {
+                    year: "numeric",
+                    month: "long",
+                    day: "numeric",
+                    timeZone: "Asia/Riyadh"
+                }
+            ).format(now);
+    } catch (error) {
+        document.getElementById("hijriDate").textContent =
+            "غير متاح في هذا المتصفح";
     }
+}
 
-    setInterval(updateClock, 1000);
-    updateClock();
+updateClock();
+setInterval(updateClock, 1000);
 
-    /* =====================================================
-       جلب مواقيت الصلاة لمدينة الرياض (تقويم أم القرى - Aladhan API)
-    ===================================================== */
-    let todayPrayersList = [];
-    const prayerNamesAr = {
-      Fajr: "الفجر",
-      Dhuhr: "الظهر",
-      Asr: "العصر",
-      Maghrib: "المغرب",
-      Isha: "العشاء"
-    };
 
-    async function fetchPrayerTimes() {
-      try {
-        // طريقة أم القرى (method=4) لمدينة الرياض
-        const res = await fetch("https://api.aladhan.com/v1/timingsByCity?city=Riyadh&country=Saudi%20Arabia&method=4");
-        const data = await res.json();
-        const timings = data.data.timings;
+/* ================= مشغل القرآن الكريم ================= */
 
-        const mainPrayers = ["Fajr", "Dhuhr", "Asr", "Maghrib", "Isha"];
-        const now = new Date();
+const audioPlayer = document.getElementById("audioPlayer");
+const surahSelect = document.getElementById("surahSelect");
+const reciterSelect = document.getElementById("reciterSelect");
+const statusBox = document.getElementById("status");
+const playButton = document.getElementById("playButton");
+const stopButton = document.getElementById("stopButton");
 
-        todayPrayersList = mainPrayers.map(key => {
-          const [h, m] = timings[key].split(":");
-          const pTime = new Date(now);
-          pTime.setHours(parseInt(h), parseInt(m), 0, 0);
-          return {
-            nameKey: key,
-            nameAr: prayerNamesAr[key],
-            time: pTime,
-            timeStr: timings[key]
-          };
-        });
+let currentAudioUrl = "";
 
-        updateNextPrayer();
-      } catch (err) {
-        document.getElementById("nextPrayerName").textContent = "🕌 فشل جلب المواقيت";
-      }
-    }
+function setStatus(message, type = "") {
+    statusBox.textContent = message;
+    statusBox.className = "status " + type;
+}
 
-    function formatTime12(date) {
-      let hours = date.getHours();
-      const minutes = String(date.getMinutes()).padStart(2, '0');
-      const period = hours >= 12 ? "م" : "ص";
-      hours = hours % 12 || 12;
-      return `${hours}:${minutes} ${period}`;
-    }
+function getAudioUrl() {
+    const surahNumber = Number(surahSelect.value);
+    const reciter = reciterSelect.value;
 
-    function updateNextPrayer() {
-      if (todayPrayersList.length === 0) return;
+    /*
+      مصدر الصوت: واجهة AlQuran Cloud.
+      يُحمّل الصوت من الإنترنت، لذلك يلزم اتصال بالإنترنت.
+    */
+    return "https://api.alquran.cloud/v1/surah/" +
+        surahNumber + "/" + reciter;
+}
 
-      const now = new Date();
-      let next = todayPrayersList.find(p => p.time > now);
+async function playRecitation() {
+    playButton.disabled = true;
 
-      if (!next) {
-        // إذا انتهت صلوات اليوم، فالصلاة القادمة هي الفجر
-        const fajrTime = new Date(todayPrayersList[0].time);
-        fajrTime.setDate(fajrTime.getDate() + 1);
-        next = {
-          nameAr: prayerNamesAr["Fajr"],
-          time: fajrTime
-        };
-      }
+    try {
+        setStatus("جارٍ تجهيز التلاوة، يرجى الانتظار...");
 
-      const diffMs = next.time - now;
-      const diffHrs = Math.floor(diffMs / (1000 * 60 * 60));
-      const diffMins = Math.floor((diffMs % (1000 * 60 * 60)) / (1000 * 60));
-      const diffSecs = Math.floor((diffMs % (1000 * 60)) / 1000);
+        const response = await fetch(getAudioUrl());
 
-      document.getElementById("nextPrayerName").textContent = `🕌 ${next.nameAr} بالرياض: ${formatTime12(next.time)}`;
-      document.getElementById("prayerCountdown").textContent = `متبقي ${String(diffHrs).padStart(2, '0')}:${String(diffMins).padStart(2, '0')}:${String(diffSecs).padStart(2, '0')}`;
-    }
-
-    fetchPrayerTimes();
-    setInterval(updateNextPrayer, 1000);
-
-    /* =====================================================
-       MP3QURAN API
-    ===================================================== */
-    const MP3QURAN_API = "https://mp3quran.net/api/v3/reciters?language=ar";
-    let allReciters = [];
-
-    const surahs = [
-      "الفاتحة", "البقرة", "آل عمران", "النساء", "المائدة", "الأنعام", "الأعراف", "الأنفال", "التوبة", "يونس",
-      "هود", "يوسف", "الرعد", "إبراهيم", "الحجر", "النحل", "الإسراء", "الكهف", "مريم", "طه",
-      "الأنبياء", "الحج", "المؤمنون", "النور", "الفرقان", "الشعراء", "النمل", "القصص", "العنكبوت", "الروم",
-      "لقمان", "السجدة", "الأحزاب", "سبأ", "فاطر", "يس", "الصافات", "ص", "الزمر", "غافر",
-      "فصلت", "الشورى", "الزخرف", "الدخان", "الجاثية", "الأحقاف", "محمد", "الفتح", "الحجرات", "ق",
-      "الذاريات", "الطور", "النجم", "القمر", "الرحمن", "الواقعة", "الحديد", "المجادلة", "الحشر", "الممتحنة",
-      "الصف", "الجمعة", "المنافقون", "التغابن", "الطلاق", "التحريم", "الملك", "القلم", "الحاقة", "المعارج",
-      "نوح", "الجن", "المزمل", "المدثر", "القيامة", "الإنسان", "المرسلات", "النبأ", "النازعات", "عبس",
-      "التكوير", "الإنفطار", "المطففين", "الإنشقاق", "البروج", "الطارق", "الأعلى", "الغاشية", "الفجر", "البلد",
-      "الشمس", "الليل", "الضحى", "الشرح", "التين", "العلق", "القدر", "البينة", "الزلزلة", "العاديات",
-      "القارعة", "التكاثر", "العصر", "الهمزة", "الفيل", "قريش", "الماعون", "الكوثر", "الكافرون", "النصر",
-      "المسد", "الإخلاص", "الفلق", "الناس"
-    ];
-
-    function loadSurahs() {
-      const select = document.getElementById("chapterSelect");
-      select.innerHTML = "";
-      surahs.forEach((name, index) => {
-        const option = document.createElement("option");
-        option.value = index + 1;
-        option.textContent = `${index + 1}. سورة ${name}`;
-        select.appendChild(option);
-      });
-    }
-
-    async function loadReciters() {
-      try {
-        const res = await fetch(MP3QURAN_API);
-        const data = await res.json();
-        allReciters = data.reciters || [];
-        renderReciters(allReciters);
-      } catch (err) {
-        document.getElementById("reciterSelect").innerHTML = "<option disabled>فشل تحميل القراء، يرجى التحقق من الاتصال</option>";
-      }
-    }
-
-    function renderReciters(list) {
-      const select = document.getElementById("reciterSelect");
-      const countBadge = document.getElementById("reciterCount");
-      select.innerHTML = "";
-      countBadge.textContent = `${list.length} قارئ`;
-
-      if (list.length === 0) {
-        select.innerHTML = "<option disabled>لا يوجد قارئ بهذا الاسم</option>";
-        return;
-      }
-
-      list.forEach((r, index) => {
-        const option = document.createElement("option");
-        option.value = r.id;
-        const rewaya = r.moshaf && r.moshaf[0] ? ` (${r.moshaf[0].name})` : "";
-        option.textContent = r.name + rewaya;
-        if (index === 0) {
-          option.selected = true;
+        if (!response.ok) {
+            throw new Error("تعذر الاتصال بمصدر التلاوة.");
         }
-        select.appendChild(option);
-      });
+
+        const result = await response.json();
+
+        if (result.code !== 200 ||
+            !result.data ||
+            !result.data.ayahs ||
+            result.data.ayahs.length === 0) {
+            throw new Error("لم يتم العثور على التلاوة المطلوبة.");
+        }
+
+        /*
+          بعض واجهات السور تعيد روابط آيات منفصلة.
+          نعرض الآيات في قائمة تشغيل متتابعة.
+        */
+        const ayahs = result.data.ayahs;
+        let ayahIndex = 0;
+
+        audioPlayer.pause();
+        audioPlayer.removeAttribute("src");
+        audioPlayer.load();
+
+        audioPlayer.onended = async function () {
+            ayahIndex++;
+
+            if (ayahIndex < ayahs.length) {
+                audioPlayer.src = ayahs[ayahIndex].audio;
+                try {
+                    await audioPlayer.play();
+                    setStatus(
+                        "التلاوة مستمرة: الآية " +
+                        (ayahIndex + 1) + " من " + ayahs.length,
+                        "success"
+                    );
+                } catch (error) {
+                    setStatus(
+                        "اضغط تشغيل من مشغل الصوت لمتابعة التلاوة."
+                    );
+                }
+            } else {
+                setStatus("انتهت السورة الكريمة.", "success");
+            }
+        };
+
+        currentAudioUrl = ayahs[0].audio;
+        audioPlayer.src = currentAudioUrl;
+        audioPlayer.load();
+
+        await audioPlayer.play();
+
+        setStatus(
+            "بدأت التلاوة. عدد الآيات: " + ayahs.length,
+            "success"
+        );
+
+    } catch (error) {
+        setStatus(
+            "تعذر تشغيل التلاوة. تحقق من اتصال الإنترنت، " +
+            "أو جرّب قارئًا آخر. " + error.message,
+            "error"
+        );
+    } finally {
+        playButton.disabled = false;
     }
+}
 
-    function filterReciters() {
-      const query = document.getElementById("searchInput").value.trim().toLowerCase();
-      const filtered = allReciters.filter(r => r.name.toLowerCase().includes(query));
-      renderReciters(filtered);
-    }
+playButton.addEventListener("click", playRecitation);
 
-    function playRecitation() {
-      const reciterId = document.getElementById("reciterSelect").value;
-      const chapterId = parseInt(document.getElementById("chapterSelect").value);
-      const player = document.getElementById("audioPlayer");
+stopButton.addEventListener("click", function () {
+    audioPlayer.pause();
+    audioPlayer.currentTime = 0;
+    audioPlayer.removeAttribute("src");
+    audioPlayer.load();
+    audioPlayer.onended = null;
+    setStatus("تم إيقاف التلاوة.");
+});
 
-      const reciter = allReciters.find(r => r.id == reciterId);
+audioPlayer.addEventListener("error", function () {
+    setStatus(
+        "تعذر تحميل الملف الصوتي. تحقق من الإنترنت أو اختر قارئًا آخر.",
+        "error"
+    );
+});
 
-      if (!reciter || !reciter.moshaf || reciter.moshaf.length === 0) {
-        alert("التلاوة غير متوفرة لهذا القارئ.");
-        return;
-      }
+/* عند تغيير السورة أو القارئ، أوقف التلاوة الحالية */
+surahSelect.addEventListener("change", function () {
+    audioPlayer.pause();
+    audioPlayer.removeAttribute("src");
+    audioPlayer.load();
+    audioPlayer.onended = null;
+    setStatus("تم اختيار سورة جديدة. اضغط تشغيل.");
+});
 
-      const moshaf = reciter.moshaf[0];
-      const server = moshaf.server;
-      const suraList = moshaf.surah_list.split(",").map(Number);
+reciterSelect.addEventListener("change", function () {
+    audioPlayer.pause();
+    audioPlayer.removeAttribute("src");
+    audioPlayer.load();
+    audioPlayer.onended = null;
+    setStatus("تم اختيار قارئ جديد. اضغط تشغيل.");
+});
 
-      if (!suraList.includes(chapterId)) {
-        alert("عذراً، هذه السورة غير متوفرة بصوت القارئ المحدد.");
-        return;
-      }
 
-      const paddedChapter = String(chapterId).padStart(3, "0");
-      const audioUrl = `${server}${paddedChapter}.mp3`;
+/* ================= عداد التسبيح ================= */
 
-      player.src = audioUrl;
-      player.style.display = "block";
-      player.play();
-    }
+let dhikrCount = 0;
 
-    loadSurahs();
-    loadReciters();
-  </script>
+const dhikrButton = document.getElementById("dhikrButton");
+const resetDhikr = document.getElementById("resetDhikr");
+const dhikrCountDisplay = document.getElementById("dhikrCount");
+
+dhikrButton.addEventListener("click", function () {
+    dhikrCount++;
+    dhikrCountDisplay.textContent = dhikrCount;
+});
+
+resetDhikr.addEventListener("click", function () {
+    dhikrCount = 0;
+    dhikrCountDisplay.textContent = dhikrCount;
+});
+
+</script>
+
 </body>
 </html>
