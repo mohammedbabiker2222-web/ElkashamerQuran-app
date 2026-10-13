@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
@@ -24,8 +25,7 @@ body {
   font-family: Tahoma, Arial, sans-serif;
   color: white;
   text-align: center;
-  background:
-    radial-gradient(ellipse at top, #16794e, #06452f 48%, #021810);
+  background: radial-gradient(ellipse at top, #16794e, #06452f 48%, #021810);
   background-attachment: fixed;
   overflow-x: hidden;
 }
@@ -37,18 +37,8 @@ body {
   pointer-events: none;
   opacity: .12;
   background-image:
-    repeating-linear-gradient(
-      45deg,
-      transparent 0 28px,
-      #e0bd68 29px 30px,
-      transparent 31px 58px
-    ),
-    repeating-linear-gradient(
-      -45deg,
-      transparent 0 28px,
-      #e0bd68 29px 30px,
-      transparent 31px 58px
-    );
+    repeating-linear-gradient(45deg, transparent 0 28px, #e0bd68 29px 30px, transparent 31px 58px),
+    repeating-linear-gradient(-45deg, transparent 0 28px, #e0bd68 29px 30px, transparent 31px 58px);
 }
 
 .container {
@@ -67,13 +57,11 @@ body {
 
 .card h2 {
   color: var(--gold);
-  text-align: center;
   margin: 0 0 12px;
   font-size: 23px;
 }
 
 .dedication {
-  text-align: center;
   color: #f8e6b1;
   font-size: 16px;
   line-height: 2;
@@ -114,6 +102,59 @@ select:disabled {
   cursor: not-allowed;
 }
 
+/* مربع البحث عن القراء */
+.reader-search-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.reader-search-row select {
+  flex: 1;
+  width: 0;
+  min-width: 0;
+  margin-bottom: 14px;
+}
+
+.search-icon-button {
+  flex: 0 0 48px;
+  width: 48px;
+  height: 46px;
+  padding: 8px;
+  margin: 8px 0 14px;
+  border: 1px solid var(--gold);
+  border-radius: 10px;
+  background: #f8f3e4;
+  color: #145c37;
+  font-size: 23px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.reader-search-input {
+  display: block;
+  width: 100%;
+  padding: 12px;
+  margin: 0 0 14px;
+  border: 1px solid var(--gold);
+  border-radius: 10px;
+  background: #fcfbfa;
+  color: #173b2b;
+  font-family: inherit;
+  font-size: 15px;
+  outline: none;
+}
+
+.reader-search-input[hidden] {
+  display: none;
+}
+
+.reader-search-input:focus {
+  border-color: #168642;
+  box-shadow: 0 0 0 2px #16864233;
+}
+
 .buttons {
   display: flex;
   flex-wrap: wrap;
@@ -122,7 +163,6 @@ select:disabled {
 }
 
 button {
-  flex: 1;
   cursor: pointer;
   border: none;
   border-radius: 10px;
@@ -135,6 +175,10 @@ button {
 
 button:hover {
   opacity: .9;
+}
+
+.buttons button {
+  flex: 1;
 }
 
 .play-button {
@@ -176,7 +220,7 @@ audio {
   color: #a8f0b9;
 }
 
-/* المستطيل السفلي: التاريخ والساعة والصلاة القادمة */
+/* التاريخ والساعة والصلاة القادمة */
 .info-panel {
   display: flex;
   flex-wrap: wrap;
@@ -216,6 +260,7 @@ audio {
   font-weight: bold;
 }
 
+/* دعاء المرحوم */
 .dua-box {
   margin-top: 18px;
   padding: 20px 16px;
@@ -313,9 +358,29 @@ footer {
     </div>
 
     <label for="reader">اختر القارئ:</label>
-    <select id="reader">
-      <option value="">جاري تحميل القراء...</option>
-    </select>
+
+    <div class="reader-search-row">
+      <select id="reader">
+        <option value="">جاري تحميل القراء...</option>
+      </select>
+
+      <button
+        class="search-icon-button"
+        id="searchToggle"
+        type="button"
+        aria-label="البحث عن قارئ"
+        title="البحث عن قارئ"
+      >🔍</button>
+    </div>
+
+    <input
+      type="search"
+      id="readerSearch"
+      class="reader-search-input"
+      placeholder="اكتب اسم القارئ للبحث..."
+      aria-label="ابحث عن اسم القارئ"
+      hidden
+    >
 
     <label for="surah">اختر السورة:</label>
     <select id="surah" disabled>
@@ -343,9 +408,7 @@ footer {
     </div>
   </section>
 
-  <!-- المستطيل السفلي -->
   <section class="info-panel">
-
     <div class="info-item">
       <strong>📅 الميلادي:</strong>
       <span id="gregorianDate">--</span>
@@ -365,38 +428,19 @@ footer {
       <strong>🕌 الصلاة القادمة:</strong>
       <span id="nextPrayer">جاري التحميل...</span>
     </div>
-
   </section>
 
   <section class="dua-box">
     <h2>دعاء للمرحوم</h2>
+
     <div class="deceased-name">بابكر الطيب محمد علي</div>
 
     <p>
-      اللهم اغفر لعبدك بابكر الطيب محمد علي وارحمه،
-      وعافه واعفُ عنه، وأكرم نزله، ووسّع مدخله،
-      واغسله بالماء والثلج والبرد، ونقّه من الخطايا
-      كما يُنقّى الثوب الأبيض من الدنس.
-    </p>
-
-    <p>
-      اللهم آنس وحشته، ونوّر قبره، واجعله روضةً
-      من رياض الجنة، وارفع درجته في المهديين،
+      اللهم اغفر له وارحمه، وعافه واعفُ عنه،
+      ونوّر قبره، واجعله روضةً من رياض الجنة،
       واجعل القرآن الكريم نورًا له وشفيعًا،
-      واجزه عن أهله وذريته خير الجزاء.
-    </p>
-
-    <p>
-      اللهم بارك في ذريته، وأصلح أبناءه وأحفاده،
-      واحفظهم من كل سوء، وارزقهم الصحة والعافية
-      والهداية والتوفيق، واجعلهم ذريةً صالحةً بارةً،
-      واجمعهم به في جنات النعيم.
-    </p>
-
-    <p>
-      اللهم تقبّل هذا العمل صدقةً جاريةً عنه،
-      واجعل ثوابه في ميزان حسناته،
-      وارزقه رحمتك ومغفرتك ورضوانك يا أرحم الراحمين.
+      وتقبّل هذه الصدقة الجارية عنه،
+      واجمعه بأهله في جنات النعيم.
     </p>
 
     <div class="amen">آمين يا رب العالمين.</div>
@@ -421,6 +465,8 @@ const audio = document.getElementById("audio");
 const statusBox = document.getElementById("status");
 const playButton = document.getElementById("playButton");
 const stopButton = document.getElementById("stopButton");
+const searchToggle = document.getElementById("searchToggle");
+const readerSearch = document.getElementById("readerSearch");
 
 let readers = [];
 let selectedReader = null;
@@ -430,6 +476,53 @@ function showStatus(message, type = "") {
   statusBox.textContent = message;
   statusBox.className = "status " + type;
 }
+
+/* إظهار وإخفاء البحث */
+searchToggle.addEventListener("click", function () {
+  readerSearch.hidden = !readerSearch.hidden;
+
+  if (readerSearch.hidden) {
+    readerSearch.value = "";
+    renderReaderOptions("");
+  } else {
+    readerSearch.focus();
+  }
+});
+
+/* البحث عن القارئ بالاسم */
+function renderReaderOptions(searchText = "") {
+  const previousValue = readerSelect.value;
+  const query = searchText.trim().toLowerCase();
+
+  readerSelect.innerHTML =
+    '<option value="">-- اختر القارئ --</option>';
+
+  readers.forEach((reader, index) => {
+    if (!reader.moshaf || reader.moshaf.length === 0) {
+      return;
+    }
+
+    if (!reader.name.toLowerCase().includes(query)) {
+      return;
+    }
+
+    const option = document.createElement("option");
+    option.value = index;
+    option.textContent = reader.name;
+    readerSelect.appendChild(option);
+  });
+
+  const previousOption = Array.from(readerSelect.options)
+    .find(option => option.value === previousValue);
+
+  if (previousOption && previousValue !== "") {
+    readerSelect.value = previousValue;
+  }
+}
+
+readerSearch.addEventListener("input", function () {
+  renderReaderOptions(this.value);
+});
 
 /* أسماء السور */
 function getSurahName(number) {
@@ -466,22 +559,15 @@ async function loadReaders() {
     showStatus("جاري تحميل القراء...");
 
     const response = await fetch(API + "/reciters?language=ar");
-    if (!response.ok) throw new Error("تعذر الاتصال بالخادم");
+
+    if (!response.ok) {
+      throw new Error("تعذر الاتصال بالخادم");
+    }
 
     const data = await response.json();
     readers = data.reciters || [];
 
-    readerSelect.innerHTML =
-      '<option value="">-- اختر القارئ --</option>';
-
-    readers.forEach((reader, index) => {
-      if (reader.moshaf && reader.moshaf.length > 0) {
-        const option = document.createElement("option");
-        option.value = index;
-        option.textContent = reader.name;
-        readerSelect.appendChild(option);
-      }
-    });
+    renderReaderOptions("");
 
     showStatus("اختر القارئ ثم السورة.");
 
@@ -517,6 +603,7 @@ readerSelect.addEventListener("change", function () {
   selectedReader = readers[Number(this.value)];
 
   const moshaf = selectedReader.moshaf[0];
+
   const availableSurahs = String(moshaf.surah_list || "")
     .split(",")
     .map(n => Number(n));
@@ -533,6 +620,7 @@ readerSelect.addEventListener("change", function () {
     option.value = index;
     option.textContent =
       surah.number + ". " + getSurahName(surah.number);
+
     surahSelect.appendChild(option);
   });
 
@@ -560,6 +648,7 @@ playButton.addEventListener("click", async function () {
   }
 
   const formattedId = String(surah.number).padStart(3, "0");
+
   const baseUrl = surah.server.endsWith("/")
     ? surah.server
     : surah.server + "/";
@@ -571,10 +660,13 @@ playButton.addEventListener("click", async function () {
     audio.load();
   }
 
-  showStatus("جاري تشغيل سورة " + getSurahName(surah.number) + "...");
+  showStatus(
+    "جاري تشغيل سورة " + getSurahName(surah.number) + "..."
+  );
 
   try {
     await audio.play();
+
     showStatus(
       "تُتلى الآن سورة " + getSurahName(surah.number) +
       " بصوت " + selectedReader.name,
@@ -601,7 +693,10 @@ audio.addEventListener("ended", function () {
 
 audio.addEventListener("error", function () {
   if (audio.src) {
-    showStatus("تعذر تحميل الملف الصوتي. تحقق من الإنترنت.", "error");
+    showStatus(
+      "تعذر تحميل الملف الصوتي. تحقق من الإنترنت.",
+      "error"
+    );
   }
 });
 
@@ -642,7 +737,7 @@ function updateClock() {
 updateClock();
 setInterval(updateClock, 1000);
 
-/* الصلاة القادمة ووقتها داخل المستطيل السفلي */
+/* الصلاة القادمة في الرياض */
 async function loadNextPrayer() {
   const element = document.getElementById("nextPrayer");
 
@@ -667,6 +762,13 @@ async function loadNextPrayer() {
     ];
 
     const now = new Date();
+
+    const riyadhNow = new Date(
+      now.toLocaleString("en-US", {
+        timeZone: "Asia/Riyadh"
+      })
+    );
+
     let next = null;
 
     for (const prayer of prayers) {
@@ -674,10 +776,10 @@ async function loadNextPrayer() {
         .split(":")
         .map(Number);
 
-      const prayerTime = new Date();
+      const prayerTime = new Date(riyadhNow);
       prayerTime.setHours(hour, minute, 0, 0);
 
-      if (prayerTime.getTime() > now.getTime()) {
+      if (prayerTime.getTime() > riyadhNow.getTime()) {
         next = {
           name: prayer.name,
           time: prayerTime
@@ -688,7 +790,8 @@ async function loadNextPrayer() {
 
     if (!next) {
       const [hour, minute] = timings.Fajr.split(":").map(Number);
-      const tomorrowFajr = new Date();
+      const tomorrowFajr = new Date(riyadhNow);
+
       tomorrowFajr.setDate(tomorrowFajr.getDate() + 1);
       tomorrowFajr.setHours(hour, minute, 0, 0);
 
@@ -701,8 +804,7 @@ async function loadNextPrayer() {
     const formattedTime = next.time.toLocaleTimeString("ar-SA", {
       hour: "numeric",
       minute: "2-digit",
-      hour12: true,
-      timeZone: "Asia/Riyadh"
+      hour12: true
     });
 
     element.textContent = next.name + " - " + formattedTime;
