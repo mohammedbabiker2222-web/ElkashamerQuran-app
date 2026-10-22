@@ -257,7 +257,7 @@ footer{padding:15px 5px 20px;color:#d5ead8;font-size:12px;line-height:2}
 
   <div class="quick-heading">
     <span class="star">★</span>
-    <span>الأكثر بحثًا — اختر قارئك المفضل</span>
+    <span>الأكثر بحثاً في الموقع</span>
   </div>
 
   <div id="quickList" class="quick-list">
@@ -265,7 +265,7 @@ footer{padding:15px 5px 20px;color:#d5ead8;font-size:12px;line-height:2}
   </div>
 
   <div class="quick-note">
-    أسماء مقترحة لقرّاء مشهورين، اضغط على الاسم لاختياره مباشرة.
+    تترتب هذه القائمة تلقائياً بناءً على القراء الأكثر اختياراً وبحثاً داخل هذا الموقع.
   </div>
 
   <div id="selectedReaderBox" class="selected-reader" aria-live="polite">
@@ -427,6 +427,75 @@ function closeSuggestions() {
   suggestions.innerHTML = "";
 }
 
+/* إحصائيات البحث المحلية في الموقع */
+function trackReaderSearch(readerId) {
+  try {
+    const stats = JSON.parse(localStorage.getItem("site_search_stats") || "{}");
+    stats[readerId] = (stats[readerId] || 0) + 1;
+    localStorage.setItem("site_search_stats", JSON.stringify(stats));
+  } catch (e) {
+    console.error("تعذر حفظ إحصائيات البحث", e);
+  }
+}
+
+function getPopularReaderIds() {
+  try {
+    const stats = JSON.parse(localStorage.getItem("site_search_stats") || "{}");
+    return Object.keys(stats).sort((a, b) => stats[b] - stats[a]);
+  } catch (e) {
+    return [];
+  }
+}
+
+/* عرض القراء الأكثر بحثاً داخل الموقع */
+function renderQuickReaders() {
+  quickList.innerHTML = "";
+
+  const availableReaders = readers.filter(r => r.name && r.moshaf && r.moshaf.length);
+  const popularIds = getPopularReaderIds();
+  let displayedReaders = [];
+
+  // ترتيب القراء بناءً على سجل البحث الفعلي للموقع
+  if (popularIds.length > 0) {
+    popularIds.forEach(id => {
+      const match = availableReaders.find(r => String(r.id) === String(id));
+      if (match && !displayedReaders.some(r => r.id === match.id)) {
+        displayedReaders.push(match);
+      }
+    });
+  }
+
+  // إذا كانت النتايج أقل من 8 (موقع جديد)، يتم إكمال القائمة من أول القراء المتاحين
+  if (displayedReaders.length < 8) {
+    availableReaders.forEach(r => {
+      if (displayedReaders.length < 8 && !displayedReaders.some(item => item.id === r.id)) {
+        displayedReaders.push(r);
+      }
+    });
+  }
+
+  displayedReaders = displayedReaders.slice(0, 8);
+
+  displayedReaders.forEach(reader => {
+    const readerIndex = readers.findIndex(r => r.id === reader.id);
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "quick-chip";
+    button.textContent = reader.name;
+    button.title = "اختيار القارئ " + reader.name;
+
+    button.addEventListener("click", () => {
+      chooseReader(readerIndex);
+    });
+
+    quickList.appendChild(button);
+  });
+
+  if (!quickList.children.length) {
+    quickList.textContent = "اكتب اسم القارئ في خانة البحث لاختياره.";
+  }
+}
+
 /* اقتراحات البحث أثناء الكتابة */
 function makeSuggestion(reader, index) {
   const button = document.createElement("button");
@@ -490,71 +559,6 @@ document.addEventListener("click", event => {
   if (!event.target.closest(".search-wrap")) closeSuggestions();
 });
 
-/*
- * قائمة مقترحة من القراء المشهورين.
- * هذه ليست إحصاءات بحث فعلية من الموقع.
- * تتم مطابقة الأسماء مع القائمة الحقيقية من API.
- */
-function renderQuickReaders() {
-  quickList.innerHTML = "";
-
-  const popularNames = [
-    "عبدالرحمن السديس",
-    "ماهر المعيقلي",
-    "مشاري العفاسي",
-    "عبدالباسط عبدالصمد",
-    "محمد صديق المنشاوي",
-    "محمود خليل الحصري",
-    "ياسر الدوسري",
-    "أحمد العجمي"
-  ];
-
-  const availableReaders = readers
-    .map((reader, index) => ({reader, index}))
-    .filter(item =>
-      item.reader.name &&
-      item.reader.moshaf &&
-      item.reader.moshaf.length
-    );
-
-  const usedIndexes = new Set();
-
-  popularNames.forEach(popularName => {
-    const target = normalizeArabic(popularName);
-
-    const match = availableReaders.find(item => {
-      const actual = normalizeArabic(item.reader.name);
-
-      return !usedIndexes.has(item.index) &&
-        (
-          actual.includes(target) ||
-          target.includes(actual)
-        );
-    });
-
-    if (!match) return;
-
-    usedIndexes.add(match.index);
-
-    const button = document.createElement("button");
-    button.type = "button";
-    button.className = "quick-chip";
-    button.textContent = match.reader.name;
-    button.title = "اختيار القارئ " + match.reader.name;
-
-    button.addEventListener("click", () => {
-      chooseReader(match.index);
-    });
-
-    quickList.appendChild(button);
-  });
-
-  if (!quickList.children.length) {
-    quickList.textContent =
-      "اكتب اسم القارئ في خانة البحث لاختياره.";
-  }
-}
-
 /* تحميل قائمة القراء */
 async function loadReaders() {
   showStatus("جاري تحميل القراء...");
@@ -567,14 +571,14 @@ async function loadReaders() {
     readers = data.reciters || [];
 
     renderQuickReaders();
-    showStatus("اكتب اسم القارئ أو اختر من قائمة الأكثر بحثًا.");
+    showStatus("اكتب اسم القارئ أو اختر من الأكثر بحثاً.");
   } catch (error) {
     quickList.textContent = "تعذر تحميل قائمة القراء.";
     showStatus("تحقق من اتصال الإنترنت ثم أعد تحميل الصفحة.", "error");
   }
 }
 
-/* اختيار القارئ من البحث أو الأسماء المقترحة */
+/* اختيار القارئ وتحديث إحصائيات البحث */
 function chooseReader(index) {
   const reader = readers[index];
 
@@ -582,6 +586,10 @@ function chooseReader(index) {
     showStatus("بيانات هذا القارئ غير متاحة.", "error");
     return;
   }
+
+  // تسجيل البحث وتحديث الأكثر بحثاً داخل الموقع
+  trackReaderSearch(reader.id);
+  renderQuickReaders();
 
   selectedReader = reader;
   searchInput.value = reader.name;
