@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+وع<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
@@ -911,3 +911,83 @@ setInterval(() => {
 </script>
 </body>
 </html>
+
+/* إنشاء ساعة عربية بعقارب حقيقية */
+(function initArabicClock() {
+  const svgNS = "http://www.w3.org/2000/svg";
+  const ticks = document.getElementById("clockTicks");
+  const numbers = document.getElementById("clockNumbers");
+
+  if (!ticks || !numbers) return;
+
+  // علامات الساعات والدقائق
+  for (let i = 0; i < 60; i++) {
+    const angle = i * 6 * Math.PI / 180;
+    const major = i % 5 === 0;
+    const outer = 81;
+    const inner = major ? 73 : 78;
+
+    const line = document.createElementNS(svgNS, "line");
+    line.setAttribute("x1", 100 + outer * Math.sin(angle));
+    line.setAttribute("y1", 100 - outer * Math.cos(angle));
+    line.setAttribute("x2", 100 + inner * Math.sin(angle));
+    line.setAttribute("y2", 100 - inner * Math.cos(angle));
+    line.setAttribute("class", "clock-tick");
+    line.setAttribute("opacity", major ? "1" : "0.45");
+    ticks.appendChild(line);
+  }
+
+  // الأرقام العربية الشرقية من ١ إلى ١٢
+  const arabicNumbers = [
+    "١٢", "١", "٢", "٣", "٤", "٥",
+    "٦", "٧", "٨", "٩", "١٠", "١١"
+  ];
+
+  arabicNumbers.forEach((number, i) => {
+    const angle = i * 30 * Math.PI / 180;
+    const text = document.createElementNS(svgNS, "text");
+
+    text.setAttribute("x", 100 + 66 * Math.sin(angle));
+    text.setAttribute("y", 100 - 66 * Math.cos(angle));
+    text.setAttribute("class", "clock-number");
+    text.textContent = number;
+    numbers.appendChild(text);
+  });
+
+  function updateArabicClock() {
+    const parts = new Intl.DateTimeFormat("en-GB", {
+      timeZone: "Asia/Riyadh",
+      hour: "2-digit",
+      minute: "2-digit",
+      second: "2-digit",
+      hourCycle: "h23"
+    }).formatToParts(new Date());
+
+    const time = {};
+    parts.forEach(part => {
+      time[part.type] = Number(part.value);
+    });
+
+    const seconds = time.second;
+    const minutes = time.minute + seconds / 60;
+    const hours = (time.hour % 12) + minutes / 60;
+
+    document.querySelector(
+      ".hero-clock .hour-hand"
+    ).setAttribute("transform",
+      `rotate(${hours * 30},100,100)`);
+
+    document.querySelector(
+      ".hero-clock .minute-hand"
+    ).setAttribute("transform",
+      `rotate(${minutes * 6},100,100)`);
+
+    document.querySelector(
+      ".hero-clock .second-hand"
+    ).setAttribute("transform",
+      `rotate(${seconds * 6},100,100)`);
+  }
+
+  updateArabicClock();
+  setInterval(updateArabicClock, 1000);
+})();
