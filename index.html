@@ -18,8 +18,7 @@
 body{
   margin:0;min-height:100vh;padding:12px;
   font-family:Tahoma,Arial,sans-serif;color:white;text-align:center;
-  background:
-    radial-gradient(ellipse at top,#176d49 0%,#06432e 45%,#021b13 100%);
+  background:radial-gradient(ellipse at top,#176d49 0%,#06432e 45%,#021b13 100%);
   background-attachment:fixed;overflow-x:hidden;
 }
 button,input,select{font:inherit}
@@ -35,15 +34,13 @@ button:focus-visible,input:focus-visible,select:focus-visible{
 }
 .container{width:min(100%,950px);margin:auto}
 .hero{
-  position:relative;overflow:hidden;
-  padding:28px 15px 25px;margin-bottom:14px;
+  position:relative;overflow:hidden;padding:28px 15px 25px;margin-bottom:14px;
   border:1px solid #e5c16c88;border-radius:22px;
   background:linear-gradient(135deg,#064b32,#02271d);
   box-shadow:0 10px 25px #0004;
 }
 .hero:before,.hero:after{
-  content:"۞";position:absolute;color:#e5c16c33;font-size:90px;
-  top:20px;line-height:1
+  content:"۞";position:absolute;color:#e5c16c33;font-size:90px;top:20px;line-height:1
 }
 .hero:before{right:8px}
 .hero:after{left:8px}
@@ -51,71 +48,68 @@ button:focus-visible,input:focus-visible,select:focus-visible{
 .hero h1{color:var(--gold);font-size:clamp(25px,5vw,38px);margin:8px 0}
 .hero p{margin:8px 0 0;color:#e6f4e9;line-height:1.9;font-size:14px}
 .bismillah{font-size:18px;color:#f6e8bb;margin-bottom:8px}
+
 .card{
-  padding:20px;margin-bottom:14px;
-  border:1px solid #e5c16c88;border-radius:18px;
-  background:linear-gradient(145deg,#ffffff12,#001b1266);
+  padding:20px;margin-bottom:14px;border:1px solid #e5c16c88;
+  border-radius:18px;background:linear-gradient(145deg,#ffffff12,#001b1266);
   box-shadow:0 8px 22px #0003;
 }
 .card h2{color:var(--gold);font-size:22px;margin:0 0 15px}
 .dedication{
-  color:#f8e6b1;font-size:14px;line-height:2;
-  padding:13px;margin-bottom:20px;
-  border:1px solid #e5c16c77;border-radius:13px;
-  background:#e5c16c0c
+  color:#f8e6b1;font-size:14px;line-height:2;padding:13px;margin-bottom:20px;
+  border:1px solid #e5c16c77;border-radius:13px;background:#e5c16c0c
 }
-.dedication strong{
-  display:block;color:var(--gold);font-size:21px
-}
-label{
-  display:block;text-align:right;color:#f7e7b5;
-  font-size:14px;margin:14px 0 8px
-}
+.dedication strong{display:block;color:var(--gold);font-size:21px}
+label{display:block;text-align:right;color:#f7e7b5;font-size:14px;margin:14px 0 8px}
+
 .search-wrap{position:relative}
 .search-box{
-  display:flex;align-items:center;gap:8px;
-  background:#fff;border:2px solid var(--gold);
-  border-radius:15px;padding:4px 12px;
+  display:flex;align-items:center;gap:8px;background:#fff;
+  border:2px solid var(--gold);border-radius:15px;padding:4px 12px;
   box-shadow:0 0 0 4px #e5c16c18;
 }
 .search-symbol{font-size:23px;color:#176743}
 #readerSearch{
-  width:100%;min-width:0;border:0;outline:none;
-  background:transparent;color:#173b2b;
-  padding:12px 3px;font-size:15px
+  width:100%;min-width:0;border:0;outline:none;background:transparent;
+  color:#173b2b;padding:12px 3px;font-size:15px
 }
 #readerSearch:focus-visible{outline:none}
 .clear-search{
-  flex-shrink:0;background:#e8f0e9;color:#23543a;
-  border:0;border-radius:8px;padding:7px 10px;
-  font-size:13px
+  flex-shrink:0;background:#e8f0e9;color:#23543a;border:0;
+  border-radius:8px;padding:7px 10px;font-size:13px
 }
 .suggestions{
-  display:none;position:relative;text-align:right;
-  margin-top:8px;padding:6px;
-  max-height:260px;overflow-y:auto;
-  border:1px solid #d9bd6d;border-radius:12px;
-  background:#fffdf5;color:#183d2b;
+  display:none;position:relative;text-align:right;margin-top:8px;padding:6px;
+  max-height:260px;overflow-y:auto;border:1px solid #d9bd6d;
+  border-radius:12px;background:#fffdf5;color:#183d2b;
   box-shadow:0 8px 18px #0003;z-index:5
 }
 .suggestions.show{display:block}
 .suggestion{
-  display:block;width:100%;text-align:right;
-  padding:12px 10px;border:0;border-bottom:1px solid #e8e1ce;
-  border-radius:7px;background:transparent;color:#174b34;
-  font-size:14px;line-height:1.6
+  display:block;width:100%;text-align:right;padding:12px 10px;
+  border:0;border-bottom:1px solid #e8e1ce;border-radius:7px;
+  background:transparent;color:#174b34;font-size:14px;line-height:1.6
 }
 .suggestion:last-child{border-bottom:0}
 .suggestion:hover,.suggestion:focus{background:#e5f3e8}
 .suggestion small{display:block;color:#65796c;font-size:11px}
-.quick-title{font-size:12px;color:var(--gold);text-align:right;margin:14px 0 8px}
-.quick-list{display:flex;gap:7px;flex-wrap:wrap}
-.quick-chip{
-  border:1px solid #e5c16c77;border-radius:30px;
-  background:#ffffff0b;color:#f8edcf;
-  padding:8px 12px;font-size:12px
+
+.quick-heading{
+  display:flex;align-items:center;gap:7px;text-align:right;
+  color:var(--gold);font-size:14px;font-weight:bold;margin:19px 0 10px
 }
-.quick-chip:hover{background:#e5c16c20}
+.quick-heading .star{font-size:20px}
+.quick-list{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-start}
+.quick-chip{
+  border:1px solid #d8b65c;border-radius:30px;
+  background:linear-gradient(135deg,#ffffff12,#001b1255);
+  color:#fff2c8;padding:9px 12px;font-size:12px;
+  transition:background .2s,transform .2s
+}
+.quick-chip:hover{background:#e5c16c25;transform:translateY(-1px)}
+.quick-chip.active{background:#d6b254;color:#173b2b;font-weight:bold}
+.quick-note{text-align:right;color:#d5ead8;font-size:11px;line-height:1.8;margin-top:9px}
+
 .selected-reader{
   display:none;text-align:right;margin-top:12px;padding:12px;
   border:1px solid #67b58b66;border-radius:10px;
@@ -123,9 +117,8 @@ label{
 }
 .selected-reader.show{display:block}
 .change-reader{
-  background:transparent;color:var(--gold);
-  border:1px solid #e5c16c77;border-radius:8px;
-  padding:6px 10px;margin-top:8px;font-size:12px
+  background:transparent;color:var(--gold);border:1px solid #e5c16c77;
+  border-radius:8px;padding:6px 10px;margin-top:8px;font-size:12px
 }
 select{
   display:block;width:100%;padding:13px;margin:8px 0 14px;
@@ -136,19 +129,12 @@ select:disabled{background:#dedede;color:#777}
 .section-line{height:1px;background:#e5c16c55;margin:17px 0}
 .buttons{display:flex;gap:10px;margin-top:17px}
 .buttons button{
-  flex:1;padding:14px 10px;border-radius:12px;
-  font-weight:bold;font-size:14px;color:white;
-  transition:transform .2s,opacity .2s
+  flex:1;padding:14px 10px;border-radius:12px;font-weight:bold;
+  font-size:14px;color:white;transition:transform .2s,opacity .2s
 }
 .buttons button:hover{opacity:.92;transform:translateY(-1px)}
-.play-button{
-  background:linear-gradient(135deg,#159957,#087443);
-  border:1px solid #64d79d
-}
-.stop-button{
-  background:linear-gradient(135deg,#d52d40,#a91028);
-  border:1px solid #ff7181
-}
+.play-button{background:linear-gradient(135deg,#159957,#087443);border:1px solid #64d79d}
+.stop-button{background:linear-gradient(135deg,#d52d40,#a91028);border:1px solid #ff7181}
 .audio-box{
   margin-top:16px;padding:12px;border-radius:13px;
   background:#001c1455;border:1px solid #ffffff18
@@ -157,23 +143,22 @@ audio{display:block;width:100%;margin:8px 0}
 .status{font-size:13px;line-height:1.9;color:#f4e5b5;margin-top:10px;overflow-wrap:anywhere}
 .status.error{color:#ffb8b8}
 .status.success{color:#a8f0b9}
-.loading{opacity:.8}
 
 /* التاريخ ومواقيت الصلاة */
 .info-panel{
   display:grid;grid-template-columns:repeat(4,minmax(0,1fr));
   gap:9px;margin:12px 0;padding:12px;
-  border:1px solid #e5c16c77;border-radius:16px;
-  background:#002a1eaa
+  border:1px solid #e5c16c77;border-radius:16px;background:#002a1eaa
 }
 .info-item{
   min-width:0;padding:12px 6px;border:1px solid #ffffff20;
-  border-radius:11px;background:#ffffff08;
-  font-size:12px;line-height:1.9;overflow-wrap:anywhere
+  border-radius:11px;background:#ffffff08;font-size:12px;
+  line-height:1.9;overflow-wrap:anywhere
 }
 .info-item strong{display:block;color:var(--gold);font-size:12px;margin-bottom:4px}
 .info-item span{display:block}
 .prayer-item{color:#b8f3c5}
+
 .countdown-panel{
   display:flex;align-items:center;justify-content:center;gap:14px;
   max-width:460px;margin:0 auto 17px;padding:15px 12px;
@@ -182,16 +167,20 @@ audio{display:block;width:100%;margin:8px 0}
   box-shadow:0 5px 15px #0003
 }
 .hourglass{font-size:32px;animation:flip 4s ease-in-out infinite}
-@keyframes flip{0%,42%{transform:rotate(0)}50%,92%{transform:rotate(180deg)}100%{transform:rotate(360deg)}}
+@keyframes flip{
+  0%,42%{transform:rotate(0)}
+  50%,92%{transform:rotate(180deg)}
+  100%{transform:rotate(360deg)}
+}
 .countdown-content{text-align:right}
 .countdown-title{font-size:12px;color:#f7e7b5}
 .countdown-time{
-  margin:5px 0;color:var(--gold);font-size:27px;
-  font-weight:bold;letter-spacing:2px;direction:ltr
+  margin:5px 0;color:var(--gold);font-size:27px;font-weight:bold;
+  letter-spacing:2px;direction:ltr
 }
 .countdown-note{font-size:11px;color:#d5ead8}
 
-/* الدعاء */
+/* دعاء المرحوم */
 .dua-box{
   position:relative;overflow:hidden;margin:17px 0;padding:23px 18px;
   border:3px double #b99a4d;border-radius:17px;
@@ -209,6 +198,7 @@ audio{display:block;width:100%;margin:8px 0}
 .amen{color:#987321;font-weight:bold}
 footer{padding:15px 5px 20px;color:#d5ead8;font-size:12px;line-height:2}
 .footer-mark{font-size:25px;color:var(--gold)}
+
 @media(max-width:600px){
   body{padding:8px}
   .hero{padding:23px 12px}
@@ -221,6 +211,7 @@ footer{padding:15px 5px 20px;color:#d5ead8;font-size:12px;line-height:2}
   .dua-box{padding:19px 13px}
   .dua-box:before,.dua-box:after{font-size:23px}
   .dedication strong{font-size:19px}
+  .quick-chip{font-size:12px;padding:9px 10px}
 }
 @media(prefers-reduced-motion:reduce){
   *,*::before,*::after{animation:none!important;transition:none!important}
@@ -264,9 +255,17 @@ footer{padding:15px 5px 20px;color:#d5ead8;font-size:12px;line-height:2}
       role="listbox" aria-label="نتائج البحث عن القراء"></div>
   </div>
 
-  <div class="quick-title">اختيارات سريعة من قائمة القراء</div>
+  <div class="quick-heading">
+    <span class="star">★</span>
+    <span>الأكثر بحثًا — اختر قارئك المفضل</span>
+  </div>
+
   <div id="quickList" class="quick-list">
-    <span class="loading">جاري تحميل القراء...</span>
+    <span class="loading">جاري تجهيز قائمة القراء...</span>
+  </div>
+
+  <div class="quick-note">
+    أسماء مقترحة لقرّاء مشهورين، اضغط على الاسم لاختياره مباشرة.
   </div>
 
   <div id="selectedReaderBox" class="selected-reader" aria-live="polite">
@@ -379,6 +378,7 @@ let prayerTimes = null;
 let prayerDate = null;
 let prayerFetchInProgress = false;
 
+/* عرض الرسائل */
 function showStatus(message, type = "") {
   statusBox.textContent = message;
   statusBox.className = "status " + type;
@@ -409,7 +409,7 @@ function getSurahName(number) {
   return surahNames[number - 1] || ("سورة " + number);
 }
 
-/* تطبيع البحث: يسمح بالبحث دون تشكيل */
+/* توحيد كتابة الحروف لتسهيل البحث */
 function normalizeArabic(text) {
   return String(text || "")
     .toLowerCase()
@@ -418,6 +418,7 @@ function normalizeArabic(text) {
     .replace(/[أإآٱ]/g, "ا")
     .replace(/ى/g, "ي")
     .replace(/ة/g, "ه")
+    .replace(/\s+/g, "")
     .trim();
 }
 
@@ -426,6 +427,7 @@ function closeSuggestions() {
   suggestions.innerHTML = "";
 }
 
+/* اقتراحات البحث أثناء الكتابة */
 function makeSuggestion(reader, index) {
   const button = document.createElement("button");
   button.type = "button";
@@ -436,17 +438,13 @@ function makeSuggestion(reader, index) {
   name.textContent = reader.name;
 
   const detail = document.createElement("small");
-  const moshafCount = reader.moshaf ? reader.moshaf.length : 0;
-  detail.textContent = moshafCount
-    ? "متوفر " + moshafCount + " مصحف صوتي"
-    : "لا تتوفر بيانات المصحف";
+  detail.textContent = "اضغط لاختيار القارئ";
 
   button.append(name, detail);
   button.addEventListener("click", () => chooseReader(index));
   return button;
 }
 
-/* البحث الفوري عن القراء */
 function searchReaders() {
   const query = normalizeArabic(searchInput.value);
   suggestions.innerHTML = "";
@@ -484,39 +482,80 @@ searchInput.addEventListener("input", searchReaders);
 
 document.getElementById("clearSearch").addEventListener("click", () => {
   searchInput.value = "";
-  searchInput.focus();
   closeSuggestions();
+  searchInput.focus();
 });
 
 document.addEventListener("click", event => {
   if (!event.target.closest(".search-wrap")) closeSuggestions();
 });
 
-/* عرض اقتراحات سريعة من القائمة المتاحة */
+/*
+ * قائمة مقترحة من القراء المشهورين.
+ * هذه ليست إحصاءات بحث فعلية من الموقع.
+ * تتم مطابقة الأسماء مع القائمة الحقيقية من API.
+ */
 function renderQuickReaders() {
   quickList.innerHTML = "";
 
-  const available = readers
+  const popularNames = [
+    "عبدالرحمن السديس",
+    "ماهر المعيقلي",
+    "مشاري العفاسي",
+    "عبدالباسط عبدالصمد",
+    "محمد صديق المنشاوي",
+    "محمود خليل الحصري",
+    "ياسر الدوسري",
+    "أحمد العجمي"
+  ];
+
+  const availableReaders = readers
     .map((reader, index) => ({reader, index}))
-    .filter(item => item.reader.moshaf && item.reader.moshaf.length)
-    .slice(0, 5);
+    .filter(item =>
+      item.reader.name &&
+      item.reader.moshaf &&
+      item.reader.moshaf.length
+    );
 
-  if (!available.length) {
-    quickList.textContent = "اكتب اسم القارئ في خانة البحث.";
-    return;
-  }
+  const usedIndexes = new Set();
 
-  available.forEach(item => {
+  popularNames.forEach(popularName => {
+    const target = normalizeArabic(popularName);
+
+    const match = availableReaders.find(item => {
+      const actual = normalizeArabic(item.reader.name);
+
+      return !usedIndexes.has(item.index) &&
+        (
+          actual.includes(target) ||
+          target.includes(actual)
+        );
+    });
+
+    if (!match) return;
+
+    usedIndexes.add(match.index);
+
     const button = document.createElement("button");
     button.type = "button";
     button.className = "quick-chip";
-    button.textContent = item.reader.name;
-    button.addEventListener("click", () => chooseReader(item.index));
+    button.textContent = match.reader.name;
+    button.title = "اختيار القارئ " + match.reader.name;
+
+    button.addEventListener("click", () => {
+      chooseReader(match.index);
+    });
+
     quickList.appendChild(button);
   });
+
+  if (!quickList.children.length) {
+    quickList.textContent =
+      "اكتب اسم القارئ في خانة البحث لاختياره.";
+  }
 }
 
-/* تحميل القراء */
+/* تحميل قائمة القراء */
 async function loadReaders() {
   showStatus("جاري تحميل القراء...");
 
@@ -528,14 +567,14 @@ async function loadReaders() {
     readers = data.reciters || [];
 
     renderQuickReaders();
-    showStatus("اكتب اسم القارئ أو اضغط أحد الأسماء المقترحة.");
+    showStatus("اكتب اسم القارئ أو اختر من قائمة الأكثر بحثًا.");
   } catch (error) {
     quickList.textContent = "تعذر تحميل قائمة القراء.";
     showStatus("تحقق من اتصال الإنترنت ثم أعد تحميل الصفحة.", "error");
   }
 }
 
-/* اختيار القارئ */
+/* اختيار القارئ من البحث أو الأسماء المقترحة */
 function chooseReader(index) {
   const reader = readers[index];
 
@@ -551,6 +590,10 @@ function chooseReader(index) {
   selectedReaderName.textContent = "القارئ المختار: " + reader.name;
   selectedReaderBox.classList.add("show");
 
+  document.querySelectorAll(".quick-chip").forEach(button => {
+    button.classList.toggle("active", button.textContent === reader.name);
+  });
+
   audio.pause();
   audio.removeAttribute("src");
   audio.load();
@@ -560,7 +603,8 @@ function chooseReader(index) {
 
   const moshaf = reader.moshaf[0];
   const availableSurahs = String(moshaf.surah_list || "")
-    .split(",").map(Number);
+    .split(",")
+    .map(Number);
 
   currentSurahs = availableSurahs
     .filter(number => number >= 1 && number <= 114)
@@ -587,15 +631,22 @@ function chooseReader(index) {
   surahSelect.focus();
 }
 
+/* تغيير القارئ */
 document.getElementById("changeReader").addEventListener("click", () => {
   selectedReader = null;
   selectedReaderBox.classList.remove("show");
   searchInput.value = "";
+
+  document.querySelectorAll(".quick-chip").forEach(button => {
+    button.classList.remove("active");
+  });
+
   surahSelect.innerHTML = '<option value="">اختر القارئ أولًا</option>';
   surahSelect.disabled = true;
   currentSurahs = [];
+
   searchInput.focus();
-  showStatus("ابحث عن قارئ جديد.");
+  showStatus("ابحث عن قارئ جديد أو اختر من القائمة.");
 });
 
 /* تشغيل التلاوة */
@@ -620,7 +671,8 @@ document.getElementById("playButton").addEventListener("click", async () => {
   }
 
   const server = surah.server.endsWith("/")
-    ? surah.server : surah.server + "/";
+    ? surah.server
+    : surah.server + "/";
 
   const url = server + String(surah.number).padStart(3, "0") + ".mp3";
 
@@ -664,11 +716,14 @@ audio.addEventListener("error", () => {
 function riyadhDateString() {
   const parts = new Intl.DateTimeFormat("en-CA", {
     timeZone: TIME_ZONE,
-    year: "numeric", month: "2-digit", day: "2-digit"
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit"
   }).formatToParts(new Date());
 
   const p = {};
   parts.forEach(item => p[item.type] = item.value);
+
   return p.year + "-" + p.month + "-" + p.day;
 }
 
@@ -678,20 +733,26 @@ function updateClock() {
   document.getElementById("gregorianDate").textContent =
     new Intl.DateTimeFormat("ar-SA", {
       timeZone: TIME_ZONE,
-      year: "numeric", month: "short", day: "numeric"
+      year: "numeric",
+      month: "short",
+      day: "numeric"
     }).format(now);
 
   document.getElementById("clock").textContent =
     new Intl.DateTimeFormat("ar-SA", {
       timeZone: TIME_ZONE,
-      hour: "numeric", minute: "2-digit", hour12: true
+      hour: "numeric",
+      minute: "2-digit",
+      hour12: true
     }).format(now);
 
   try {
     document.getElementById("hijriDate").textContent =
       new Intl.DateTimeFormat("ar-SA-u-ca-islamic-umalqura", {
         timeZone: TIME_ZONE,
-        year: "numeric", month: "short", day: "numeric"
+        year: "numeric",
+        month: "short",
+        day: "numeric"
       }).format(now);
   } catch (error) {
     document.getElementById("hijriDate").textContent = "--";
@@ -723,7 +784,7 @@ function prayerTimestamp(dateString, timeString, nextDay = false) {
   return new Date(date + "T" + time).getTime();
 }
 
-/* حساب الصلاة القادمة والعد التنازلي */
+/* تحديد الصلاة القادمة والعد التنازلي */
 function updateCountdown() {
   const countdown = document.getElementById("countdown");
   const note = document.getElementById("countdownNote");
@@ -760,6 +821,7 @@ function updateCountdown() {
     const timestamp = prayerTimestamp(
       prayerDate, prayerTimes.Fajr, true
     );
+
     if (timestamp) next = {name:"الفجر",timestamp};
   }
 
@@ -790,7 +852,9 @@ function updateCountdown() {
     next.name + " - " +
     new Date(next.timestamp).toLocaleTimeString("ar-SA", {
       timeZone: TIME_ZONE,
-      hour:"numeric", minute:"2-digit", hour12:true
+      hour: "numeric",
+      minute: "2-digit",
+      hour12: true
     });
 }
 
@@ -801,6 +865,7 @@ async function loadNextPrayer() {
 
   try {
     const dateString = riyadhDateString();
+
     const url =
       "https://api.aladhan.com/v1/timingsByCity?city=Riyadh&country=Saudi%20Arabia&method=4";
 
